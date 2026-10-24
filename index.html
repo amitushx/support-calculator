@@ -57,7 +57,6 @@
         --accent-soft: #e2f4fc;
         --shadow: 0 12px 32px rgba(0, 157, 224, .12);
         --radius: 24px;
-        --heart: '';
         --scheme: light;
     }
     :root[data-mode="dark"] {
@@ -86,7 +85,6 @@
         --accent-soft: #ffe4ef;
         --shadow: 0 14px 40px rgba(214, 58, 118, .16);
         --radius: 26px;
-        --heart: ' ♡';
     }
     :root[data-palette="cute"][data-mode="dark"] {
         --backdrop: radial-gradient(#3a1d2c 1.5px, transparent 1.5px) 0 0 / 22px 22px, #1a0f15;
@@ -259,7 +257,6 @@
         font-family: VT323, Rubik, ui-monospace, monospace;
         font-size-adjust: ex-height .5;   /* VT323 runs small next to Rubik */
     }
-    @media (min-width: 420px) { :root[data-palette="retro"] h1 { white-space: nowrap; } }   /* phones wrap it, as in the other themes */
     :root[data-palette="retro"] #result,
     :root[data-palette="retro"] .widget,
     :root[data-palette="retro"] .menu,
@@ -318,14 +315,11 @@
     @media (max-width: 360px) { main { padding: 20px; } }
     header {
         display: flex;
-        flex-wrap: wrap;   /* the buttons drop below a title too long to fit, as in Georgian on phones */
         justify-content: space-between;
         align-items: center;
         gap: 12px;
         margin-bottom: 28px;
     }
-    h1 { font-size: 15px; font-weight: 500; color: var(--muted); }
-    h1::after { content: var(--heart); color: var(--accent); }
     #lang {
         padding: 0;
         border: none;
@@ -396,7 +390,7 @@
     .menu {
         position: absolute;
         top: calc(100% + 10px);
-        inset-inline-end: 0;
+        inset-inline-start: 0;
         z-index: 1000;
         display: grid;
         gap: 12px;
@@ -1155,13 +1149,11 @@
 </svg>
 <main>
     <header>
-        <h1 id="title"></h1>
         <div class="actions">
-            <button id="historyBtn" type="button" aria-expanded="false" aria-controls="history"><svg class="icon"><use href="#i-history"/></svg></button>
-            <button id="widgetsBtn" type="button" aria-expanded="false"><svg class="icon"><use href="#i-puzzle"/></svg></button>
-            <button id="paletteBtn" type="button" aria-expanded="false"><svg class="icon"><use href="#i-palette"/></svg></button>
             <button id="theme" type="button"></button>
-            <select id="lang"></select>
+            <button id="paletteBtn" type="button" aria-expanded="false"><svg class="icon"><use href="#i-palette"/></svg></button>
+            <button id="widgetsBtn" type="button" aria-expanded="false"><svg class="icon"><use href="#i-puzzle"/></svg></button>
+            <button id="historyBtn" type="button" aria-expanded="false" aria-controls="history"><svg class="icon"><use href="#i-history"/></svg></button>
             <div id="paletteMenu" class="menu" role="menu" hidden>
                 <button type="button" role="menuitemradio" data-palette="classic"><span class="swatch"><i style="background: linear-gradient(#ffffff, #cdeefc)"></i><i style="background: linear-gradient(#0a1117, #009de0)"></i></span><span data-t="classic"></span></button>
                 <button type="button" role="menuitemradio" data-palette="cute"><span class="swatch"><i style="background: #ffd3e6"></i><i style="background: #261620"></i></span><span data-t="cute"></span></button>
@@ -1181,6 +1173,7 @@
                 <label class="switch"><input type="checkbox" data-widget="doom"><span class="track"></span><span data-t="doom"></span></label>
             </div>
         </div>
+        <select id="lang"></select>
     </header>
 
     <div class="tabs" id="calcTabs" role="tablist">
@@ -2017,7 +2010,7 @@ function applyLanguage() {
     const t = translations[lang];
     document.documentElement.lang = lang;
     document.documentElement.dir = t.dir;
-    document.title = $('title').textContent = t.title;
+    document.title = t.title;
     $('lang').value = lang;
     $('lang').title = t.language;
     $('lang').setAttribute('aria-label', t.language);
