@@ -338,6 +338,10 @@
         field-sizing: content;   /* as wide as the chosen language, not the longest */
     }
     #lang:hover, #lang:focus-visible { color: var(--text); }
+    /* An open dropdown list doesn't follow color-scheme everywhere (Linux
+       keeps it white), while its options inherit the select's light text in
+       dark mode; theme the options themselves */
+    option { background-color: var(--card); color: var(--text); }
     .actions { position: relative; display: flex; align-items: center; gap: 14px; }
     /* Line icons from the sprite at the top of <body> */
     .icon {
