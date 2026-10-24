@@ -3373,14 +3373,15 @@ function catFx(content) {
     fx.addEventListener('animationend', () => fx.remove());
 }
 // Run one activity: `step` draws a frame and returns the delay to the next
-// one, or false when done; after `ms` the cat picks what to do next
-function catDo(ms, step) {
+// one, or false when done; after `ms` the cat does `then`, or picks what
+// to do next
+function catDo(ms, step, then = catNext) {
     clearTimeout(cat.timer);
     const started = Date.now();
     const run = () => {
         if (catEl.hidden) return;
         const next = step(Date.now() - started);
-        if (next === false || Date.now() - started >= ms) return catNext();
+        if (next === false || Date.now() - started >= ms) return then();
         cat.timer = setTimeout(run, next);
     };
     run();
@@ -3408,9 +3409,14 @@ function catGroom() {
         return 350;
     });
 }
-function catWalk(to) {
+function catWalk(to, then) {
     to = Math.max(0, Math.min(to, catMaxX()));
-    if (Math.abs(to - cat.x) < CAT_SCALE * 4) return catSit();
+    if (Math.abs(to - cat.x) < CAT_SCALE * 4) {
+        if (!then) return catSit();
+        cat.x = to;   // close enough: step onto the spot so `then` finds it there
+        placeCat();
+        return then();
+    }
     const dir = Math.sign(to - cat.x);
     catEl.classList.toggle('left', dir < 0);
     let leg = false;
@@ -3420,10 +3426,32 @@ function catWalk(to) {
         cat.x += dir * CAT_SCALE * 3;
         placeCat();
         return (to - cat.x) * dir > 0 ? 140 : false;   // false: arrived
-    });
+    }, then);
 }
-// Sleeps for a while, and on and on while nobody's around
+// Where to sleep instead, if the cat is on the "made with" line: just
+// clear of it on the nearer side that fits, or null if it's not on it
+function catBed() {
+    const credit = $('credit').getBoundingClientRect();
+    const box = catEl.getBoundingClientRect();
+    const gap = CAT_SCALE * 3;
+    if (box.right <= credit.left - gap || box.left >= credit.right + gap
+        || box.bottom <= credit.top || box.top >= credit.bottom) return null;
+    // On the whole cat pixels placeCat snaps to, rounded away from the line
+    const sides = [Math.floor((credit.left - gap - box.width) / CAT_SCALE) * CAT_SCALE,
+        Math.ceil((credit.right + gap) / CAT_SCALE) * CAT_SCALE]
+        .filter(x => x >= 0 && x <= catMaxX())
+        .sort((a, b) => Math.abs(a - cat.x) - Math.abs(b - cat.x));
+    return sides[0] ?? null;   // no room either side: a phone, sleep where it is
+}
+// Sleeps for a while, and on and on while nobody's around; never on the
+// "made with" line, it moves off it first
 function catSleep() {
+    const bed = catBed();
+    if (bed !== null) {
+        if (!matchMedia('(prefers-reduced-motion: reduce)').matches) return catWalk(bed, catSleep);
+        cat.x = bed;
+        placeCat();
+    }
     drawCat('sleep');
     catDo(catRand(30000, 90000), elapsed => {
         if (elapsed > 1500) catFx('z');

@@ -3,6 +3,17 @@
 // window shows it once to everyone who ran an older version.
 const CHANGELOG = [
     {
+        version: '1.9.3',
+        date: '2026-10-24',
+        notes: {
+            he: ['החתול כבר לא נרדם על השורה ״נעשה עם ♥״: הוא זז הצידה לפני שהוא נשכב.'],
+            en: ['The cat no longer falls asleep on the “Made with ♥” line: it moves aside before lying down.'],
+            ar: ['البسّة ما عادت تنام على سطر «معمول بـ♥»: بتتحرك عجنب قبل ما تنام.'],
+            ka: ['კატას აღარ ეძინება ხაზზე „შექმნილია ♥-ით“: დაწოლამდე გვერდზე გადადის.'],
+            hi: ['बिल्ली अब “♥ से बनाया” वाली पंक्ति पर नहीं सोती: लेटने से पहले वह एक तरफ़ हट जाती है।']
+        }
+    },
+    {
         version: '1.9.2',
         date: '2026-10-24',
         notes: {
