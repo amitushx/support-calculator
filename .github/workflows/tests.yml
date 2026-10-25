@@ -17,6 +17,8 @@ jobs:
           node-version: 22
       - name: Calculator tests
         run: node tests/run.js
+      - name: README up to date
+        run: node scripts/readme.js --check
       # Every merge ships as a new version (CLAUDE.md): the top entry of
       # changelog.js must be newer than the one on main
       - name: Version bumped

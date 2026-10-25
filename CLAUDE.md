@@ -11,7 +11,9 @@ Every change merged into `main` ships as a new version: before merging, add an
 entry on top of `CHANGELOG` in `changelog.js` with the bumped version (semver:
 patch for fixes and small tweaks, minor for new features), today's date, and a
 user-facing note in all five languages (he, en, ar, ka, hi), in the same PR as
-the change.
+the change. Then run `node scripts/readme.js` to copy the new version and
+change log into `README.md` (CI fails if it's out of date), and update the
+README's other sections when a feature changes what they describe.
 
 Work one feature at a time: each gets its own commit and its own version,
 and check with the user before starting the next one. Push only when asked;
@@ -55,7 +57,7 @@ Don't suggest these again:
 
 `node tests/run.js` runs the test pages in `tests/` (they also open in a
 browser). CI runs them on every PR, and checks that the changelog version
-was bumped.
+was bumped and that `README.md` is up to date.
 
 # Layout
 
@@ -75,3 +77,4 @@ A static site for GitHub Pages, no build step.
 - `changelog.js` stays at the root: running copies of older versions poll
   that path to find out about updates.
 - `pages/doom.html`: the Doom widget's iframe.
+- `scripts/readme.js`: writes the version badge and change log in `README.md`.
