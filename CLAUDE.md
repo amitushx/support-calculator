@@ -5,3 +5,9 @@ entry on top of `CHANGELOG` in `changelog.js` with the bumped version (semver:
 patch for fixes and small tweaks, minor for new features), today's date, and a
 user-facing note in all five languages (he, en, ar, ka, hi), in the same PR as
 the change.
+
+# Tests
+
+`node tests/run.js` runs the test pages in `tests/` (they also open in a
+browser). CI runs them on every PR, and checks that the changelog version
+was bumped.

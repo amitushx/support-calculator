@@ -3,6 +3,17 @@
 // window shows it once to everyone who ran an older version.
 const CHANGELOG = [
     {
+        version: '1.9.5',
+        date: '2026-10-25',
+        notes: {
+            he: ['מאחורי הקלעים: החישובים של המרחק, דליברי לייט ורשימת הבונוסים נבדקים עכשיו אוטומטית לפני כל עדכון.'],
+            en: ['Behind the scenes: the distance, Delivery Late and bonus list calculations are now checked automatically before every update.'],
+            ar: ['ورا الكواليس: حسابات المسافة، ديليفري ليت وقائمة البونصات صارت تنفحص أوتوماتيك قبل كل تحديث.'],
+            ka: ['კულისებს მიღმა: მანძილის, დაგვიანებისა და ბონუსების სიის გამოთვლები ახლა ყოველი განახლების წინ ავტომატურად მოწმდება.'],
+            hi: ['पर्दे के पीछे: दूरी, देर से डिलीवरी और बोनस सूची के हिसाब अब हर अपडेट से पहले अपने-आप जाँचे जाते हैं।']
+        }
+    },
+    {
         version: '1.9.4',
         date: '2026-10-24',
         notes: {
