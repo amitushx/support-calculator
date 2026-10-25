@@ -1,0 +1,333 @@
+* { box-sizing: border-box; margin: 0; }
+
+body {
+    min-height: 100vh;
+    display: grid;
+    grid-template-rows: 1fr auto;
+    grid-template-columns: minmax(0, 1fr);   /* shrink the card to narrow screens */
+    gap: 16px;
+    place-items: center;
+    padding: 16px;
+    background: var(--backdrop);
+    background-attachment: fixed;
+    color: var(--text);
+    font-family: Rubik, system-ui, sans-serif;
+}
+
+main {
+    width: 100%;
+    max-width: 380px;
+    padding: 28px;
+    background: var(--panel);
+    backdrop-filter: blur(16px);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+}
+
+@media (max-width: 360px) { main { padding: 20px; } }
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 28px;
+}
+#lang {
+    padding: 0;
+    border: none;
+    background: none;
+    color: var(--muted);
+    font: inherit;
+    font-size: 13px;
+    cursor: pointer;
+    color-scheme: var(--scheme);
+    field-sizing: content;   /* as wide as the chosen language, not the longest */
+}
+#lang:hover, #lang:focus-visible { color: var(--text); }
+/* An open dropdown list doesn't follow color-scheme everywhere (Linux
+   keeps it white), while its options inherit the select's light text in
+   dark mode; theme the options themselves */
+option { background-color: var(--card); color: var(--text); }
+.actions { position: relative; display: flex; align-items: center; gap: 14px; }
+/* Line icons from the sprite at the top of <body> */
+.icon {
+    width: 18px;
+    height: 18px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    vertical-align: middle;
+}
+#historyBtn, #widgetsBtn, #paletteBtn, #theme {
+    display: grid;
+    padding: 0;
+    border: none;
+    background: none;
+    color: var(--muted);
+    cursor: pointer;
+    transition: color .15s;
+}
+#historyBtn:hover, #widgetsBtn:hover, #paletteBtn:hover, #theme:hover, #historyBtn[aria-expanded="true"],
+#widgetsBtn[aria-expanded="true"], #paletteBtn[aria-expanded="true"] { color: var(--accent); }
+
+/* Segmented switches: which calculator, and the order type */
+.tabs {
+    display: flex;
+    padding: 3px;
+    margin-bottom: 24px;
+    background: var(--bg);
+    border-radius: 999px;
+}
+.tabs button {
+    flex: 1;
+    padding: 7px 0;
+    border: none;
+    border-radius: 999px;
+    background: none;
+    color: var(--muted);
+    font: inherit;
+    font-size: 14px;
+    cursor: pointer;
+    transition: color .15s, background .15s;
+}
+.tabs button:hover { color: var(--text); }
+.tabs button[aria-selected="true"] { background: var(--accent-soft); color: var(--accent); font-weight: 500; }
+.tabs button:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+#orderType { margin-bottom: 20px; }
+#orderType button { padding: 5px 0; font-size: 13px; }
+#orderType button[aria-selected="true"] { background: var(--card); color: var(--text); }
+
+.menu {
+    position: absolute;
+    top: calc(100% + 10px);
+    inset-inline-start: 0;
+    z-index: 1000;
+    display: grid;
+    gap: 12px;
+    padding: 14px 16px;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    box-shadow: var(--shadow);
+    white-space: nowrap;
+}
+.menu[hidden] { display: none; }
+#paletteMenu button {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0;
+    border: none;
+    background: none;
+    color: var(--text);
+    font: inherit;
+    font-size: 14px;
+    cursor: pointer;
+}
+/* Each swatch shows the pair: light half and dark half */
+.swatch {
+    display: flex;
+    width: 24px;
+    height: 24px;
+    border: 1px solid var(--line);
+    border-radius: 50%;
+    overflow: hidden;
+    transform: rotate(45deg);
+}
+.swatch i { flex: 1; }
+#paletteMenu [aria-checked="true"] .swatch { outline: 2px solid var(--accent); outline-offset: 2px; }
+#paletteMenu [aria-checked="true"] { font-weight: 500; }
+
+.field {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    padding-bottom: 6px;
+    border-bottom: 2px solid var(--line);
+    transition: border-color .15s;
+}
+.field:focus-within { border-color: var(--accent); }
+.field input {
+    flex: 1;
+    min-width: 0;
+    border: none;
+    background: none;
+    outline: none;
+    color: var(--text);
+    font: inherit;
+    font-variant-numeric: tabular-nums;
+    -moz-appearance: textfield;
+}
+.field input::-webkit-outer-spin-button,
+.field input::-webkit-inner-spin-button { -webkit-appearance: none; }
+.field input::placeholder { color: var(--line); }
+.field span { color: var(--muted); font-size: 14px; white-space: nowrap; }
+
+#distanceField input, #minutesField input { font-size: 44px; font-weight: 500; }
+#priceField { width: 170px; min-width: 0; }
+#priceField input { font-size: 18px; }
+#priceField.unused { visibility: hidden; }   /* retail ignores the price; keep the row still */
+
+.row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-top: 20px;
+}
+#bonusField { width: 150px; min-width: 0; }
+#bonusField input { font-size: 18px; }
+.bonus-pick { display: flex; align-items: center; gap: 10px; margin-top: 16px; }
+#bonusCity {
+    flex: 1;
+    min-width: 0;
+    padding: 6px 8px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: var(--card);
+    color: var(--text);
+    font: inherit;
+    font-size: 15px;
+    cursor: pointer;
+    color-scheme: var(--scheme);
+}
+#bonusCity:focus { outline: none; border-color: var(--accent); }
+#bonusPasteBtn {
+    display: grid;
+    padding: 0;
+    border: none;
+    background: none;
+    color: var(--muted);
+    cursor: pointer;
+    transition: color .15s;
+}
+#bonusPasteBtn .icon { width: 20px; height: 20px; }
+#bonusPasteBtn:hover, #bonusPasteBtn.active { color: var(--accent); }
+#bonusInfo { min-height: 1.4em; margin-top: 6px; color: var(--accent); font-size: 13px; }
+/* Map pin before the city's current bonus */
+#bonusInfo:not(.note):not(:empty)::before {
+    content: '';
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    margin-inline-end: 4px;
+    vertical-align: -2px;
+    background: currentColor;
+    -webkit-mask: var(--pin) center / contain no-repeat;
+    mask: var(--pin) center / contain no-repeat;
+    --pin: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 11a3 3 0 1 0 6 0a3 3 0 0 0 -6 0'/%3E%3Cpath d='M17.657 16.657l-4.243 4.243a2 2 0 0 1 -2.827 0l-4.244 -4.243a8 8 0 1 1 11.314 0z'/%3E%3C/svg%3E");
+}
+#bonusInfo.note { color: var(--muted); }
+
+.switch {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    cursor: pointer;
+    user-select: none;
+}
+.switch input { position: absolute; opacity: 0; pointer-events: none; }
+.track {
+    position: relative;
+    width: 38px;
+    height: 22px;
+    border-radius: 11px;
+    background: var(--line);
+    transition: background .15s;
+}
+.track::after {
+    content: '';
+    position: absolute;
+    top: 3px;
+    inset-inline-start: 3px;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--card);
+    transition: transform .15s;
+}
+.switch input:checked + .track { background: var(--accent); }
+.switch input:checked + .track::after { transform: translateX(16px); }
+[dir="rtl"] .switch input:checked + .track::after { transform: translateX(-16px); }
+.switch input:focus-visible + .track { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+#result {
+    display: block;
+    width: 100%;
+    margin-top: 28px;
+    padding: 22px 0 18px;
+    border: none;
+    border-radius: 14px;
+    background: var(--accent-soft);
+    color: var(--accent);
+    font: inherit;
+    cursor: pointer;
+    transition: transform .08s;
+}
+#result:active { transform: scale(.98); }
+#result:disabled { cursor: default; color: var(--muted); background: var(--bg); }
+#amount {
+    display: block;
+    font-size: 56px;
+    font-weight: 700;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+}
+#amount small { font-size: .5em; font-weight: 500; margin-inline-end: 4px; }
+#amount.words { font-size: 34px; line-height: 56px; }   /* "Delivery Fee" instead of a sum */
+#caption { display: block; margin-top: 10px; font-size: 13px; opacity: .8; }
+
+/* Recent calculations under the result; a row copies its amount */
+#history { margin-top: 18px; }
+#history[hidden] { display: none; }
+.history-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 4px;
+    font-size: 12px;
+    color: var(--muted);
+}
+.history-head .tools { display: flex; align-items: center; gap: 10px; }
+.history-head button {
+    display: inline-flex;
+    padding: 0;
+    border: none;
+    background: none;
+    color: inherit;
+    font: inherit;
+    cursor: pointer;
+}
+.history-head button[hidden] { display: none; }
+.history-head button:hover { color: var(--accent); }
+.history-head .icon { width: 14px; height: 14px; }
+#historyList { list-style: none; }
+#historyEmpty { padding: 5px 8px; font-size: 13px; color: var(--muted); }
+#historyList button {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: baseline;
+    gap: 10px;
+    width: 100%;
+    padding: 5px 8px;
+    border: none;
+    border-radius: 8px;
+    background: none;
+    color: var(--muted);
+    font: inherit;
+    font-size: 13px;
+    text-align: start;
+    cursor: pointer;
+}
+#historyList button:hover { background: var(--accent-soft); }
+#historyList button:disabled { cursor: default; background: none; }
+#historyList time { font-variant-numeric: tabular-nums; }
+#historyList .detail { overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+#historyList .sum { color: var(--accent); font-weight: 500; font-variant-numeric: tabular-nums; }
+
+footer { font-size: 12px; color: var(--muted); }
+footer .icon { width: 14px; height: 14px; color: var(--accent); vertical-align: -2px; }

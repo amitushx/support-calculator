@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /*
- * Runs the browser test pages (tests/*-tests.html) in Node, so the same
+ * Runs the browser test pages (tests/*.html) in Node, so the same
  * cases can be checked from the command line and in CI. Each page's scripts,
  * linked and inline, run in order in one sandbox with just enough of a
  * document for the pages to write their results into.
@@ -38,7 +38,7 @@ function runPage(file) {
     };
 }
 
-const pages = fs.readdirSync(__dirname).filter(f => f.endsWith('-tests.html')).sort();
+const pages = fs.readdirSync(__dirname).filter(f => f.endsWith('.html')).sort();
 let failed = 0;
 for (const page of pages) {
     let result;
