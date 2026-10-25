@@ -1,3 +1,10 @@
+# Memory
+
+Keep every memory about this project here, in CLAUDE.md: preferences,
+corrections, decisions and ideas turned down. Add or update the relevant
+section instead of using Claude Code's separate memory folder, and keep
+each rule short, with the reason behind it.
+
 # Releases
 
 Every change merged into `main` ships as a new version: before merging, add an
@@ -5,6 +12,44 @@ entry on top of `CHANGELOG` in `changelog.js` with the bumped version (semver:
 patch for fixes and small tweaks, minor for new features), today's date, and a
 user-facing note in all five languages (he, en, ar, ka, hi), in the same PR as
 the change.
+
+Work one feature at a time: each gets its own commit and its own version,
+and check with the user before starting the next one. Push only when asked;
+while a version is unpushed, follow-up tweaks to it fold into that same
+version instead of bumping again. (The update popup only offers a refresh
+when the version goes up, so every user-facing deploy needs a bump.)
+
+# Naming
+
+- The customer compensation calculator for late orders is **Delivery
+  Late**, in that word order, never "Late Delivery". In Hebrew it is the
+  transliteration דליברי לייט, not a translation. It's the term used at
+  work. Use it in UI text, help, code comments and commit messages.
+- The app is **Support Calculator**; in Hebrew the transliteration
+  מחשבון סאפורט (not תמיכה). Support jargon is transliterated, not
+  translated.
+- Exception: leave the Hindi (देर से डिलीवरी) and Georgian (დაგვიანება) names
+  of Delivery Late as they are.
+
+# UI
+
+- Use outline line icons (Tabler style) for any new button, heading or
+  label, never emojis: add a `<symbol id="i-…">` to the sprite at the top
+  of `<body>` in `index.html` and use `<svg class="icon"><use
+  href="#i-…"/></svg>` or the `icon(name)` helper. Plain text glyphs like ✓
+  and ♡ are fine. One consistent visual language across the app.
+- The app is for PC users: design for keyboard and mouse, not phones.
+
+# Ideas turned down
+
+Don't suggest these again:
+
+- Showing how an amount was calculated (e.g. "28% × ₪145.90 = ₪41"): the
+  calculation must stay hidden from end users.
+- A copy-ready customer message for Delivery Late: templates already exist
+  elsewhere.
+- A full-day bonus timeline for the chosen city.
+- PWA, offline or installable app: PC users only.
 
 # Tests
 
