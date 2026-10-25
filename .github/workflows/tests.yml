@@ -1,0 +1,34 @@
+name: Tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Calculator tests
+        run: node tests/run.js
+      - name: README up to date
+        run: node scripts/readme.js --check
+      # Every merge ships as a new version (CLAUDE.md): the top entry of
+      # changelog.js must be newer than the one on main
+      - name: Version bumped
+        if: github.event_name == 'pull_request'
+        run: |
+          version() { grep -oP "version: '\K[0-9.]+" | head -1; }
+          base=$(git show "origin/$GITHUB_BASE_REF:changelog.js" | version)
+          head=$(version < changelog.js)
+          echo "main: $base, this PR: $head"
+          if [ "$base" = "$head" ] || [ "$(printf '%s\n%s\n' "$base" "$head" | sort -V | tail -1)" != "$head" ]; then
+            echo "::error file=changelog.js::Add a changelog entry newer than $base"
+            exit 1
+          fi

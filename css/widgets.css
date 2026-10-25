@@ -1,0 +1,320 @@
+.widget {
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding: 6px 12px 10px;
+    background: var(--panel);
+    backdrop-filter: blur(16px);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    box-shadow: var(--shadow);
+    touch-action: none;
+    user-select: none;
+    cursor: grab;
+}
+.widget.dragging { cursor: grabbing; }
+.widget-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    font-size: 11px;
+    color: var(--muted);
+}
+.widget button {
+    padding: 0;
+    border: none;
+    background: none;
+    color: var(--muted);
+    font: inherit;
+    cursor: pointer;
+}
+.widget button:hover { color: var(--text); }
+.widget .close { font-size: 16px; line-height: 1; }
+.widget input, .widget textarea {
+    border: none;
+    background: none;
+    outline: none;
+    color: var(--text);
+    font: inherit;
+}
+.widget-big {
+    font-size: 26px;
+    font-weight: 500;
+    line-height: 1.2;
+    font-variant-numeric: tabular-nums;
+}
+.widget-small { font-size: 12px; color: var(--muted); }
+#alarms {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    align-items: center;
+    gap: 2px 12px;
+}
+.alarm-row { display: contents; }
+.alarm-row[hidden] { display: none; }
+.alarm-row span { font-size: 13px; color: var(--muted); }
+.alarm-row.ringing span { color: var(--accent); font-weight: 500; }
+.alarm-row input[type="time"] {
+    font-size: 20px;
+    font-weight: 500;
+    font-variant-numeric: tabular-nums;
+    color-scheme: var(--scheme);
+}
+#nextAlarm { margin-top: 6px; font-variant-numeric: tabular-nums; }
+.alarm-sound {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 8px;
+    font-size: 13px;
+}
+.alarm-sound select {
+    padding: 0;
+    border: none;
+    background: none;
+    color: var(--text);
+    font: inherit;
+    cursor: pointer;
+    color-scheme: var(--scheme);
+}
+#w-note { background: var(--accent-soft); }
+
+/* Shift progress: start to end, with the breaks as points on the line */
+#w-shift { width: 240px; }
+.shift-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 8px;
+    margin-top: 2px;
+    font-size: 12px;
+    color: var(--muted);
+}
+.shift-head input[type="time"] {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text);
+    color-scheme: var(--scheme);
+}
+#shiftInfo { font-variant-numeric: tabular-nums; text-align: end; }
+#shiftTrack {
+    position: relative;
+    height: 4px;
+    margin: 26px 8px 24px;
+    border-radius: 2px;
+    background: var(--line);
+}
+#shiftFill {
+    position: absolute;
+    inset-block: 0;
+    inset-inline-start: 0;
+    border-radius: inherit;
+    background: var(--accent);
+}
+.shift-point {
+    position: absolute;
+    top: 50%;
+    width: 10px;
+    height: 10px;
+    margin-inline-start: -5px;
+    translate: 0 -50%;
+}
+.shift-point::before {   /* the dot, apart from the label so it pops alone */
+    content: '';
+    position: absolute;
+    inset: 0;
+    border: 2px solid var(--muted);
+    border-radius: 50%;
+    background: var(--bg);
+}
+.shift-point.end { width: 14px; height: 14px; margin-inline-start: -7px; }
+.shift-point.passed::before { border-color: var(--accent); background: var(--accent); }
+.shift-point span {
+    position: absolute;
+    top: 12px;
+    left: 50%;
+    translate: -50% 0;
+    font-size: 10px;
+    white-space: nowrap;
+    color: var(--muted);
+}
+.shift-point.above span { top: auto; bottom: 12px; }
+.shift-point.end span { left: auto; right: auto; inset-inline-end: -4px; translate: none; }
+.shift-point.passed span { color: var(--accent); }
+
+/* The end of the shift: the line runs through the rainbow, the points
+   pop one after another and the widget does a little hop */
+#w-shift.celebrate { animation: shift-hop .45s ease 3; }
+#w-shift.celebrate #shiftFill {
+    background: linear-gradient(90deg, #ff5e7e, #ffd166, #06d6a0, #4cc9f0, #b388ff, #ff5e7e);
+    background-size: 200% 100%;
+    animation: shift-rainbow 1s linear infinite;
+}
+#w-shift.celebrate .shift-point::before { animation: shift-pop .5s ease calc(var(--i) * .15s) 2 both; }
+@keyframes shift-hop { 50% { translate: 0 -6px; rotate: -2deg; } }
+@keyframes shift-rainbow { to { background-position: -200% 0; } }
+@keyframes shift-pop { 50% { scale: 1.9; } }
+@media (prefers-reduced-motion: reduce) {
+    #w-shift.celebrate, #w-shift.celebrate #shiftFill, #w-shift.celebrate .shift-point::before { animation: none; }
+}
+#confetti {
+    position: fixed;
+    inset: 0;
+    z-index: 2147483647;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+#skyCanvas {
+    display: block;
+    width: 192px;
+    height: 120px;
+    margin-top: 4px;
+    border-radius: 8px;
+    image-rendering: pixelated;
+}
+.widget-bar .tools { display: flex; align-items: center; gap: 8px; }
+.widget-bar .icon { width: 14px; height: 14px; }
+#doomScreen {
+    display: grid;
+    place-items: center;
+    width: 320px;
+    height: 240px;
+    margin-top: 4px;
+    border-radius: 8px;
+    overflow: hidden;
+    background: #000;
+}
+#doomScreen iframe { width: 100%; height: 100%; border: 0; }
+/* Where real full screen isn't allowed (e.g. inside some apps), fill the window */
+#w-doom.big {
+    inset: 0 !important;
+    z-index: 89000 !important;
+    display: flex;
+    flex-direction: column;
+    border-radius: 0;
+    cursor: auto;
+}
+#w-doom.big #doomScreen { width: auto; height: auto; flex: 1; }
+#doomPlay { display: flex; align-items: center; gap: 6px; color: #aaa; font-size: 12px; }
+#doomPlay:hover { color: #fff; }
+#doomPlay .icon { width: 28px; height: 28px; }
+#noteText {
+    display: block;
+    width: 180px;
+    height: 110px;
+    min-width: 120px;
+    min-height: 50px;
+    margin-top: 4px;
+    resize: both;
+    font-size: 14px;
+    line-height: 1.4;
+    touch-action: auto;
+    user-select: text;
+    cursor: text;
+}
+#noteText::placeholder { color: var(--muted); opacity: .6; }
+.widget .stop {
+    display: none;
+    width: 100%;
+    margin-top: 8px;
+    padding: 6px;
+    border-radius: 8px;
+    background: var(--accent);
+    color: var(--card);
+    font-weight: 500;
+}
+.widget .stop:hover { color: var(--card); }
+.widget.ringing .stop { display: block; }
+.widget.ringing { border-color: var(--accent); animation: ring 1s infinite; }
+@keyframes ring { 50% { background: var(--accent-soft); } }
+
+/* Full-screen popup while an alarm rings; a click anywhere stops it */
+#alarmOverlay {
+    position: fixed;
+    inset: 0;
+    z-index: 100000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2vh;
+    padding: 16px;
+    background: var(--accent);
+    color: var(--card);
+    text-align: center;
+    cursor: pointer;
+    animation: flash 1s steps(1) infinite;
+}
+#alarmOverlay[hidden] { display: none; }
+@keyframes flash { 50% { background: var(--text); } }
+@media (prefers-reduced-motion: reduce) { #alarmOverlay { animation: none; } }
+#alarmName {
+    font-size: clamp(56px, 16vw, 200px);
+    font-weight: 700;
+    line-height: 1;
+}
+#alarmTime {
+    font-size: clamp(40px, 11vw, 140px);
+    font-weight: 500;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+}
+#alarmStop {
+    margin-top: 4vh;
+    padding: 14px 56px;
+    border: 3px solid currentColor;
+    border-radius: 999px;
+    background: none;
+    color: inherit;
+    font: inherit;
+    font-size: 28px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+/* Wolt courier scooting across the page, just above the credit line */
+#road {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    overflow: hidden;   /* no sideways scroll while he's off the edge */
+    direction: ltr;     /* starts off the left edge in Hebrew too */
+    z-index: 5;
+    pointer-events: none;
+    user-select: none;
+}
+#road[hidden] { display: none; }
+#courier {
+    display: block;
+    image-rendering: pixelated;
+    transform: translateX(-100%);
+}
+
+/* The cat: lives on the bottom edge of the window, a click makes it meow */
+#cat {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    z-index: 6;
+    image-rendering: pixelated;
+    cursor: pointer;
+    touch-action: manipulation;
+}
+#cat[hidden] { display: none; }
+#cat.left { scale: -1 1; }
+.cat-fx {   /* a heart or a z rising from the cat */
+    position: fixed;
+    z-index: 7;
+    pointer-events: none;
+    color: var(--accent);
+    font: 600 15px Rubik, system-ui, sans-serif;
+    animation: cat-float 1.8s ease-out forwards;
+}
+.cat-fx .icon { width: 20px; height: 20px; color: #ff6b8a; fill: currentColor; }
+@keyframes cat-float {
+    from { opacity: 0; translate: 0 0; }
+    15% { opacity: 1; }
+    to { opacity: 0; translate: 8px -44px; }
+}
