@@ -35,6 +35,19 @@ const DOG_SCRATCH = withRows(DOG_HAPPY, {   // a hind paw up at the ear
     6: '..B.WPPW.BF...', 7: '...RRYRR.F....', 8: '...FWWWFFF....',
     9: '..FFWWWFFF....', 13: '..WW...WW.....'
 });
+// The play bow, inviting the cat to play: front down, rear up
+const DOG_BOW = [
+    '.B..................',
+    '..B.................',
+    '..BFFF..............',
+    '.FFBBFF.............',
+    '.FFBBFFFF....FFFF...',
+    '.FFFFFFFFFFFFFFFFF..',
+    '..FF..FFFFFBBFFEFF..',
+    '..FF....FFFBBFFFFWWN',
+    '..FF.....RRYBFFFWWW.',
+    '..WW....WWWWW.......'
+];
 const DOG_SPRITES = {
     sit: DOG_SIT,
     pant: withRows(DOG_SIT, { 6: '..B.WWWW.B....' }),   // the tongue in
@@ -45,6 +58,8 @@ const DOG_SPRITES = {
     wag2: DOG_HAPPY,
     scratch1: withRows(DOG_SCRATCH, { 4: '.BBFFWWFFBBW..', 5: '.BBFWNNWFBBF..' }),
     scratch2: withRows(DOG_SCRATCH, { 5: '.BBFWNNWFBBW..' }),
+    bow1: DOG_BOW,
+    bow2: withRows(DOG_BOW, { 0: '....................', 1: 'B...................', 2: '.BBFFF..............' }),   // the tail wags
     walk1: [
         '...........FFFFF...',
         '..B.......FFFFFFF..',
@@ -88,7 +103,7 @@ const dog = makePet('dog', { sprites: DOG_SPRITES, colors: DOG_COLORS, w: 23, h:
 
 dog.next = () => {
     const r = Math.random();
-    if (petAlone() || r < .08) dogSleep();
+    if (petAlone() || r < .08) dog.sleep();
     else if (petCalm() || r < .35) dogSit();
     else if (r < .45) dogScratch();
     else if (r < .55) dogWag();
@@ -126,17 +141,6 @@ function dogZoomies() {
     const there = dog.x < dog.maxX() / 2 ? dog.maxX() : 0;
     const back = petRand(0, dog.maxX());
     dog.walk(there, { ms: 60, stride: 4, then: () => dog.walk(back, { ms: 60, stride: 4 }) });
-}
-// Sleeps for a while, and on and on while nobody's around; never on top
-// of another pet, it moves aside first
-function dogSleep() {
-    dog.settle(() => {
-        dog.draw('sleep');
-        dog.run(petRand(30000, 90000), elapsed => {
-            if (elapsed > 1500) dog.fx('z');
-            return petAlone() ? 3000 : elapsed > 25000 ? false : 3000;
-        });
-    });
 }
 // A woof or two a click, and none over them while it's still barking
 let dogBarking = false;

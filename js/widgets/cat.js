@@ -33,6 +33,9 @@ const CAT_SPRITES = {
         9: '.OOWWWOOOO....', 10: '.OOWWWOOOO....', 11: '.OOWWWOOOOO...',
         12: '.OoWWWoOOOOOOO', 13: '.WW...WWOOOO.O'
     }),
+    swat: withRows(SIT, {   // a paw out to the right, batting at the puppy
+        5: '.OOOPOOO.WW...', 6: '..OWWWO.OW....', 7: '..OWWWOOO.....'
+    }),
     groom: withRows(SIT, {   // a paw up at the mouth, eyes shut
         4: '.OoOOOoO......', 5: '.OOPPPOO......', 6: '..OWWWWW......', 7: '..OWWWWW......'
     }),
@@ -81,7 +84,7 @@ const cat = makePet('cat', { sprites: CAT_SPRITES, colors: CAT_COLORS, w: 22, h:
 
 cat.next = () => {
     const r = Math.random();
-    if (petAlone() || r < .12) catSleep();
+    if (petAlone() || r < .12) cat.sleep();
     else if (petCalm() || r < .45) catSit();
     else if (r < .6) catGroom();
     else if (r < .72 && petInput.mouseX !== null) cat.walk(petInput.mouseX - cat.width / 2);
@@ -102,17 +105,6 @@ function catGroom() {
         cat.draw(paw ? 'groom' : 'blink');
         return 350;
     }));
-}
-// Sleeps for a while, and on and on while nobody's around; never on top
-// of another pet, it moves aside first
-function catSleep() {
-    cat.settle(() => {
-        cat.draw('sleep');
-        cat.run(petRand(30000, 90000), elapsed => {
-            if (elapsed > 1500) cat.fx('z');
-            return petAlone() ? 3000 : elapsed > 25000 ? false : 3000;
-        });
-    });
 }
 // One meow a click, and none over it while it's still meowing however
 // often the cat is clicked
