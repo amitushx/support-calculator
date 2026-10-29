@@ -3,6 +3,17 @@
 // window shows it once to everyone who ran an older version.
 const CHANGELOG = [
     {
+        version: '1.13.1',
+        date: '2026-10-29',
+        notes: {
+            he: ['הווידג׳ט ״שעון מעורר״ נקרא עכשיו ״הפסקות״.'],
+            en: ['The Alarms widget is now called Breaks.'],
+            ar: ['ويدجت «منبّه» صار اسمها «بريكات».'],
+            ka: ['ვიჯეტს „მაღვიძარა“ ახლა „შესვენებები“ ჰქვია.'],
+            hi: ['“अलार्म” विजेट का नाम अब “ब्रेक” है।']
+        }
+    },
+    {
         version: '1.13.0',
         date: '2026-10-29',
         notes: {
