@@ -138,6 +138,34 @@
     --shadow: none;
 }
 
+/* Wood, after gruvbox: mellow cream by day, rich walnut chevron parquet
+   by night */
+:root[data-palette="wood"] {
+    --backdrop: linear-gradient(160deg, #f2e5bc, #e5d2a6);
+    --bg: #f2e5bc;
+    --card: #fbf1c7;
+    --panel: rgba(251, 241, 199, .82);
+    --text: #3c3836;
+    --muted: #7c6f64;
+    --line: #e0cda0;
+    --accent: #af3a03;
+    --accent-soft: #f0d9ae;
+    --shadow: 0 14px 40px rgba(102, 70, 38, .14);
+    --radius: 20px;
+}
+:root[data-palette="wood"][data-mode="dark"] {
+    --backdrop: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='150'%3E%3CclipPath id='l'%3E%3Crect width='120' height='150'/%3E%3C/clipPath%3E%3CclipPath id='r'%3E%3Crect x='120' width='120' height='150'/%3E%3C/clipPath%3E%3Cg clip-path='url(%23l)' stroke='%231c110a' stroke-width='1.2'%3E%3Cpath fill='%235c3b24' d='M-80 0 L-40 0 L40 150 L0 150 Z'/%3E%3Cpath stroke='%232a1a10' stroke-opacity='0.22' stroke-width='.8' d='M-66.0 0 L14.0 150'/%3E%3Cpath stroke='%232a1a10' stroke-opacity='0.14' stroke-width='.8' d='M-52.0 0 L28.0 150'/%3E%3Cpath fill='%2366432a' d='M-40 0 L0 0 L80 150 L40 150 Z'/%3E%3Cpath stroke='%232a1a10' stroke-opacity='0.22' stroke-width='.8' d='M-26.0 0 L54.0 150'/%3E%3Cpath stroke='%232a1a10' stroke-opacity='0.14' stroke-width='.8' d='M-12.0 0 L68.0 150'/%3E%3Cpath fill='%234f321f' d='M0 0 L40 0 L120 150 L80 150 Z'/%3E%3Cpath stroke='%232a1a10' stroke-opacity='0.22' stroke-width='.8' d='M14.0 0 L94.0 150'/%3E%3Cpath stroke='%232a1a10' stroke-opacity='0.14' stroke-width='.8' d='M28.0 0 L108.0 150'/%3E%3Cpath fill='%23563720' d='M40 0 L80 0 L160 150 L120 150 Z'/%3E%3Cpath stroke='%232a1a10' stroke-opacity='0.22' stroke-width='.8' d='M54.0 0 L134.0 150'/%3E%3Cpath stroke='%232a1a10' stroke-opacity='0.14' stroke-width='.8' d='M68.0 0 L148.0 150'/%3E%3Cpath fill='%236e4a2f' d='M80 0 L120 0 L200 150 L160 150 Z'/%3E%3Cpath stroke='%232a1a10' stroke-opacity='0.22' stroke-width='.8' d='M94.0 0 L174.0 150'/%3E%3Cpath stroke='%232a1a10' stroke-opacity='0.14' stroke-width='.8' d='M108.0 0 L188.0 150'/%3E%3Cpath fill='%2366432a' d='M120 0 L160 0 L240 150 L200 150 Z'/%3E%3Cpath stroke='%232a1a10' stroke-opacity='0.22' stroke-width='.8' d='M134.0 0 L214.0 150'/%3E%3Cpath stroke='%232a1a10' stroke-opacity='0.14' stroke-width='.8' d='M148.0 0 L228.0 150'/%3E%3C/g%3E%3Cg clip-path='url(%23r)' stroke='%231c110a' stroke-width='1.2'%3E%3Cpath fill='%23563720' d='M120 0 L160 0 L80 150 L40 150 Z'/%3E%3Cpath stroke='%232a1a10' stroke-opacity='0.22' stroke-width='.8' d='M134.0 0 L54.0 150'/%3E%3Cpath stroke='%232a1a10' stroke-opacity='0.14' stroke-width='.8' d='M148.0 0 L68.0 150'/%3E%3Cpath fill='%234f321f' d='M160 0 L200 0 L120 150 L80 150 Z'/%3E%3Cpath stroke='%232a1a10' stroke-opacity='0.22' stroke-width='.8' d='M174.0 0 L94.0 150'/%3E%3Cpath stroke='%232a1a10' stroke-opacity='0.14' stroke-width='.8' d='M188.0 0 L108.0 150'/%3E%3Cpath fill='%236e4a2f' d='M200 0 L240 0 L160 150 L120 150 Z'/%3E%3Cpath stroke='%232a1a10' stroke-opacity='0.22' stroke-width='.8' d='M214.0 0 L134.0 150'/%3E%3Cpath stroke='%232a1a10' stroke-opacity='0.14' stroke-width='.8' d='M228.0 0 L148.0 150'/%3E%3Cpath fill='%235c3b24' d='M240 0 L280 0 L200 150 L160 150 Z'/%3E%3Cpath stroke='%232a1a10' stroke-opacity='0.22' stroke-width='.8' d='M254.0 0 L174.0 150'/%3E%3Cpath stroke='%232a1a10' stroke-opacity='0.14' stroke-width='.8' d='M268.0 0 L188.0 150'/%3E%3Cpath fill='%2366432a' d='M280 0 L320 0 L240 150 L200 150 Z'/%3E%3Cpath stroke='%232a1a10' stroke-opacity='0.22' stroke-width='.8' d='M294.0 0 L214.0 150'/%3E%3Cpath stroke='%232a1a10' stroke-opacity='0.14' stroke-width='.8' d='M308.0 0 L228.0 150'/%3E%3Cpath fill='%234f321f' d='M320 0 L360 0 L280 150 L240 150 Z'/%3E%3Cpath stroke='%232a1a10' stroke-opacity='0.22' stroke-width='.8' d='M334.0 0 L254.0 150'/%3E%3Cpath stroke='%232a1a10' stroke-opacity='0.14' stroke-width='.8' d='M348.0 0 L268.0 150'/%3E%3C/g%3E%3Cpath stroke='%231c110a' stroke-width='2' d='M0 1 H240 M120 0 V150 M.5 0 V150'/%3E%3C/svg%3E") 0 0 / 240px 150px, #4f321f;
+    --bg: #1e130c;
+    --card: #2b1c13;
+    --panel: rgba(35, 23, 16, .88);
+    --text: #ebdbb2;
+    --muted: #b09a82;
+    --line: #4a3424;
+    --accent: #d79921;
+    --accent-soft: rgba(215, 153, 33, .14);
+    --shadow: 0 14px 40px rgba(0, 0, 0, .3);
+}
+
 /* Cyberpunk: a neon city in magenta, purple and cyan, by day and by night */
 :root[data-palette="cyber"] {
     --backdrop: linear-gradient(rgba(214, 0, 170, .08) 1px, transparent 1px) 0 0 / 32px 32px,
