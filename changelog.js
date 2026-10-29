@@ -3,6 +3,17 @@
 // window shows it once to everyone who ran an older version.
 const CHANGELOG = [
     {
+        version: '1.10.1',
+        date: '2026-10-29',
+        notes: {
+            he: ['מאחורי הקלעים: כל גרסה נשמרת עכשיו עם תגית משלה, כך שקל לחזור לכל אחת מהן.'],
+            en: ['Behind the scenes: every version is now saved with its own tag, so any of them is easy to go back to.'],
+            ar: ['ورا الكواليس: كل نسخة صارت تنحفظ مع تاغ خاص فيها، فصار سهل نرجع لأي وحدة منهن.'],
+            ka: ['კულისებს მიღმა: ყოველი ვერსია ახლა საკუთარი ტეგით ინახება, ასე რომ ნებისმიერ მათგანზე დაბრუნება მარტივია.'],
+            hi: ['पर्दे के पीछे: हर संस्करण अब अपने टैग के साथ सहेजा जाता है, ताकि किसी पर भी वापस जाना आसान हो।']
+        }
+    },
+    {
         version: '1.10.0',
         date: '2026-10-29',
         notes: {

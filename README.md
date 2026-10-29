@@ -7,7 +7,7 @@
 **מחשבון סאפורט** · courier payments and Delivery Late compensation, one keystroke away
 
 <p>
-<!-- version --><img alt="Version" src="https://img.shields.io/badge/version-1.10.0-009DE0?style=for-the-badge"><!-- /version -->
+<!-- version --><img alt="Version" src="https://img.shields.io/badge/version-1.10.1-009DE0?style=for-the-badge"><!-- /version -->
 <a href="https://github.com/amitushx/support-calculator/actions/workflows/tests.yml"><img alt="Tests" src="https://img.shields.io/github/actions/workflow/status/amitushx/support-calculator/tests.yml?branch=main&label=tests&style=for-the-badge"></a>
 <img alt="Languages" src="https://img.shields.io/badge/languages-5-7C3AED?style=for-the-badge">
 <img alt="No build step" src="https://img.shields.io/badge/build-none-22C55E?style=for-the-badge">
@@ -161,11 +161,15 @@ Every change merged into `main` ships as a new version: add an entry on top of `
 node scripts/readme.js
 ```
 
-CI checks that the version was bumped and that this README is up to date.
+CI checks that the version was bumped and that this README is up to date. After the merge, CI tags the commit with the new version (`v1.10.1`), so `git checkout v1.9.4` shows any past release and `git diff v1.9.6 v1.10.0` what changed between two.
 
 ## Change log
 
 <!-- changelog -->
+### 1.10.1 · 29 October 2026
+
+- Behind the scenes: every version is now saved with its own tag, so any of them is easy to go back to.
+
 ### 1.10.0 · 29 October 2026
 
 - A new theme: Wood, inspired by gruvbox. Creamy and mellow by day, rich dark wood parquet by night.
