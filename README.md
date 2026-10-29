@@ -7,7 +7,7 @@
 **מחשבון סאפורט** · courier payments and Delivery Late compensation, one keystroke away
 
 <p>
-<!-- version --><img alt="Version" src="https://img.shields.io/badge/version-1.11.0-009DE0?style=for-the-badge"><!-- /version -->
+<!-- version --><img alt="Version" src="https://img.shields.io/badge/version-1.12.0-009DE0?style=for-the-badge"><!-- /version -->
 <a href="https://github.com/amitushx/support-calculator/actions/workflows/tests.yml"><img alt="Tests" src="https://img.shields.io/github/actions/workflow/status/amitushx/support-calculator/tests.yml?branch=main&label=tests&style=for-the-badge"></a>
 <img alt="Languages" src="https://img.shields.io/badge/languages-5-7C3AED?style=for-the-badge">
 <img alt="No build step" src="https://img.shields.io/badge/build-none-22C55E?style=for-the-badge">
@@ -99,7 +99,7 @@ Small panels, all off by default, turned on from the puzzle button in the header
 | Widget | What it does |
 | --- | --- |
 | **Clock** | The time to the second and today's date |
-| **Alarms** | Long break, short break and end of shift, with a second short break for long shifts. Beep, Chime, Siren or Meow; rings with the widget closed and notifies in the background |
+| **Alarms** | Long break, short break and end of shift, with a second short break for long shifts. Beep, Chime, Siren, Meow or Woof; rings with the widget closed and notifies in the background |
 | **Shift progress** | A line from the start of the shift to the end, with the breaks as points and the time left. The start is set by itself; stopping the Ending alarm sets off a celebration |
 | **Note** | A sticky note, resizable, kept between visits |
 | **Sky** | A pixel-art skyline under the real sky of the moment, sun and moon included; matrix rain in the Retro terminal theme |
@@ -167,6 +167,10 @@ CI checks that the version was bumped and that this README is up to date. After 
 ## Change log
 
 <!-- changelog -->
+### 1.12.0 · 29 October 2026
+
+- A new alarm sound: Woof, the puppy’s bark.
+
 ### 1.11.0 · 29 October 2026
 
 - New in the widgets: a puppy! It pants, wags its tail, scratches behind its ear, runs zoomies and naps when nobody’s around. Click it and it barks. It and the cat never sit or sleep on top of each other.

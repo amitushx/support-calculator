@@ -3,6 +3,17 @@
 // window shows it once to everyone who ran an older version.
 const CHANGELOG = [
     {
+        version: '1.12.0',
+        date: '2026-10-29',
+        notes: {
+            he: ['צליל חדש לשעון המעורר: הב הב, הנביחה של הכלבלב.'],
+            en: ['A new alarm sound: Woof, the puppy’s bark.'],
+            ar: ['صوت جديد للمنبّه: هاو هاو، نباح الجرو.'],
+            ka: ['ახალი მაღვიძარას ხმა: ჰავ-ჰავ, ლეკვის ყეფა.'],
+            hi: ['अलार्म की नई आवाज़: भौं-भौं, पिल्ले का भौंकना।']
+        }
+    },
+    {
         version: '1.11.0',
         date: '2026-10-29',
         notes: {

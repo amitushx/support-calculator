@@ -180,6 +180,14 @@ const SOUNDS = {
         play(out, at) {
             meow(out, at, { pitch: 0.95 + Math.random() * 0.15, dur: 0.7 + Math.random() * 0.15 });
         }
+    },
+    // The puppy's bark, twice: woof woof
+    woof: {
+        period: 1.2,
+        play(out, at) {
+            bark(out, at, { pitch: 0.95 + Math.random() * 0.1 });
+            bark(out, at + 0.3, { pitch: 1 + Math.random() * 0.1 });
+        }
     }
 };
 
