@@ -7,7 +7,7 @@
 **מחשבון סאפורט** · courier payments and Delivery Late compensation, one keystroke away
 
 <p>
-<!-- version --><img alt="Version" src="https://img.shields.io/badge/version-1.13.1-009DE0?style=for-the-badge"><!-- /version -->
+<!-- version --><img alt="Version" src="https://img.shields.io/badge/version-1.13.2-009DE0?style=for-the-badge"><!-- /version -->
 <a href="https://github.com/amitushx/support-calculator/actions/workflows/tests.yml"><img alt="Tests" src="https://img.shields.io/github/actions/workflow/status/amitushx/support-calculator/tests.yml?branch=main&label=tests&style=for-the-badge"></a>
 <img alt="Languages" src="https://img.shields.io/badge/languages-5-7C3AED?style=for-the-badge">
 <img alt="No build step" src="https://img.shields.io/badge/build-none-22C55E?style=for-the-badge">
@@ -167,6 +167,10 @@ CI checks that the version was bumped and that this README is up to date. After 
 ## Change log
 
 <!-- changelog -->
+### 1.13.2 · 29 October 2026
+
+- The change log now lists only changes you can see in the calculator.
+
 ### 1.13.1 · 29 October 2026
 
 - The Alarms widget is now called Breaks.
@@ -184,21 +188,23 @@ CI checks that the version was bumped and that this README is up to date. After 
 - New in the widgets: a puppy! It pants, wags its tail, scratches behind its ear, runs zoomies and naps when nobody’s around. Click it and it barks. It and the cat never sit or sleep on top of each other.
 - The “Made with ♥” line now sits in a faint band along the bottom of the screen, and the pets and the courier walk and drive along its top edge.
 
-### 1.10.1 · 29 October 2026
+### 1.10.1 · 29 October 2026 · internal
 
-- Behind the scenes: every version is now saved with its own tag, so any of them is easy to go back to.
+- Added `.github/workflows/tag.yml`: every push to `main` creates an annotated `v<version>` tag from the top entry of `changelog.js`, skipped when that tag already exists, so any release can be checked out or diffed by name.
 
 ### 1.10.0 · 29 October 2026
 
 - A new theme: Wood, inspired by gruvbox. Creamy and mellow in light mode, rich dark wood parquet in dark mode.
 
-### 1.9.6 · 25 October 2026
+### 1.9.6 · 25 October 2026 · internal
 
-- Behind the scenes: the calculator’s code is reorganized into separate files and folders. Nothing changes in how it works.
+- Split the single-file `index.html`: styles into `css/` (`themes`, `app`, `widgets`, `dialogs`, in cascade order), scripts into `js/` (`i18n`, `app`, `bonus-list`, `main`) with one file per widget under `js/widgets/`, the pure rules into `js/lib/` and the Doom iframe into `pages/`. Scripts stay classic, sharing one global scope and loaded in dependency order; `changelog.js` stays at the root because older running copies poll it.
+- The update button now re-fetches the cached stylesheets too before reloading.
+- Added `README.md`; `scripts/readme.js` generates its version badge and change log from `changelog.js`, and CI fails when it’s stale.
 
-### 1.9.5 · 25 October 2026
+### 1.9.5 · 25 October 2026 · internal
 
-- Behind the scenes: the distance, Delivery Late and bonus list calculations are now checked automatically before every update.
+- Added `tests/run.js`, which runs the browser test pages for `fees`, `delay` and `bonus` in a Node sandbox, and a GitHub Actions workflow that runs it on every push and PR and, on PRs, checks that the top `changelog.js` version is newer than `main`’s.
 
 ### 1.9.4 · 24 October 2026
 

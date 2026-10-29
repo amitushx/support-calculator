@@ -2,7 +2,7 @@
 /*
  * Writes the version badge and the change log in README.md from
  * changelog.js (English notes), between the <!-- version --> and
- * <!-- changelog --> markers.
+ * <!-- changelog --> markers. Internal releases show their `dev` note instead.
  * Usage: node scripts/readme.js to update; --check exits with 1 instead of
  * writing when README.md is out of date (CI runs that).
  */
@@ -23,7 +23,7 @@ const date = d => new Date(d + 'T12:00Z').toLocaleDateString('en-GB',
 // An <img>, since the badges sit in an HTML block
 const version = `<img alt="Version" src="https://img.shields.io/badge/version-${releases[0].version}-009DE0?style=for-the-badge">`;
 const changelog = releases.map(r =>
-    `### ${r.version} · ${date(r.date)}\n\n${r.notes.en.map(n => `- ${n}`).join('\n')}`
+    `### ${r.version} · ${date(r.date)}${r.notes ? '' : ' · internal'}\n\n${(r.notes?.en ?? r.dev).map(n => `- ${n}`).join('\n')}`
 ).join('\n\n');
 
 // Replaces what sits between <!-- name --> and <!-- /name -->

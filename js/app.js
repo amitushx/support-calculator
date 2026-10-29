@@ -379,13 +379,15 @@ const isNewer = (a, b) => {
     const i = x.findIndex((n, i) => n !== y[i]);
     return i >= 0 && x[i] > y[i];
 };
+// The releases users hear about: internal ones have no notes
+const notedReleases = CHANGELOG.filter(r => r.notes);
 let newsAll = false;
 function renderNews() {
     const t = translations[lang];
     // What's new lists every release since the version last seen, so
     // several releases shipped between visits are all shown
-    const unseen = CHANGELOG.filter(r => isNewer(r.version, versionSeen));
-    const releases = newsAll ? CHANGELOG : unseen.length ? unseen : CHANGELOG.slice(0, 1);
+    const unseen = notedReleases.filter(r => isNewer(r.version, versionSeen));
+    const releases = newsAll ? notedReleases : unseen.length ? unseen : notedReleases.slice(0, 1);
     $('newsTitle').textContent = newsAll ? t.changelog : t.whatsNew;
     $('changelogBtn').hidden = newsAll;
     $('newsBody').replaceChildren(...releases.map(r => {

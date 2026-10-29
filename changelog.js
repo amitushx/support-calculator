@@ -1,7 +1,21 @@
 // Releases, newest first. The first entry is the running version: add a new
 // one on top for each release (semver: major.minor.patch) and the What's new
-// window shows it once to everyone who ran an older version.
+// window shows it once to everyone who ran an older version. An internal
+// release (a refactor, tests, tooling) has a `dev` note in English instead
+// of `notes`: users are still offered the refresh, but What's new and the
+// change log skip it; only the README lists it, for developers.
 const CHANGELOG = [
+    {
+        version: '1.13.2',
+        date: '2026-10-29',
+        notes: {
+            he: ['רשימת השינויים מציגה עכשיו רק שינויים שרואים במחשבון.'],
+            en: ['The change log now lists only changes you can see in the calculator.'],
+            ar: ['قائمة التغييرات صارت تعرض بس التغييرات اللي بتبيّن بالحاسبة.'],
+            ka: ['ცვლილებების სია ახლა მხოლოდ იმ ცვლილებებს აჩვენებს, რომლებიც კალკულატორში ჩანს.'],
+            hi: ['बदलावों की सूची अब सिर्फ़ वही बदलाव दिखाती है जो कैलकुलेटर में नज़र आते हैं।']
+        }
+    },
     {
         version: '1.13.1',
         date: '2026-10-29',
@@ -49,13 +63,9 @@ const CHANGELOG = [
     {
         version: '1.10.1',
         date: '2026-10-29',
-        notes: {
-            he: ['מאחורי הקלעים: כל גרסה נשמרת עכשיו עם תגית משלה, כך שקל לחזור לכל אחת מהן.'],
-            en: ['Behind the scenes: every version is now saved with its own tag, so any of them is easy to go back to.'],
-            ar: ['ورا الكواليس: كل نسخة صارت تنحفظ مع تاغ خاص فيها، فصار سهل نرجع لأي وحدة منهن.'],
-            ka: ['კულისებს მიღმა: ყოველი ვერსია ახლა საკუთარი ტეგით ინახება, ასე რომ ნებისმიერ მათგანზე დაბრუნება მარტივია.'],
-            hi: ['पर्दे के पीछे: हर संस्करण अब अपने टैग के साथ सहेजा जाता है, ताकि किसी पर भी वापस जाना आसान हो।']
-        }
+        dev: [
+            'Added `.github/workflows/tag.yml`: every push to `main` creates an annotated `v<version>` tag from the top entry of `changelog.js`, skipped when that tag already exists, so any release can be checked out or diffed by name.'
+        ]
     },
     {
         version: '1.10.0',
@@ -71,24 +81,18 @@ const CHANGELOG = [
     {
         version: '1.9.6',
         date: '2026-10-25',
-        notes: {
-            he: ['מאחורי הקלעים: הקוד של המחשבון סודר מחדש בקבצים ובתיקיות נפרדים. שום דבר לא משתנה באופן שבו הוא עובד.'],
-            en: ['Behind the scenes: the calculator’s code is reorganized into separate files and folders. Nothing changes in how it works.'],
-            ar: ['ورا الكواليس: كود الحاسبة انرتّب من جديد بملفات ومجلدات منفصلة. ما في إشي بتغيّر بطريقة شغلها.'],
-            ka: ['კულისებს მიღმა: კალკულატორის კოდი ცალკეულ ფაილებად და საქაღალდეებად გადალაგდა. მის მუშაობაში არაფერი იცვლება.'],
-            hi: ['पर्दे के पीछे: कैलकुलेटर का कोड अलग-अलग फ़ाइलों और फ़ोल्डरों में फिर से व्यवस्थित किया गया है। इसके काम करने के तरीके में कुछ नहीं बदलता।']
-        }
+        dev: [
+            'Split the single-file `index.html`: styles into `css/` (`themes`, `app`, `widgets`, `dialogs`, in cascade order), scripts into `js/` (`i18n`, `app`, `bonus-list`, `main`) with one file per widget under `js/widgets/`, the pure rules into `js/lib/` and the Doom iframe into `pages/`. Scripts stay classic, sharing one global scope and loaded in dependency order; `changelog.js` stays at the root because older running copies poll it.',
+            'The update button now re-fetches the cached stylesheets too before reloading.',
+            'Added `README.md`; `scripts/readme.js` generates its version badge and change log from `changelog.js`, and CI fails when it’s stale.'
+        ]
     },
     {
         version: '1.9.5',
         date: '2026-10-25',
-        notes: {
-            he: ['מאחורי הקלעים: החישובים של המרחק, דליברי לייט ורשימת הבונוסים נבדקים עכשיו אוטומטית לפני כל עדכון.'],
-            en: ['Behind the scenes: the distance, Delivery Late and bonus list calculations are now checked automatically before every update.'],
-            ar: ['ورا الكواليس: حسابات المسافة، ديليفري ليت وقائمة البونصات صارت تنفحص أوتوماتيك قبل كل تحديث.'],
-            ka: ['კულისებს მიღმა: მანძილის, დაგვიანებისა და ბონუსების სიის გამოთვლები ახლა ყოველი განახლების წინ ავტომატურად მოწმდება.'],
-            hi: ['पर्दे के पीछे: दूरी, देर से डिलीवरी और बोनस सूची के हिसाब अब हर अपडेट से पहले अपने-आप जाँचे जाते हैं।']
-        }
+        dev: [
+            'Added `tests/run.js`, which runs the browser test pages for `fees`, `delay` and `bonus` in a Node sandbox, and a GitHub Actions workflow that runs it on every push and PR and, on PRs, checks that the top `changelog.js` version is newer than `main`’s.'
+        ]
     },
     {
         version: '1.9.4',

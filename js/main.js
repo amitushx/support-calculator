@@ -41,7 +41,7 @@ setOrderType(orderType);
 setCalc(calc, false);
 applyLanguage();
 firstField().focus();
-if (isNewer(VERSION, versionSeen)) openNews(false);
+if (notedReleases.some(r => isNewer(r.version, versionSeen))) openNews(false);   // not for internal ones
 store.set('version', VERSION);
 
 // Keep the screen awake while the page is visible. The browser releases the

@@ -11,7 +11,10 @@ Every change merged into `main` ships as a new version: before merging, add an
 entry on top of `CHANGELOG` in `changelog.js` with the bumped version (semver:
 patch for fixes and small tweaks, minor for new features), today's date, and a
 user-facing note in all five languages (he, en, ar, ka, hi), in the same PR as
-the change. Then run `node scripts/readme.js` to copy the new version and
+the change. Internal changes users can't see (refactors, tests, CI, tooling,
+docs) still get a patch version, for the refresh offer and the tag, but no
+`notes`: end users don't care. Instead they get `dev`, a technical note in
+English that only the README shows, for developers on GitHub. Then run `node scripts/readme.js` to copy the new version and
 change log into `README.md` (CI fails if it's out of date), and update the
 README's other sections when a feature changes what they describe.
 
