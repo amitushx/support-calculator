@@ -32,6 +32,11 @@ when the version goes up, so every user-facing deploy needs a bump.)
   translated.
 - Exception: leave the Hindi (देर से डिलीवरी) and Georgian (დაგვიანება) names
   of Delivery Late as they are.
+- The two halves of a theme are light mode and dark mode (as the toggle
+  calls them), never "by day" and "by night": the mode is a choice, not
+  the time of day.
+- The breaks widget is **Breaks** (הפסקות), not "Alarms"; its alarms ring
+  for the breaks.
 
 # UI
 

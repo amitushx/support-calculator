@@ -113,14 +113,14 @@ Every 10 minutes a pixel-art Wolt courier also scoots across the page.
 
 Eight color themes, each with a light and a dark version. The mode follows the system until you pick one.
 
-- **Classic**: white and Wolt blue, and a deep night version
+- **Classic**: white and Wolt blue, and a deep dark version
 - **Cute**
 - **Sunset**
 - **Ocean**
 - **Aurora**
-- **Wood**: after gruvbox, mellow cream by day, rich walnut chevron parquet by night
-- **Cyberpunk**: a neon city in magenta, purple and cyan, with CRT scanlines by night
-- **Retro terminal**: green-bar printer paper by day, a glowing green screen by night
+- **Wood**: after gruvbox, mellow cream in light mode, rich walnut chevron parquet in dark mode
+- **Cyberpunk**: a neon city in magenta, purple and cyan, with CRT scanlines in dark mode
+- **Retro terminal**: green-bar printer paper in light mode, a glowing green screen in dark mode
 
 The whole app, help included, is in **Hebrew** (default), **English**, **Arabic**, **Georgian** and **Hindi**, right to left where needed.
 
@@ -190,7 +190,7 @@ CI checks that the version was bumped and that this README is up to date. After 
 
 ### 1.10.0 · 29 October 2026
 
-- A new theme: Wood, inspired by gruvbox. Creamy and mellow by day, rich dark wood parquet by night.
+- A new theme: Wood, inspired by gruvbox. Creamy and mellow in light mode, rich dark wood parquet in dark mode.
 
 ### 1.9.6 · 25 October 2026
 
@@ -230,7 +230,7 @@ CI checks that the version was bumped and that this README is up to date. After 
 
 ### 1.6.0 · 24 October 2026
 
-- The Classic theme is now white and Wolt blue, and there’s a new one: Retro terminal, with printer paper by day and a glowing green screen by night.
+- The Classic theme is now white and Wolt blue, and there’s a new one: Retro terminal, with printer paper in light mode and a glowing green screen in dark mode.
 
 ### 1.5.0 · 24 October 2026
 
