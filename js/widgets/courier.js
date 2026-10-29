@@ -78,8 +78,8 @@ function drawCourier() {
 }
 drawCourier();
 
-// Every 10 minutes he drives across the page from left to right, just
-// above the credit line, moving in steps of his own pixels to stay crisp
+// Every 10 minutes he drives across the page from left to right along the
+// floor, behind the pets, moving in steps of his own pixels to stay crisp
 const road = $('road');
 function scheduleCourier() {
     setTimeout(driveCourier, 10 * 60000);
@@ -91,7 +91,6 @@ function driveCourier() {
     }
     if (matchMedia('(prefers-reduced-motion: reduce)').matches) return scheduleCourier();
     road.hidden = false;
-    road.style.top = `${$('credit').getBoundingClientRect().top + scrollY - courier.offsetHeight - 8}px`;
     const distance = road.clientWidth + courier.offsetWidth;
     const wheels = setInterval(() => { courierStep++; drawCourier(); }, 125);
     courier.animate([

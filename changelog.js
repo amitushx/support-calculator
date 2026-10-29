@@ -1,50 +1,98 @@
 // Releases, newest first. The first entry is the running version: add a new
 // one on top for each release (semver: major.minor.patch) and the What's new
-// window shows it once to everyone who ran an older version.
+// window shows it once to everyone who ran an older version. An internal
+// release (a refactor, tests, tooling) has a `dev` note in English instead
+// of `notes`: users are still offered the refresh, but What's new and the
+// change log skip it; only the README lists it, for developers.
 const CHANGELOG = [
+    {
+        version: '1.13.2',
+        date: '2026-10-29',
+        notes: {
+            he: ['רשימת השינויים מציגה עכשיו רק שינויים שרואים במחשבון.'],
+            en: ['The change log now lists only changes you can see in the calculator.'],
+            ar: ['قائمة التغييرات صارت تعرض بس التغييرات اللي بتبيّن بالحاسبة.'],
+            ka: ['ცვლილებების სია ახლა მხოლოდ იმ ცვლილებებს აჩვენებს, რომლებიც კალკულატორში ჩანს.'],
+            hi: ['बदलावों की सूची अब सिर्फ़ वही बदलाव दिखाती है जो कैलकुलेटर में नज़र आते हैं।']
+        }
+    },
+    {
+        version: '1.13.1',
+        date: '2026-10-29',
+        notes: {
+            he: ['הווידג׳ט ״שעון מעורר״ נקרא עכשיו ״הפסקות״.'],
+            en: ['The Alarms widget is now called Breaks.'],
+            ar: ['ويدجت «منبّه» صار اسمها «بريكات».'],
+            ka: ['ვიჯეტს „მაღვიძარა“ ახლა „შესვენებები“ ჰქვია.'],
+            hi: ['“अलार्म” विजेट का नाम अब “ब्रेक” है।']
+        }
+    },
+    {
+        version: '1.13.0',
+        date: '2026-10-29',
+        notes: {
+            he: ['החתול והכלבלב משחקים עכשיו ביחד: מדי פעם הכלבלב מזמין את החתול לשחק, החתול מחזיר לו בכפה, הם רודפים זה אחרי זה ונפרדים באף לאף. ואם שניהם נרדמים, הם מתכרבלים אחד ליד השני.'],
+            en: ['The cat and the puppy now play together: now and then the puppy invites the cat to play, the cat bats a paw back, they chase each other and part nose to nose. And when both fall asleep, they curl up side by side.'],
+            ar: ['البسّة والجرو صاروا يلعبوا مع بعض: كل فترة الجرو بيعزم البسّة تلعب، البسّة بترد عليه بإيدها، بيلحقوا بعض وبيفترقوا خشم بخشم. ولما الاثنين يناموا، بيتكوّروا جنب بعض.'],
+            ka: ['კატა და ლეკვი ახლა ერთად თამაშობენ: დროდადრო ლეკვი კატას სათამაშოდ იწვევს, კატა თათს ურტყამს, ერთმანეთს მისდევენ და ცხვირით ცხვირთან შეხვედრით ემშვიდობებიან. როცა ორივეს ეძინება, ერთმანეთის გვერდით იკეცებიან.'],
+            hi: ['बिल्ली और पिल्ला अब साथ खेलते हैं: कभी-कभी पिल्ला बिल्ली को खेलने बुलाता है, बिल्ली पंजा मारकर जवाब देती है, दोनों एक-दूसरे का पीछा करते हैं और नाक से नाक मिलाकर अलग होते हैं। और जब दोनों सो जाते हैं, तो एक-दूसरे के पास सिमटकर सोते हैं।']
+        }
+    },
+    {
+        version: '1.12.0',
+        date: '2026-10-29',
+        notes: {
+            he: ['צליל חדש לשעון המעורר: הב הב, הנביחה של הכלבלב.'],
+            en: ['A new alarm sound: Woof, the puppy’s bark.'],
+            ar: ['صوت جديد للمنبّه: هاو هاو، نباح الجرو.'],
+            ka: ['ახალი მაღვიძარას ხმა: ჰავ-ჰავ, ლეკვის ყეფა.'],
+            hi: ['अलार्म की नई आवाज़: भौं-भौं, पिल्ले का भौंकना।']
+        }
+    },
+    {
+        version: '1.11.0',
+        date: '2026-10-29',
+        notes: {
+            he: ['חדש בווידג׳טים: כלבלב! הוא מתנשף, מכשכש בזנב, מתגרד מאחורי האוזן, רץ בטירוף מצד לצד ונרדם כשאין אף אחד בסביבה. לחיצה עליו, והוא נובח. הוא והחתול אף פעם לא יושבים או ישנים אחד על השני.', 'השורה ״נעשה עם ♥״ יושבת עכשיו ברצועה עדינה בתחתית המסך, והחיות והשליח הולכים ונוסעים על הקצה העליון שלה.'],
+            en: ['New in the widgets: a puppy! It pants, wags its tail, scratches behind its ear, runs zoomies and naps when nobody’s around. Click it and it barks. It and the cat never sit or sleep on top of each other.', 'The “Made with ♥” line now sits in a faint band along the bottom of the screen, and the pets and the courier walk and drive along its top edge.'],
+            ar: ['جديد بالويدجتات: جرو! بلهث، بهزّ ذيله، بحكّ ورا دينه، بركض من طرف لطرف وبنام لما ما حدا موجود. كبسة عليه وبينبح. هو والبسّة عمرهم ما بيقعدوا أو بيناموا فوق بعض.', 'سطر «معمول بـ♥» صار بشريط خفيف تحت الشاشة، والحيوانات والمندوب بيمشوا وبيسوقوا على طرفه الفوقاني.'],
+            ka: ['ახალი ვიჯეტებში: ლეკვი! ქოშინებს, კუდს აქნევს, ყურს იფხანს, აქეთ-იქით დარბის და იძინებს, როცა არავინაა. დააწკაპეთ და დაიყეფებს. ის და კატა ერთმანეთზე არასდროს სხდებიან და არ იძინებენ.', 'ხაზი „შექმნილია ♥-ით“ ახლა ეკრანის ბოლოში, ნაზ ზოლშია, ცხოველები და კურიერი კი მის ზედა კიდეზე დადიან.'],
+            hi: ['विजेट में नया: एक पिल्ला! वह हाँफता है, पूँछ हिलाता है, कान के पीछे खुजाता है, इधर-उधर दौड़ लगाता है और जब कोई न हो तो सो जाता है। उस पर क्लिक करें और वह भौंकेगा। वह और बिल्ली कभी एक-दूसरे के ऊपर नहीं बैठते या सोते।', '“♥ से बनाया” वाली पंक्ति अब स्क्रीन के नीचे एक हल्की पट्टी में है, और पालतू और कूरियर उसके ऊपरी किनारे पर चलते हैं।']
+        }
+    },
     {
         version: '1.10.1',
         date: '2026-10-29',
-        notes: {
-            he: ['מאחורי הקלעים: כל גרסה נשמרת עכשיו עם תגית משלה, כך שקל לחזור לכל אחת מהן.'],
-            en: ['Behind the scenes: every version is now saved with its own tag, so any of them is easy to go back to.'],
-            ar: ['ورا الكواليس: كل نسخة صارت تنحفظ مع تاغ خاص فيها، فصار سهل نرجع لأي وحدة منهن.'],
-            ka: ['კულისებს მიღმა: ყოველი ვერსია ახლა საკუთარი ტეგით ინახება, ასე რომ ნებისმიერ მათგანზე დაბრუნება მარტივია.'],
-            hi: ['पर्दे के पीछे: हर संस्करण अब अपने टैग के साथ सहेजा जाता है, ताकि किसी पर भी वापस जाना आसान हो।']
-        }
+        dev: [
+            'Added `.github/workflows/tag.yml`: every push to `main` creates an annotated `v<version>` tag from the top entry of `changelog.js`, skipped when that tag already exists, so any release can be checked out or diffed by name.'
+        ]
     },
     {
         version: '1.10.0',
         date: '2026-10-29',
         notes: {
-            he: ['ערכת צבעים חדשה: עץ, בהשראת gruvbox. ביום היא קרמית ורכה, ובלילה פרקט עץ חום, עמוק ועשיר.'],
-            en: ['A new theme: Wood, inspired by gruvbox. Creamy and mellow by day, rich dark wood parquet by night.'],
-            ar: ['ثيم جديد: خشب، مستوحى من gruvbox. كريمي وهادي بالنهار، وباركيه خشب بني غامق وغني بالليل.'],
-            ka: ['ახალი თემა: ხე, gruvbox-ის შთაგონებით. დღისით კრემისფერი და რბილი, ღამით მდიდარი, მუქი ხის პარკეტი.'],
-            hi: ['नई थीम: लकड़ी, gruvbox से प्रेरित। दिन में क्रीमी और हल्की, रात में गहरी, भरपूर लकड़ी की पार्केट।']
+            he: ['ערכת צבעים חדשה: עץ, בהשראת gruvbox. במצב בהיר היא קרמית ורכה, ובמצב כהה פרקט עץ חום, עמוק ועשיר.'],
+            en: ['A new theme: Wood, inspired by gruvbox. Creamy and mellow in light mode, rich dark wood parquet in dark mode.'],
+            ar: ['ثيم جديد: خشب، مستوحى من gruvbox. كريمي وهادي بالوضع الفاتح، وباركيه خشب بني غامق وغني بالوضع الغامق.'],
+            ka: ['ახალი თემა: ხე, gruvbox-ის შთაგონებით. ნათელ რეჟიმში კრემისფერი და რბილი, მუქ რეჟიმში მდიდარი, მუქი ხის პარკეტი.'],
+            hi: ['नई थीम: लकड़ी, gruvbox से प्रेरित। लाइट मोड में क्रीमी और हल्की, डार्क मोड में गहरी, भरपूर लकड़ी की पार्केट।']
         }
     },
     {
         version: '1.9.6',
         date: '2026-10-25',
-        notes: {
-            he: ['מאחורי הקלעים: הקוד של המחשבון סודר מחדש בקבצים ובתיקיות נפרדים. שום דבר לא משתנה באופן שבו הוא עובד.'],
-            en: ['Behind the scenes: the calculator’s code is reorganized into separate files and folders. Nothing changes in how it works.'],
-            ar: ['ورا الكواليس: كود الحاسبة انرتّب من جديد بملفات ومجلدات منفصلة. ما في إشي بتغيّر بطريقة شغلها.'],
-            ka: ['კულისებს მიღმა: კალკულატორის კოდი ცალკეულ ფაილებად და საქაღალდეებად გადალაგდა. მის მუშაობაში არაფერი იცვლება.'],
-            hi: ['पर्दे के पीछे: कैलकुलेटर का कोड अलग-अलग फ़ाइलों और फ़ोल्डरों में फिर से व्यवस्थित किया गया है। इसके काम करने के तरीके में कुछ नहीं बदलता।']
-        }
+        dev: [
+            'Split the single-file `index.html`: styles into `css/` (`themes`, `app`, `widgets`, `dialogs`, in cascade order), scripts into `js/` (`i18n`, `app`, `bonus-list`, `main`) with one file per widget under `js/widgets/`, the pure rules into `js/lib/` and the Doom iframe into `pages/`. Scripts stay classic, sharing one global scope and loaded in dependency order; `changelog.js` stays at the root because older running copies poll it.',
+            'The update button now re-fetches the cached stylesheets too before reloading.',
+            'Added `README.md`; `scripts/readme.js` generates its version badge and change log from `changelog.js`, and CI fails when it’s stale.'
+        ]
     },
     {
         version: '1.9.5',
         date: '2026-10-25',
-        notes: {
-            he: ['מאחורי הקלעים: החישובים של המרחק, דליברי לייט ורשימת הבונוסים נבדקים עכשיו אוטומטית לפני כל עדכון.'],
-            en: ['Behind the scenes: the distance, Delivery Late and bonus list calculations are now checked automatically before every update.'],
-            ar: ['ورا الكواليس: حسابات المسافة، ديليفري ليت وقائمة البونصات صارت تنفحص أوتوماتيك قبل كل تحديث.'],
-            ka: ['კულისებს მიღმა: მანძილის, დაგვიანებისა და ბონუსების სიის გამოთვლები ახლა ყოველი განახლების წინ ავტომატურად მოწმდება.'],
-            hi: ['पर्दे के पीछे: दूरी, देर से डिलीवरी और बोनस सूची के हिसाब अब हर अपडेट से पहले अपने-आप जाँचे जाते हैं।']
-        }
+        dev: [
+            'Added `tests/run.js`, which runs the browser test pages for `fees`, `delay` and `bonus` in a Node sandbox, and a GitHub Actions workflow that runs it on every push and PR and, on PRs, checks that the top `changelog.js` version is newer than `main`’s.'
+        ]
     },
     {
         version: '1.9.4',
@@ -127,11 +175,11 @@ const CHANGELOG = [
         version: '1.6.0',
         date: '2026-10-24',
         notes: {
-            he: ['ערכת הצבעים הקלאסית עכשיו בלבן ובכחול של וולט, ויש ערכה חדשה: טרמינל רטרו, עם נייר מדפסת ביום ומסך ירוק זוהר בלילה.'],
-            en: ['The Classic theme is now white and Wolt blue, and there’s a new one: Retro terminal, with printer paper by day and a glowing green screen by night.'],
-            ar: ['الثيم الكلاسيك صار بالأبيض والأزرق تبع وولت، وفي ثيم جديد: تيرمينال ريترو، ورق طابعة بالنهار وشاشة خضرا مضوية بالليل.'],
-            ka: ['კლასიკური თემა ახლა თეთრი და Wolt-ის ლურჯია, და დაემატა ახალი: რეტრო ტერმინალი, პრინტერის ქაღალდით დღისით და მწვანედ მანათობელი ეკრანით ღამით.'],
-            hi: ['क्लासिक थीम अब सफ़ेद और वोल्ट नीले में है, और एक नई थीम आई है: रेट्रो टर्मिनल, दिन में प्रिंटर पेपर और रात में चमकती हरी स्क्रीन।']
+            he: ['ערכת הצבעים הקלאסית עכשיו בלבן ובכחול של וולט, ויש ערכה חדשה: טרמינל רטרו, עם נייר מדפסת במצב בהיר ומסך ירוק זוהר במצב כהה.'],
+            en: ['The Classic theme is now white and Wolt blue, and there’s a new one: Retro terminal, with printer paper in light mode and a glowing green screen in dark mode.'],
+            ar: ['الثيم الكلاسيك صار بالأبيض والأزرق تبع وولت، وفي ثيم جديد: تيرمينال ريترو، ورق طابعة بالوضع الفاتح وشاشة خضرا مضوية بالوضع الغامق.'],
+            ka: ['კლასიკური თემა ახლა თეთრი და Wolt-ის ლურჯია, და დაემატა ახალი: რეტრო ტერმინალი, პრინტერის ქაღალდით ნათელ რეჟიმში და მწვანედ მანათობელი ეკრანით მუქ რეჟიმში.'],
+            hi: ['क्लासिक थीम अब सफ़ेद और वोल्ट नीले में है, और एक नई थीम आई है: रेट्रो टर्मिनल, लाइट मोड में प्रिंटर पेपर और डार्क मोड में चमकती हरी स्क्रीन।']
         }
     },
     {

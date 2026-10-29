@@ -11,7 +11,10 @@ Every change merged into `main` ships as a new version: before merging, add an
 entry on top of `CHANGELOG` in `changelog.js` with the bumped version (semver:
 patch for fixes and small tweaks, minor for new features), today's date, and a
 user-facing note in all five languages (he, en, ar, ka, hi), in the same PR as
-the change. Then run `node scripts/readme.js` to copy the new version and
+the change. Internal changes users can't see (refactors, tests, CI, tooling,
+docs) still get a patch version, for the refresh offer and the tag, but no
+`notes`: end users don't care. Instead they get `dev`, a technical note in
+English that only the README shows, for developers on GitHub. Then run `node scripts/readme.js` to copy the new version and
 change log into `README.md` (CI fails if it's out of date), and update the
 README's other sections when a feature changes what they describe.
 
@@ -32,6 +35,11 @@ when the version goes up, so every user-facing deploy needs a bump.)
   translated.
 - Exception: leave the Hindi (देर से डिलीवरी) and Georgian (დაგვიანება) names
   of Delivery Late as they are.
+- The two halves of a theme are light mode and dark mode (as the toggle
+  calls them), never "by day" and "by night": the mode is a choice, not
+  the time of day.
+- The breaks widget is **Breaks** (הפסקות), not "Alarms"; its alarms ring
+  for the breaks.
 
 # UI
 
@@ -74,7 +82,7 @@ A static site for GitHub Pages, no build step.
   code the tests load.
 - `js/`: `i18n.js`, `app.js` (calculators and page), `bonus-list.js`,
   `main.js` (clock tick, startup, wake lock, update check); `js/widgets/`
-  has one file per widget.
+  has one file per widget, plus `pets.js`, shared by the cat and the puppy.
 - Scripts are classic, not modules, sharing one global scope; `index.html`
   loads them in dependency order. Top-level code may only call what earlier
   files define.

@@ -77,7 +77,7 @@ addEventListener('resize', () => {
 });
 
 $('widgetMenu').addEventListener('change', e => {
-    if (e.target.dataset.pet) setCat(e.target.checked);
+    if (e.target.dataset.pet) setPet(e.target.dataset.pet, e.target.checked);
     else setWidget(e.target.dataset.widget, e.target.checked);
 });
 
