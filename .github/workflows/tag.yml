@@ -1,0 +1,28 @@
+name: Tag version
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  tag:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      # The top entry of changelog.js is the version this commit ships; tag it
+      # once, on the merge that brought it in
+      - name: Tag the changelog version
+        run: |
+          version=$(grep -oP "version: '\K[0-9.]+" changelog.js | head -1)
+          tag="v$version"
+          if git ls-remote --exit-code --tags origin "refs/tags/$tag" > /dev/null; then
+            echo "$tag already exists"
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git tag -a "$tag" -m "Support Calculator $version"
+          git push origin "$tag"
