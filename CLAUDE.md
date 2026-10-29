@@ -41,6 +41,10 @@ when the version goes up, so every user-facing deploy needs a bump.)
   href="#i-…"/></svg>` or the `icon(name)` helper. Plain text glyphs like ✓
   and ♡ are fine. One consistent visual language across the app.
 - The app is for PC users: design for keyboard and mouse, not phones.
+- Plan visual designs before coding: for a new theme or look, first show
+  swatches of the proposed palette (and a mockup of any pattern) and wait
+  for approval or tweaks. Iterating in code took several rounds on the
+  Wood theme.
 
 # Ideas turned down
 

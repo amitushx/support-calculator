@@ -7,7 +7,7 @@
 **מחשבון סאפורט** · courier payments and Delivery Late compensation, one keystroke away
 
 <p>
-<!-- version --><img alt="Version" src="https://img.shields.io/badge/version-1.9.6-009DE0?style=for-the-badge"><!-- /version -->
+<!-- version --><img alt="Version" src="https://img.shields.io/badge/version-1.10.0-009DE0?style=for-the-badge"><!-- /version -->
 <a href="https://github.com/amitushx/support-calculator/actions/workflows/tests.yml"><img alt="Tests" src="https://img.shields.io/github/actions/workflow/status/amitushx/support-calculator/tests.yml?branch=main&label=tests&style=for-the-badge"></a>
 <img alt="Languages" src="https://img.shields.io/badge/languages-5-7C3AED?style=for-the-badge">
 <img alt="No build step" src="https://img.shields.io/badge/build-none-22C55E?style=for-the-badge">
@@ -110,13 +110,14 @@ Every 10 minutes a pixel-art Wolt courier also scoots across the page.
 
 ## Themes and languages
 
-Seven color themes, each with a light and a dark version. The mode follows the system until you pick one.
+Eight color themes, each with a light and a dark version. The mode follows the system until you pick one.
 
 - **Classic**: white and Wolt blue, and a deep night version
 - **Cute**
 - **Sunset**
 - **Ocean**
 - **Aurora**
+- **Wood**: after gruvbox, mellow cream by day, rich walnut chevron parquet by night
 - **Cyberpunk**: a neon city in magenta, purple and cyan, with CRT scanlines by night
 - **Retro terminal**: green-bar printer paper by day, a glowing green screen by night
 
@@ -165,6 +166,10 @@ CI checks that the version was bumped and that this README is up to date.
 ## Change log
 
 <!-- changelog -->
+### 1.10.0 · 29 October 2026
+
+- A new theme: Wood, inspired by gruvbox. Creamy and mellow by day, rich dark wood parquet by night.
+
 ### 1.9.6 · 25 October 2026
 
 - Behind the scenes: the calculator’s code is reorganized into separate files and folders. Nothing changes in how it works.

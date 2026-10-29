@@ -3,6 +3,17 @@
 // window shows it once to everyone who ran an older version.
 const CHANGELOG = [
     {
+        version: '1.10.0',
+        date: '2026-10-29',
+        notes: {
+            he: ['ערכת צבעים חדשה: עץ, בהשראת gruvbox. ביום היא קרמית ורכה, ובלילה פרקט עץ חום, עמוק ועשיר.'],
+            en: ['A new theme: Wood, inspired by gruvbox. Creamy and mellow by day, rich dark wood parquet by night.'],
+            ar: ['ثيم جديد: خشب، مستوحى من gruvbox. كريمي وهادي بالنهار، وباركيه خشب بني غامق وغني بالليل.'],
+            ka: ['ახალი თემა: ხე, gruvbox-ის შთაგონებით. დღისით კრემისფერი და რბილი, ღამით მდიდარი, მუქი ხის პარკეტი.'],
+            hi: ['नई थीम: लकड़ी, gruvbox से प्रेरित। दिन में क्रीमी और हल्की, रात में गहरी, भरपूर लकड़ी की पार्केट।']
+        }
+    },
+    {
         version: '1.9.6',
         date: '2026-10-25',
         notes: {
