@@ -416,7 +416,7 @@ $('news').addEventListener('close', () => firstField().focus());
 // Settings backup: the saved settings as a JSON file, to carry to another
 // computer. The calculation history and the day's bonus list stay behind.
 const SETTINGS_KEYS = ['lang', 'theme', 'palette', 'calc', 'orderType', 'bonus', 'bonusCity',
-    'widgets', 'cat', 'historyAll', 'historyOpen'];
+    'widgets', 'cat', 'dog', 'historyAll', 'historyOpen'];
 const BACKUP_APP = 'support-calculator';
 $('exportBtn').addEventListener('click', () => {
     const settings = {};

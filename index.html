@@ -88,6 +88,7 @@
                 <label class="switch"><input type="checkbox" data-widget="note"><span class="track"></span><span data-t="note"></span></label>
                 <label class="switch"><input type="checkbox" data-widget="sky"><span class="track"></span><span data-t="sky"></span></label>
                 <label class="switch"><input type="checkbox" data-pet="cat"><span class="track"></span><span data-t="cat"></span></label>
+                <label class="switch"><input type="checkbox" data-pet="dog"><span class="track"></span><span data-t="dog"></span></label>
                 <label class="switch"><input type="checkbox" data-widget="doom"><span class="track"></span><span data-t="doom"></span></label>
             </div>
         </div>
@@ -169,7 +170,8 @@
 </main>
 <footer id="credit"><span id="creditText"></span> · <button id="versionBtn" type="button" aria-haspopup="dialog" dir="ltr"></button></footer>
 <div id="road" aria-hidden="true" hidden><canvas id="courier"></canvas></div>
-<canvas id="cat" hidden></canvas>
+<canvas id="cat" class="pet" hidden></canvas>
+<canvas id="dog" class="pet" hidden></canvas>
 
 <button id="helpBtn" type="button" aria-haspopup="dialog">
     <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 11v6M12 7.5h.01"/></svg>
@@ -252,8 +254,9 @@
             </ul>
             <h3><svg class="icon"><use href="#i-puzzle"/></svg>Widgets</h3>
             <ul>
-                <li>The <svg class="icon"><use href="#i-puzzle"/></svg> button turns on a clock, alarms, shift progress, a note, the sky, a cat and Doom. Drag them anywhere and they stay put.</li>
+                <li>The <svg class="icon"><use href="#i-puzzle"/></svg> button turns on a clock, alarms, shift progress, a note, the sky, a cat, a puppy and Doom. Drag them anywhere and they stay put.</li>
                 <li>The cat wanders along the bottom of the screen, sits, grooms and falls asleep when nobody's around. Click it and it meows.</li>
+                <li>The puppy pants, wags, scratches an ear, runs zoomies and naps there too. Click it and it barks. The two never sit or sleep on top of each other.</li>
                 <li>Doom downloads the game (about 6.5 MB) only when you press <svg class="icon"><use href="#i-player-play"/></svg>. Arrows move, <kbd>Ctrl</kbd> fires, <kbd>Space</kbd> opens doors, and <kbd>F</kbd> or <svg class="icon"><use href="#i-maximize"/></svg> goes full screen.</li>
                 <li>Set alarms for the long break, the short break and the end of the shift, and pick a sound. For a long shift, <svg class="icon"><use href="#i-plus"/></svg> adds a second short break. When one rings, click or press <kbd>Esc</kbd> to stop it.</li>
                 <li>Shift progress draws a line from the start of the shift to the end, with the breaks from the alarms. The start is set by itself, from the first time you open the calculator in the shift; click it to correct it. Stopping the Ending alarm sets off a celebration.</li>
@@ -485,7 +488,9 @@
 <script src="js/widgets/alarm.js"></script>
 <script src="js/widgets/shift.js"></script>
 <script src="js/widgets/courier.js"></script>
+<script src="js/widgets/pets.js"></script>
 <script src="js/widgets/cat.js"></script>
+<script src="js/widgets/dog.js"></script>
 <script src="js/widgets/sky.js"></script>
 <script src="js/bonus-list.js"></script>
 <script src="js/main.js"></script>

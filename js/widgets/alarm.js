@@ -98,6 +98,58 @@ function meow(out, at, { pitch = 1, dur = 0.75, peak = 0.5 } = {}) {
     return voice;
 }
 
+// A synthesized puppy bark, "wuff": a short, rough voice that jumps up and
+// drops, through a mouth that snaps open and closes again. `pitch` varies it.
+function bark(out, at, { pitch = 1, dur = 0.2, peak = 0.5 } = {}) {
+    const end = at + dur;
+    const t = f => at + f * dur;
+
+    const voice = audio.createOscillator();
+    voice.type = 'sawtooth';
+    voice.frequency.setValueAtTime(480 * pitch, at);
+    voice.frequency.linearRampToValueAtTime(620 * pitch, t(.2));
+    voice.frequency.exponentialRampToValueAtTime(260 * pitch, end);
+
+    // Roughness: a burst of noise alongside the voice
+    const noise = audio.createBufferSource();
+    noise.buffer = audio.createBuffer(1, Math.ceil(audio.sampleRate * dur), audio.sampleRate);
+    const samples = noise.buffer.getChannelData(0);
+    for (let i = 0; i < samples.length; i++) samples[i] = Math.random() * 2 - 1;
+    const rough = audio.createGain();
+    rough.gain.value = 0.3;
+    noise.connect(rough);
+
+    // The "u" to "a" and back: one broad formant, behind the mouth
+    const formant = audio.createBiquadFilter();
+    formant.type = 'bandpass';
+    formant.Q.value = 2;
+    formant.frequency.setValueAtTime(700, at);
+    formant.frequency.linearRampToValueAtTime(1300, t(.3));
+    formant.frequency.linearRampToValueAtTime(800, end);
+    const mouth = audio.createBiquadFilter();
+    mouth.type = 'lowpass';
+    mouth.frequency.setValueAtTime(600, at);
+    mouth.frequency.exponentialRampToValueAtTime(3000, t(.25));
+    mouth.frequency.exponentialRampToValueAtTime(700, end);
+    voice.connect(formant);
+    rough.connect(formant);
+    formant.connect(mouth);
+
+    // Loudness: a sharp attack, then a quick fall
+    const envelope = audio.createGain();
+    envelope.gain.setValueAtTime(0.0001, at);
+    envelope.gain.exponentialRampToValueAtTime(peak * 1.1, t(.06));
+    envelope.gain.linearRampToValueAtTime(peak * 0.8, t(.5));
+    envelope.gain.exponentialRampToValueAtTime(0.0001, end);
+    mouth.connect(envelope).connect(out);
+
+    for (const node of [voice, noise]) {
+        node.start(at);
+        node.stop(end + 0.02);
+    }
+    return voice;
+}
+
 // Synthesized alarm sounds: play() plays one round starting at `at`,
 // repeated every `period` seconds while ringing
 const SOUNDS = {

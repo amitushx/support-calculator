@@ -74,7 +74,7 @@ A static site for GitHub Pages, no build step.
   code the tests load.
 - `js/`: `i18n.js`, `app.js` (calculators and page), `bonus-list.js`,
   `main.js` (clock tick, startup, wake lock, update check); `js/widgets/`
-  has one file per widget.
+  has one file per widget, plus `pets.js`, shared by the cat and the puppy.
 - Scripts are classic, not modules, sharing one global scope; `index.html`
   loads them in dependency order. Top-level code may only call what earlier
   files define.
