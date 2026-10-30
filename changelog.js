@@ -6,6 +6,17 @@
 // change log skip it; only the README lists it, for developers.
 const CHANGELOG = [
     {
+        version: '1.13.3',
+        date: '2026-10-30',
+        notes: {
+            he: ['לוגו חדש למחשבון סאפורט, גם בלשונית הדפדפן.'],
+            en: ['A new Support Calculator logo, in the browser tab too.'],
+            ar: ['شعار جديد لحاسبة السبورت، كمان بتبويب المتصفح.'],
+            ka: ['მხარდაჭერის კალკულატორის ახალი ლოგო, ბრაუზერის ჩანართშიც.'],
+            hi: ['सपोर्ट कैलकुलेटर का नया लोगो, ब्राउज़र टैब में भी।']
+        }
+    },
+    {
         version: '1.13.2',
         date: '2026-10-29',
         notes: {
