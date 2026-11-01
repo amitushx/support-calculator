@@ -3,11 +3,10 @@
 // window shows it once to everyone who ran an older version. An internal
 // release (a refactor, tests, tooling) has a `dev` note in English instead
 // of `notes`: users are still offered the refresh, but What's new and the
-// change log skip it; only the README lists it, for developers. A release
-// can have both; the README then lists the dev note after the English one.
+// change log skip it; only the README lists it, for developers.
 const CHANGELOG = [
     {
-        version: '1.14.4',
+        version: '1.14.5',
         date: '2026-11-01',
         notes: {
             he: ['במחשבון המרחק, Esc מנקה גם את שדה הבונוס.'],
@@ -15,7 +14,11 @@ const CHANGELOG = [
             ar: ['بحاسبة المسافة، Esc كمان بيمسح خانة البونص.'],
             ka: ['მანძილის კალკულატორში Esc ბონუსის ველსაც ასუფთავებს.'],
             hi: ['दूरी कैलकुलेटर में, Esc अब बोनस वाला फ़ील्ड भी साफ़ कर देता है।']
-        },
+        }
+    },
+    {
+        version: '1.14.4',
+        date: '2026-11-01',
         dev: [
             'Added `tests/smoke.js`, run by `tests/run.js`: it serves the site locally, loads `index.html` in headless Firefox over WebDriver BiDi (no dependencies) and fails on any script error, a calculator that doesn’t answer, a language that leaves a `data-t` text empty or shows `undefined`/`NaN`, or a widget that doesn’t open. Skipped without Firefox, except in CI.'
         ]
