@@ -6,6 +6,17 @@
 // change log skip it; only the README lists it, for developers.
 const CHANGELOG = [
     {
+        version: '1.14.5',
+        date: '2026-11-01',
+        notes: {
+            he: ['במחשבון המרחק, Esc מנקה גם את שדה הבונוס.'],
+            en: ['In the Distance calculator, Esc also clears the bonus field.'],
+            ar: ['بحاسبة المسافة، Esc كمان بيمسح خانة البونص.'],
+            ka: ['მანძილის კალკულატორში Esc ბონუსის ველსაც ასუფთავებს.'],
+            hi: ['दूरी कैलकुलेटर में, Esc अब बोनस वाला फ़ील्ड भी साफ़ कर देता है।']
+        }
+    },
+    {
         version: '1.14.4',
         date: '2026-11-01',
         dev: [

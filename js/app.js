@@ -477,6 +477,8 @@ document.addEventListener('keydown', e => {
         } else {
             $('distance').value = '';
             $('walker').checked = false;
+            $('bonus').value = '';
+            store.set('bonus', '');
             if (bonusCity) setBonusCity(null);   // back to the manual bonus
         }
         render();

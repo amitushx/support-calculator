@@ -7,7 +7,7 @@
 **מחשבון סאפורט** · courier payments and Delivery Late compensation, one keystroke away
 
 <p>
-<!-- version --><img alt="Version" src="https://img.shields.io/badge/version-1.14.4-009DE0?style=for-the-badge"><!-- /version -->
+<!-- version --><img alt="Version" src="https://img.shields.io/badge/version-1.14.5-009DE0?style=for-the-badge"><!-- /version -->
 <a href="https://github.com/amitushx/support-calculator/actions/workflows/tests.yml"><img alt="Tests" src="https://img.shields.io/github/actions/workflow/status/amitushx/support-calculator/tests.yml?branch=main&label=tests&style=for-the-badge"></a>
 <img alt="Languages" src="https://img.shields.io/badge/languages-5-7C3AED?style=for-the-badge">
 <img alt="No build step" src="https://img.shields.io/badge/build-none-22C55E?style=for-the-badge">
@@ -168,6 +168,10 @@ CI checks that the version was bumped and that this README is up to date. After 
 ## Change log
 
 <!-- changelog -->
+### 1.14.5 · 1 November 2026
+
+- In the Distance calculator, Esc also clears the bonus field.
+
 ### 1.14.4 · 1 November 2026 · internal
 
 - Added `tests/smoke.js`, run by `tests/run.js`: it serves the site locally, loads `index.html` in headless Firefox over WebDriver BiDi (no dependencies) and fails on any script error, a calculator that doesn’t answer, a language that leaves a `data-t` text empty or shows `undefined`/`NaN`, or a widget that doesn’t open. Skipped without Firefox, except in CI.
