@@ -169,4 +169,6 @@ function setPet(name, on) {
     if (!on) return;
     pet.place();
     pet.start();
+    // Drops onto the floor with a little bounce
+    glide(pet.el, { transform: ['translateY(-28px) scale(.7)', 'none'], opacity: [0, 1], transformOrigin: ['50% 100%', '50% 100%'] });
 }

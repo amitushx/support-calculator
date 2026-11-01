@@ -31,7 +31,11 @@ function setWidget(name, on) {
     const w = widgets[name];
     const el = widgetEl(name);
     w.on = on;
-    el.hidden = !on;
+    // Pops in out of a blur; squashes flat as it closes
+    reveal(el, on,
+        { opacity: [0, 1], transform: ['scale(.4, .6)', 'none'], filter: ['blur(8px)', 'blur(0)'] },
+        { opacity: [1, 0], transform: ['none', 'scale(1.1, .2)'], filter: ['blur(0)', 'blur(6px)'] },
+        { duration: 220 });
     $('widgetMenu').querySelector(`[data-widget="${name}"]`).checked = on;
     if (on) {
         el.style.zIndex = ++topZ;
@@ -49,16 +53,22 @@ for (const name of WIDGETS) {
     const el = widgetEl(name);
     el.addEventListener('pointerdown', e => {
         el.style.zIndex = ++topZ;
-        if (e.button !== 0 || e.target.closest('input, textarea, select, button, label') || el.classList.contains('big')) return;
+        if (e.button !== 0 || e.target.closest('input, textarea, select, button, label, .dd') || el.classList.contains('big')) return;
         const dx = e.clientX - el.offsetLeft;
         const dy = e.clientY - el.offsetTop;
-        const move = e => placeWidget(name, e.clientX - dx, e.clientY - dy);
+        const wobble = el.jelly ??= jelly(el);
+        const move = e => {
+            placeWidget(name, e.clientX - dx, e.clientY - dy);
+            wobble.move(e.clientX);
+        };
         el.setPointerCapture(e.pointerId);
         el.classList.add('dragging');
+        wobble.grab(dx, dy, e.clientX);
         el.addEventListener('pointermove', move);
         el.addEventListener('lostpointercapture', () => {
             el.removeEventListener('pointermove', move);
             el.classList.remove('dragging');
+            wobble.release();
             widgets[name].x = el.offsetLeft;
             widgets[name].y = el.offsetTop;
             saveWidgets();

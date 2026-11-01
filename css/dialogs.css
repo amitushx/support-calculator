@@ -68,6 +68,11 @@
     box-shadow: var(--shadow);
 }
 #help::backdrop, #news::backdrop { background: rgba(0, 0, 0, .35); }
+/* Dialogs rise in on the spring over a fading backdrop */
+.motion :is(#help, #news)[open] { animation: dialog-in var(--dur) var(--spring); }
+.motion :is(#help, #news)[open]::backdrop { animation: backdrop-in .3s ease-out; }
+@keyframes dialog-in { from { opacity: 0; scale: .92 .88; translate: 0 16px; } }
+@keyframes backdrop-in { from { opacity: 0; } }
 .help-inner { padding: 22px 24px 24px; }
 .help-head {
     display: flex;

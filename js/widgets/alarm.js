@@ -342,6 +342,7 @@ $('alarmShort2Btn').addEventListener('click', () => {
 });
 
 // Alarm sound; picking one plays a preview
+dropdown($('alarmSound'), { small: true });
 $('alarmSound').value = alarm.sound;
 $('alarmSound').addEventListener('change', () => {
     alarm.sound = $('alarmSound').value;
