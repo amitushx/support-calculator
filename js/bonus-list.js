@@ -104,6 +104,7 @@ function updateBonus() {
 }
 
 $('bonusPasteBtn').addEventListener('click', pasteBonusList);
+dropdown($('bonusCity'));
 $('bonusCity').addEventListener('change', () => setBonusCity($('bonusCity').value));
 setInterval(updateBonus, 15000);
 document.addEventListener('visibilitychange', updateBonus);

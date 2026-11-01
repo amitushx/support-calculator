@@ -77,6 +77,7 @@ function morph(change, { enter, leave } = {}) {
     if (Math.abs(to - from) < 1) return;
     // The card clips its contents while it glides, menus included
     closeMenus();
+    closeDropdowns();
     document.querySelectorAll('.menu').forEach(m => m.exiting?.finish());
     const leaving = leave?.hidden ? leave : null;
     if (leaving) leaving.hidden = false;
@@ -425,6 +426,7 @@ document.addEventListener('pointerdown', e => {
 for (const [code, t] of Object.entries(translations)) {
     $('lang').add(Object.assign(new Option(t.name, code), { lang: code }));
 }
+dropdown($('lang'), { small: true, end: true });
 $('lang').addEventListener('change', () => {
     lang = $('lang').value;
     store.set('lang', lang);
@@ -533,7 +535,7 @@ document.addEventListener('keydown', e => {
         if (busy) return;
     }
     // Let widgets (e.g. the note) take typing without triggering shortcuts
-    if (e.target.closest('.widget, .menu, #alarmOverlay, #lang')) return;
+    if (e.target.closest('.widget, .menu, #alarmOverlay, .dd')) return;
     if (e.ctrlKey || e.metaKey || e.altKey) return;
     if (e.key === 'Enter') {
         e.preventDefault();

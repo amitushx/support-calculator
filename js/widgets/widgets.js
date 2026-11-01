@@ -53,7 +53,7 @@ for (const name of WIDGETS) {
     const el = widgetEl(name);
     el.addEventListener('pointerdown', e => {
         el.style.zIndex = ++topZ;
-        if (e.button !== 0 || e.target.closest('input, textarea, select, button, label') || el.classList.contains('big')) return;
+        if (e.button !== 0 || e.target.closest('input, textarea, select, button, label, .dd') || el.classList.contains('big')) return;
         const dx = e.clientX - el.offsetLeft;
         const dy = e.clientY - el.offsetTop;
         const wobble = el.jelly ??= jelly(el);

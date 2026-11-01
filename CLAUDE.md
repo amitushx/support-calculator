@@ -49,6 +49,10 @@ when the version goes up, so every user-facing deploy needs a bump.)
   href="#i-…"/></svg>` or the `icon(name)` helper. Plain text glyphs like ✓
   and ♡ are fine. One consistent visual language across the app.
 - The app is for PC users: design for keyboard and mouse, not phones.
+- Dropdowns: never a bare `<select>`, whose open list the browser draws in
+  its own style. Wrap it with `dropdown()` (`js/dropdown.js`, the filled
+  pill the user picked, or `small: true` for plain text); code keeps using
+  the select's value, options and change event.
 - Motion is liquid and on one spring (`--spring` in `app.css`): anything new
   that appears, closes, resizes the card or moves should use the helpers in
   `js/motion.js` (`glide`, `reveal`, `dripIn`, `morph` in `app.js`) or CSS
@@ -92,7 +96,8 @@ A static site for GitHub Pages, no build step.
   loaded in that order; the cascade depends on it.
 - `js/lib/`: the pure rules (`fees.js`, `delay.js`, `bonus.js`), the only
   code the tests load.
-- `js/`: `i18n.js`, `motion.js` (spring animation helpers), `app.js` (calculators and page), `bonus-list.js`,
+- `js/`: `i18n.js`, `motion.js` (spring animation helpers), `dropdown.js`
+  (styled dropdowns over hidden selects), `app.js` (calculators and page), `bonus-list.js`,
   `main.js` (clock tick, startup, wake lock, update check); `js/widgets/`
   has one file per widget, plus `pets.js`, shared by the cat and the puppy.
 - Scripts are classic, not modules, sharing one global scope; `index.html`

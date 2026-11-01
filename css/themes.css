@@ -198,7 +198,10 @@
 }
 :root[data-palette="cyber"] #result,
 :root[data-palette="cyber"] .widget,
-:root[data-palette="cyber"] .menu { border-radius: var(--radius); }
+:root[data-palette="cyber"] .menu,
+:root[data-palette="cyber"] .dd-list,
+:root[data-palette="cyber"] .dd:not(.small) .dd-btn,
+:root[data-palette="cyber"] .dd-hl { border-radius: var(--radius); }
 :root[data-palette="cyber"] #amount { text-shadow: 0 0 14px rgba(0, 190, 230, .35); }
 :root[data-palette="cyber"][data-mode="dark"] #amount { text-shadow: 0 0 14px rgba(0, 240, 255, .6); }
 :root[data-palette="cyber"][data-mode="dark"] .track::after { background: var(--text); }
@@ -249,7 +252,10 @@
 :root[data-palette="retro"] .widget,
 :root[data-palette="retro"] .menu,
 :root[data-palette="retro"] .tabs,
-:root[data-palette="retro"] .tabs button { border-radius: 0; }
+:root[data-palette="retro"] .tabs button,
+:root[data-palette="retro"] .dd-list,
+:root[data-palette="retro"] .dd-btn,
+:root[data-palette="retro"] .dd-hl { border-radius: 0; }
 :root[data-palette="retro"] #amount::after {   /* a blinking cursor after the sum */
     content: '_';
     animation: retro-cursor 1s steps(1) infinite;

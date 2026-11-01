@@ -46,22 +46,96 @@ header {
     gap: 12px;
     margin-bottom: 28px;
 }
-#lang {
-    padding: 0;
+
+/* Dropdowns (js/dropdown.js): a filled pill, or plain text with a chevron
+   (.small), opening a card like the header menus */
+.dd { position: relative; }
+.dd-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    width: 100%;
+    padding: 7px 12px;
     border: none;
+    border-radius: 10px;
+    background: var(--bg);
+    color: var(--text);
+    font: inherit;
+    font-size: 15px;
+    text-align: start;
+    cursor: pointer;
+    transition: background .15s, box-shadow .15s;
+}
+.dd-btn:hover { background: var(--accent-soft); }
+.dd.open .dd-btn { box-shadow: 0 0 0 2px var(--accent) inset; }
+.dd-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.dd-btn span { flex: 1; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+.dd-btn .icon { flex: none; width: 15px; height: 15px; color: var(--muted); transition: color .15s; }
+.motion .dd-btn .icon { transition: color .15s, rotate var(--dur) var(--spring); }
+.dd.open .dd-btn .icon { rotate: 180deg; color: var(--accent); }
+.dd.small .dd-btn {
+    width: auto;
+    padding: 0;
+    border-radius: 4px;
     background: none;
     color: var(--muted);
-    font: inherit;
     font-size: 13px;
-    cursor: pointer;
-    color-scheme: var(--scheme);
-    field-sizing: content;   /* as wide as the chosen language, not the longest */
+    gap: 4px;
 }
-#lang:hover, #lang:focus-visible { color: var(--text); }
-/* An open dropdown list doesn't follow color-scheme everywhere (Linux
-   keeps it white), while its options inherit the select's light text in
-   dark mode; theme the options themselves */
-option { background-color: var(--card); color: var(--text); }
+.dd.small .dd-btn:hover, .dd.small.open .dd-btn { color: var(--text); box-shadow: none; }
+.dd.small .dd-btn .icon { width: 13px; height: 13px; }
+.dd-list {
+    position: absolute;
+    top: calc(100% + 8px);
+    inset-inline-start: 0;
+    z-index: 1000;
+    min-width: 100%;
+    max-height: 240px;
+    overflow: auto;
+    padding: 5px;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, .14);
+    white-space: nowrap;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+    scrollbar-color: var(--line) transparent;
+    transform-origin: 0 0;
+    outline: none;
+}
+.dd-list[hidden] { display: none; }
+.dd.small .dd-list { inset-inline-start: -10px; top: calc(100% + 10px); }
+.dd.end .dd-list { inset-inline: auto -10px; transform-origin: 100% 0; }
+[dir="rtl"] .dd-list { transform-origin: 100% 0; }
+[dir="rtl"] .dd.end .dd-list { transform-origin: 0 0; }
+/* The highlight under the row the mouse or the arrow keys are on */
+.dd-hl {
+    position: absolute;
+    inset-inline: 5px;
+    top: 0;
+    border-radius: 9px;
+    background: var(--accent-soft);
+    opacity: 0;
+    pointer-events: none;
+}
+.motion .dd-hl { transition: translate .32s var(--spring), height .32s var(--spring), opacity .15s; }
+.dd-opt {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 7px 0;
+    padding-inline: 8px 14px;
+    font-size: 14px;
+    color: var(--text);
+    cursor: pointer;
+}
+.dd-opt .tick { width: 14px; color: var(--accent); font-weight: 700; text-align: center; visibility: hidden; }
+.dd-opt[aria-selected="true"] { color: var(--accent); font-weight: 500; }
+.dd-opt[aria-selected="true"] .tick { visibility: visible; }
+.dd-opt.first:not(:last-child) { margin-bottom: 5px; }   /* "Manual bonus", apart from the cities */
+.dd-opt.first:not(:last-child)::after { content: ''; position: absolute; inset: auto 8px -3px; height: 1px; background: var(--line); }
 .actions { position: relative; display: flex; align-items: center; gap: 14px; }
 /* Line icons from the sprite at the top of <body> */
 .icon {
@@ -238,20 +312,7 @@ option { background-color: var(--card); color: var(--text); }
 #bonusField { width: 150px; min-width: 0; }
 #bonusField input { font-size: 18px; }
 .bonus-pick { display: flex; align-items: center; gap: 10px; margin-top: 16px; }
-#bonusCity {
-    flex: 1;
-    min-width: 0;
-    padding: 6px 8px;
-    border: 1px solid var(--line);
-    border-radius: 8px;
-    background: var(--card);
-    color: var(--text);
-    font: inherit;
-    font-size: 15px;
-    cursor: pointer;
-    color-scheme: var(--scheme);
-}
-#bonusCity:focus { outline: none; border-color: var(--accent); }
+.bonus-pick .dd { flex: 1; min-width: 0; }
 #bonusPasteBtn {
     display: grid;
     padding: 0;

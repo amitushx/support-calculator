@@ -69,15 +69,7 @@
     margin-top: 8px;
     font-size: 13px;
 }
-.alarm-sound select {
-    padding: 0;
-    border: none;
-    background: none;
-    color: var(--text);
-    font: inherit;
-    cursor: pointer;
-    color-scheme: var(--scheme);
-}
+.alarm-sound .dd-btn { color: var(--text); }
 #w-note { background: var(--accent-soft); }
 
 /* Shift progress: start to end, with the breaks as points on the line */
