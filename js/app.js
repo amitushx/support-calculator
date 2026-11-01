@@ -438,8 +438,8 @@ $('helpBtn').addEventListener('click', () => {
     closeMenus();
     $('help').showModal();
 });
-$('helpClose').addEventListener('click', () => $('help').close());
-$('help').addEventListener('click', e => { if (e.target === $('help')) $('help').close(); });
+$('helpClose').addEventListener('click', () => closeDialog($('help')));
+$('help').addEventListener('click', e => { if (e.target === $('help')) closeDialog($('help')); });
 $('help').addEventListener('close', () => firstField().focus());
 
 // What's new: after an update, the latest release; the change log button
@@ -476,13 +476,14 @@ function openNews(all) {
     closeMenus();
     newsAll = all;
     renderNews();
+    keepDialog($('news'));
     if (!$('news').open) $('news').showModal();
     $('news').scrollTop = 0;
 }
 $('versionBtn').addEventListener('click', () => openNews(true));
 $('changelogBtn').addEventListener('click', () => openNews(true));
-$('newsClose').addEventListener('click', () => $('news').close());
-$('news').addEventListener('click', e => { if (e.target === $('news')) $('news').close(); });
+$('newsClose').addEventListener('click', () => closeDialog($('news')));
+$('news').addEventListener('click', e => { if (e.target === $('news')) closeDialog($('news')); });
 $('news').addEventListener('close', () => firstField().focus());
 
 // Settings backup: the saved settings as a JSON file, to carry to another
