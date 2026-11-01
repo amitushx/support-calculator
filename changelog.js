@@ -6,6 +6,17 @@
 // change log skip it; only the README lists it, for developers.
 const CHANGELOG = [
     {
+        version: '1.14.2',
+        date: '2026-11-01',
+        notes: {
+            he: ['במחשבון המרחק, Esc מחזיר גם את בחירת העיר ל״בונוס ידני״.'],
+            en: ['In the Distance calculator, Esc also sets the city menu back to “Manual bonus”.'],
+            ar: ['بحاسبة المسافة، Esc كمان بيرجّع قائمة المدن لـ«بونص يدوي».'],
+            ka: ['მანძილის კალკულატორში Esc ქალაქების მენიუსაც აბრუნებს „ხელით მითითებულ ბონუსზე“.'],
+            hi: ['दूरी कैलकुलेटर में, Esc अब शहर वाले मेनू को भी “मैनुअल बोनस” पर लौटा देता है।']
+        }
+    },
+    {
         version: '1.14.1',
         date: '2026-11-01',
         notes: {
