@@ -6,6 +6,13 @@
 // change log skip it; only the README lists it, for developers.
 const CHANGELOG = [
     {
+        version: '1.14.4',
+        date: '2026-11-01',
+        dev: [
+            'Added `tests/smoke.js`, run by `tests/run.js`: it serves the site locally, loads `index.html` in headless Firefox over WebDriver BiDi (no dependencies) and fails on any script error, a calculator that doesn’t answer, a language that leaves a `data-t` text empty or shows `undefined`/`NaN`, or a widget that doesn’t open. Skipped without Firefox, except in CI.'
+        ]
+    },
+    {
         version: '1.14.3',
         date: '2026-11-01',
         dev: [
