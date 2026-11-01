@@ -6,6 +6,13 @@
 // change log skip it; only the README lists it, for developers.
 const CHANGELOG = [
     {
+        version: '1.14.3',
+        date: '2026-11-01',
+        dev: [
+            'Added `tests/i18n.html`: every language in `js/i18n.js` has the same keys as Hebrew, with the same kind of value, function arity and `{placeholders}`, and no empty texts; every user-facing `changelog.js` entry has notes in all five languages, item for item, and internal ones a `dev` note; versions go down and dates never go up.'
+        ]
+    },
+    {
         version: '1.14.2',
         date: '2026-11-01',
         notes: {
