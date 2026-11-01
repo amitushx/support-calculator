@@ -43,6 +43,7 @@ applyLanguage();
 firstField().focus();
 if (notedReleases.some(r => isNewer(r.version, versionSeen))) openNews(false);   // not for internal ones
 store.set('version', VERSION);
+startMotion();   // from here on, changes animate
 
 // Keep the screen awake while the page is visible. The browser releases the
 // lock when the tab is hidden, so re-request on visibility change; also retry
@@ -79,7 +80,9 @@ async function checkForUpdate() {
     try {
         const res = await fetch(`changelog.js?check=${Date.now()}`, { cache: 'no-store' });
         const deployed = (await res.text()).match(/version:\s*'(\d+\.\d+\.\d+)'/)?.[1];
-        if (deployed && isNewer(deployed, VERSION)) $('update').hidden = false;
+        if (deployed && isNewer(deployed, VERSION)) reveal($('update'), true, {
+            opacity: [0, 1], transform: ['translate(-50%, -24px) scale(.9)', 'translateX(-50%)']
+        });
     } catch {
         // Offline - try again later
     }

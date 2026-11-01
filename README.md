@@ -7,7 +7,7 @@
 **מחשבון סאפורט** · courier payments and Delivery Late compensation, one keystroke away
 
 <p>
-<!-- version --><img alt="Version" src="https://img.shields.io/badge/version-1.14.5-009DE0?style=for-the-badge"><!-- /version -->
+<!-- version --><img alt="Version" src="https://img.shields.io/badge/version-1.15.0-009DE0?style=for-the-badge"><!-- /version -->
 <a href="https://github.com/amitushx/support-calculator/actions/workflows/tests.yml"><img alt="Tests" src="https://img.shields.io/github/actions/workflow/status/amitushx/support-calculator/tests.yml?branch=main&label=tests&style=for-the-badge"></a>
 <img alt="Languages" src="https://img.shields.io/badge/languages-5-7C3AED?style=for-the-badge">
 <img alt="No build step" src="https://img.shields.io/badge/build-none-22C55E?style=for-the-badge">
@@ -122,6 +122,8 @@ Eight color themes, each with a light and a dark version. The mode follows the s
 - **Cyberpunk**: a neon city in magenta, purple and cyan, with CRT scanlines in dark mode
 - **Retro terminal**: green-bar printer paper in light mode, a glowing green screen in dark mode
 
+Everything moves on one soft spring: the calculator glides to its new size, switches bounce over (holding the mouse down on a switch or a tab starts the move, letting go finishes it), menus and widgets pop in, a dragged widget wobbles like jelly, and a new mode or theme pours out of its button. All of it stays still when the system asks for reduced motion.
+
 The whole app, help included, is in **Hebrew** (default), **English**, **Arabic**, **Georgian** and **Hindi**, right to left where needed.
 
 ## Development
@@ -140,7 +142,7 @@ changelog.js        releases, newest first (stays at the root: older copies poll
 assets/             the logo, favicons and app icons
 css/                themes · app · widgets · dialogs, loaded in that order
 js/lib/             the rules: fees.js, delay.js, bonus.js
-js/                 i18n.js, app.js, bonus-list.js, main.js
+js/                 i18n.js, motion.js, app.js, bonus-list.js, main.js
 js/widgets/         one file per widget; pets.js is shared by the cat and the puppy
 pages/doom.html     the Doom widget's frame
 scripts/readme.js   writes the version and change log below
@@ -168,6 +170,10 @@ CI checks that the version was bumped and that this README is up to date. After 
 ## Change log
 
 <!-- changelog -->
+### 1.15.0 · 2 November 2026
+
+- Liquid motion everywhere: the calculator glides to its new size, switches bounce over, widgets pop in and wobble as you drag them, and light or dark mode and the themes pour across the screen from their button. It stays still if your computer is set to reduce motion.
+
 ### 1.14.5 · 1 November 2026
 
 - In the Distance calculator, Esc also clears the bonus field.

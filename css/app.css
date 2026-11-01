@@ -4,6 +4,16 @@
    the floor the pets and the courier stand on */
 :root { --floor: 40px; }
 
+/* Motion (see js/motion.js): one spring for everything that glides, as a
+   CSS easing curve. Transitions only apply under .motion, set after
+   startup unless the system asks for reduced motion. */
+:root {
+    --spring: linear(0, 0.04, 0.139, 0.268, 0.408, 0.543, 0.666, 0.771, 0.857, 0.924, 0.973, 1.007, 1.029, 1.041, 1.046, 1.045, 1.042, 1.036, 1.03, 1.023, 1.018, 1.012, 1.008, 1.005, 1.002, 1, 0.999, 0.998, 0.998, 0.998, 0.998, 0.998, 0.999, 0.999, 0.999, 0.999, 1);
+    --dur: 520ms;
+}
+/* A new mode or palette floods out of its button (floodTheme) */
+::view-transition-old(root), ::view-transition-new(root) { animation: none; mix-blend-mode: normal; }
+
 body {
     min-height: 100vh;
     display: grid;
@@ -76,9 +86,13 @@ option { background-color: var(--card); color: var(--text); }
 #historyBtn:hover, #widgetsBtn:hover, #paletteBtn:hover, #theme:hover, #historyBtn[aria-expanded="true"],
 #widgetsBtn[aria-expanded="true"], #paletteBtn[aria-expanded="true"] { color: var(--accent); }
 
-/* Segmented switches: which calculator, and the order type */
+/* Segmented switches: which calculator, and the order type. A pill
+   behind the buttons marks the chosen one; moving over, its leading edge
+   sets off first and the trailing edge follows, so it stretches across. */
 .tabs {
+    position: relative;
     display: flex;
+    overflow: hidden;   /* the pill's overshoot squashes against the edge */
     padding: 3px;
     margin-bottom: 24px;
     background: var(--bg);
@@ -94,14 +108,37 @@ option { background-color: var(--card); color: var(--text); }
     font: inherit;
     font-size: 14px;
     cursor: pointer;
-    transition: color .15s, background .15s;
+    transition: color .15s;
+    position: relative;   /* above the pill */
 }
 .tabs button:hover { color: var(--text); }
-.tabs button[aria-selected="true"] { background: var(--accent-soft); color: var(--accent); font-weight: 500; }
+.tabs button[aria-selected="true"] { color: var(--accent); font-weight: 500; }
 .tabs button:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+.tabs .pill {
+    position: absolute;
+    inset-block: 3px;
+    inset-inline: 3px 50%;
+    border-radius: inherit;
+    background: var(--accent-soft);
+}
+.tabs:has(button:last-of-type[aria-selected="true"]) .pill { inset-inline: 50% 3px; }
+.motion .tabs .pill {
+    transition: inset-inline-start var(--dur) var(--spring), inset-inline-end var(--dur) var(--spring);
+    transition-delay: 0s, 70ms;
+}
+.motion .tabs:has(button:last-of-type[aria-selected="true"]) .pill { transition-delay: 70ms, 0s; }
+/* Holding the mouse down on the other tab (.pressing, js/motion.js)
+   reaches the pill partway into it; letting go finishes the move, and
+   letting go elsewhere springs it back */
+.tabs:has(button:first-of-type[aria-selected="true"]).pressing .pill { inset-inline-end: 38%; }
+.tabs:has(button:last-of-type[aria-selected="true"]).pressing .pill { inset-inline-start: 38%; }
+.motion .tabs.pressing:has(button[aria-selected="true"]) .pill {
+    transition: inset-inline-start .35s cubic-bezier(.2, .8, .2, 1), inset-inline-end .35s cubic-bezier(.2, .8, .2, 1);
+}
 #orderType { margin-bottom: 20px; }
 #orderType button { padding: 5px 0; font-size: 13px; }
-#orderType button[aria-selected="true"] { background: var(--card); color: var(--text); }
+#orderType button[aria-selected="true"] { color: var(--text); }
+#orderType .pill { background: var(--card); }
 
 .menu {
     position: absolute;
@@ -116,8 +153,10 @@ option { background-color: var(--card); color: var(--text); }
     border-radius: 14px;
     box-shadow: var(--shadow);
     white-space: nowrap;
+    transform-origin: 0 0;
 }
 .menu[hidden] { display: none; }
+[dir="rtl"] .menu { transform-origin: 100% 0; }   /* menus bloom out of their corner (app.js) */
 #paletteMenu button {
     display: flex;
     align-items: center;
@@ -145,6 +184,7 @@ option { background-color: var(--card); color: var(--text); }
 #paletteMenu [aria-checked="true"] { font-weight: 500; }
 
 .field {
+    position: relative;
     display: flex;
     align-items: baseline;
     gap: 8px;
@@ -153,6 +193,20 @@ option { background-color: var(--card); color: var(--text); }
     transition: border-color .15s;
 }
 .field:focus-within { border-color: var(--accent); }
+/* With motion, the accent line fills out from the middle instead */
+.field::after {
+    content: '';
+    position: absolute;
+    inset-inline: 0;
+    bottom: -2px;
+    height: 2px;
+    background: var(--accent);
+    scale: 0 1;
+    display: none;
+}
+.motion .field::after { display: block; transition: scale .45s cubic-bezier(.2, .8, .2, 1); }
+.motion .field:focus-within { border-color: var(--line); }
+.motion .field:focus-within::after { scale: 1 1; }
 .field input {
     flex: 1;
     min-width: 0;
@@ -257,8 +311,43 @@ option { background-color: var(--card); color: var(--text); }
 .switch input:checked + .track::after { transform: translateX(16px); }
 [dir="rtl"] .switch input:checked + .track::after { transform: translateX(-16px); }
 .switch input:focus-visible + .track { outline: 2px solid var(--accent); outline-offset: 2px; }
+/* The knob slides over on the spring, widening toward where it's going
+   and rounding up again as it lands: width, never scale, which would
+   squash it into an oval */
+.motion .track { transition: background .3s; }
+.motion .track::after { transition: transform var(--dur) var(--spring); }
+.motion .switch input.flipped:checked + .track::after { animation: knob-on var(--dur) linear; }
+.motion .switch input.flipped:not(:checked) + .track::after { animation: knob-off var(--dur) linear; }
+/* Holding the mouse down on a switch (.pressing, js/motion.js) starts the
+   stretch toward the other side; letting go carries it over from there
+   (--knob-w and --knob-m, its width and offset at that moment), and
+   letting go elsewhere (.unpress) springs it back */
+.motion .switch input.pressing + .track::after {
+    width: 22px;
+    transition: transform var(--dur) var(--spring), width .25s ease-out, margin-inline-start .25s ease-out;
+}
+.motion .switch input.pressing:checked + .track::after { margin-inline-start: -6px; }
+.motion .switch input.unpress + .track::after {
+    transition: transform var(--dur) var(--spring), width .4s var(--spring), margin-inline-start .4s var(--spring);
+}
+/* The spring has the knob most of the way over by 20%, so the stretch
+   peaks early and is gone by 30%, keeping it inside the track */
+@keyframes knob-on {
+    0% { width: var(--knob-w, 16px); margin-inline-start: var(--knob-m, 0px); }
+    10% { width: 24px; margin-inline-start: 0; }
+    20% { width: 19px; }
+    30% { width: 16px; }
+}
+@keyframes knob-off {
+    0% { width: var(--knob-w, 16px); margin-inline-start: var(--knob-m, 0px); }
+    10% { width: 24px; margin-inline-start: -8px; }
+    20% { width: 19px; margin-inline-start: -3px; }
+    30% { width: 16px; margin-inline-start: 0; }
+}
 
 #result {
+    position: relative;
+    overflow: hidden;   /* holds the ripple */
     display: block;
     width: 100%;
     margin-top: 28px;
@@ -272,6 +361,17 @@ option { background-color: var(--card); color: var(--text); }
     transition: transform .08s;
 }
 #result:active { transform: scale(.98); }
+.motion #result { transition: transform var(--dur) var(--spring); }   /* springs back when let go */
+.motion #result:active { transition-duration: .08s; }
+.ripple {   /* spreads from the click when the amount is copied */
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    margin: -10px;
+    border-radius: 50%;
+    background: currentColor;
+    pointer-events: none;
+}
 #result:disabled { cursor: default; color: var(--muted); background: var(--bg); }
 #amount {
     display: block;

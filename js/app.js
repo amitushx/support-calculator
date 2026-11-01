@@ -63,12 +63,52 @@ function updateThemeButton() {
     $('theme').title = translations[lang][isDark() ? 'lightMode' : 'darkMode'];
 }
 
+// Changes that resize the card: it glides to its new height on the spring
+// instead of jumping. enter fades in as the card opens; leave, hidden by
+// the change, stays in view while the card closes over it.
+let endMorph = null;
+function morph(change, { enter, leave } = {}) {
+    const card = document.querySelector('main');
+    const from = card.getBoundingClientRect().height;   // mid-glide, where it got to
+    endMorph?.();
+    change();
+    if (!motion()) return;
+    const to = card.getBoundingClientRect().height;
+    if (Math.abs(to - from) < 1) return;
+    // The card clips its contents while it glides, menus included
+    closeMenus();
+    document.querySelectorAll('.menu').forEach(m => m.exiting?.finish());
+    const leaving = leave?.hidden ? leave : null;
+    if (leaving) leaving.hidden = false;
+    const fade = leaving?.animate({ opacity: [1, 0] }, { duration: 250, easing: 'ease-out', fill: 'forwards' });
+    card.style.overflow = 'clip';
+    const resize = glide(card, { height: [`${from}px`, `${to}px`] });
+    // Runs on finish, or right away when another change interrupts
+    endMorph = () => {
+        endMorph = null;
+        resize.onfinish = null;
+        resize.cancel();
+        fade?.cancel();
+        if (leaving) leaving.hidden = true;
+        card.style.overflow = '';
+    };
+    resize.onfinish = endMorph;
+    if (enter) glide(enter, {
+        opacity: [0, 1], filter: ['blur(6px)', 'blur(0)'], transform: ['translateY(10px) scaleY(.96)', 'none']
+    }, { duration: 420, easing: 'cubic-bezier(.2, .8, .2, 1)' });
+}
+
 // Recalculate and show the amount for the current calculator's inputs
 function render() {
     clearTimeout(captionTimer);
+    const before = $('amount').innerHTML;
     $('amount').classList.remove('words');
     if (calc === 'delay') renderDelay();
     else renderDistance();
+    // A new amount settles in like a drop
+    if ($('amount').innerHTML !== before) glide($('amount'), {
+        transform: ['translateY(8px) scale(.94, 1.06)', 'none'], filter: ['blur(3px)', 'blur(0)'], opacity: [.4, 1]
+    });
     $('result').disabled = current === null && !$('amount').classList.contains('words');
     // A result left unchanged for a moment goes into the history
     clearTimeout(historyTimer);
@@ -111,7 +151,8 @@ function addHistory() {
     calcHistory.unshift({ ...entry, at: Date.now() });
     const extra = shownHistory()[HISTORY_MAX];
     if (extra) calcHistory = calcHistory.filter(e => e.calc !== calc || e.at > extra.at);
-    saveHistory();
+    morph(saveHistory);
+    if (historyOpen) dripIn([$('historyList').firstElementChild], 0);
 }
 function historyDetail(e, t) {
     const parts = e.calc === 'delay'
@@ -155,21 +196,25 @@ function renderHistory() {
         return li;
     }));
 }
+// The history's heading and rows, to drip in as it opens
+const historyRows = () => $('history').querySelectorAll('.history-head, #historyList li, #historyEmpty:not([hidden])');
 function toggleHistory() {
     historyOpen = !historyOpen;
     store.set('historyOpen', historyOpen ? '1' : '0');
-    renderHistory();
+    morph(renderHistory, { leave: $('history') });
+    if (historyOpen) dripIn(historyRows());
 }
 $('historyBtn').addEventListener('click', toggleHistory);
 $('historyMore').addEventListener('click', () => {
     historyAll = !historyAll;
     store.set('historyAll', historyAll ? '1' : '0');
-    renderHistory();
+    morph(renderHistory);
+    if (historyAll) dripIn([...$('historyList').children].slice(HISTORY_SHORT), 0);
 });
 // Clears only the calculator that is shown
 $('historyClear').addEventListener('click', () => {
     calcHistory = calcHistory.filter(e => e.calc !== calc);
-    saveHistory();
+    morph(saveHistory);
     firstField().focus();
 });
 
@@ -226,13 +271,16 @@ function renderDelay() {
 function setCalc(name, focus = true) {
     calc = name;
     store.set('calc', calc);
-    $('distanceCalc').hidden = calc !== 'distance';
-    $('delayCalc').hidden = calc !== 'delay';
-    $('calcTabs').querySelectorAll('[data-calc]').forEach(b => {
-        b.setAttribute('aria-selected', String(b.dataset.calc === calc));
-    });
-    render();
-    renderHistory();
+    morph(() => {
+        $('distanceCalc').hidden = calc !== 'distance';
+        $('delayCalc').hidden = calc !== 'delay';
+        $('calcTabs').querySelectorAll('[data-calc]').forEach(b => {
+            b.setAttribute('aria-selected', String(b.dataset.calc === calc));
+        });
+        render();
+        renderHistory();
+    }, { enter: $(calc === 'delay' ? 'delayCalc' : 'distanceCalc') });
+    if (historyOpen) dripIn($('historyList').children, 80);
     if (focus) firstField().focus();
 }
 const firstField = () => $(calc === 'delay' ? 'minutes' : 'distance');
@@ -265,10 +313,25 @@ function copyText(text) {
         : legacyCopy(text);
 }
 
-// Copy the numeric amount only (no ₪ sign)
-function copyAmount() {
+// A ripple spreads over the result from (x, y), or from its middle
+function splash(x, y) {
+    const box = $('result').getBoundingClientRect();
+    const dot = document.createElement('span');
+    dot.className = 'ripple';
+    dot.style.left = `${(x ?? box.left + box.width / 2) - box.left}px`;
+    dot.style.top = `${(y ?? box.top + box.height / 2) - box.top}px`;
+    const spread = glide(dot, { transform: ['scale(0)', `scale(${box.width / 8})`], opacity: [.3, 0] },
+        { duration: 700, easing: 'cubic-bezier(.2, .7, .3, 1)' });
+    if (!spread) return;
+    $('result').append(dot);
+    spread.onfinish = () => dot.remove();
+}
+
+// Copy the numeric amount only (no ₪ sign); point is where it was clicked
+function copyAmount(point = []) {
     if (current === null) return;
     const t = translations[lang];
+    splash(...point);
     addHistory();
     copyText(String(current)).then(
         () => { $('caption').textContent = t.copied; },
@@ -298,16 +361,16 @@ $('orderType').addEventListener('click', e => {
     const button = e.target.closest('[data-order]');
     if (button) setOrderType(button.dataset.order);
 });
-$('result').addEventListener('click', () => {
-    copyAmount();
+$('result').addEventListener('click', e => {
+    copyAmount(e.detail ? [e.clientX, e.clientY] : []);   // detail 0: pressed from the keyboard
     firstField().focus();
 });
-$('theme').addEventListener('click', () => {
+$('theme').addEventListener('click', () => floodTheme(() => {
     const mode = isDark() ? 'light' : 'dark';
     document.documentElement.dataset.mode = mode;
     store.set('theme', mode);
     updateThemeButton();
-});
+}, ...centerOf($('theme'))));
 darkQuery.addEventListener('change', () => {
     const saved = store.get('theme');
     if (saved === 'light' || saved === 'dark') return;
@@ -329,25 +392,30 @@ function updatePaletteMenu() {
 }
 $('paletteMenu').addEventListener('click', e => {
     const button = e.target.closest('[data-palette]');
-    if (button) setPalette(button.dataset.palette);
+    if (button && button.getAttribute('aria-checked') !== 'true') {
+        floodTheme(() => setPalette(button.dataset.palette), ...centerOf(button.querySelector('.swatch')));
+    }
 });
 updatePaletteMenu();
 
-// Header menus: one open at a time, closed by clicking elsewhere or Escape
+// Header menus: one open at a time, closed by clicking elsewhere or
+// Escape. They bloom out of their corner and fold back into it.
 const MENUS = { widgetsBtn: 'widgetMenu', paletteBtn: 'paletteMenu' };
+function showMenu(button, open) {
+    const menu = $(MENUS[button]);
+    $(button).setAttribute('aria-expanded', String(open));
+    reveal(menu, open,
+        { opacity: [0, 1], transform: ['scale(.5, .3)', 'none'] },
+        { opacity: [1, 0], transform: ['none', 'scale(.75, .5)'] });
+    if (open) dripIn(menu.children, 30);
+}
 function closeMenus(except) {
-    for (const [button, menu] of Object.entries(MENUS)) {
-        if (button === except) continue;
-        $(menu).hidden = true;
-        $(button).setAttribute('aria-expanded', 'false');
-    }
+    for (const button of Object.keys(MENUS)) if (button !== except) showMenu(button, false);
 }
 for (const [button, menu] of Object.entries(MENUS)) {
     $(button).addEventListener('click', () => {
         closeMenus(button);
-        const open = $(menu).hidden;
-        $(menu).hidden = !open;
-        $(button).setAttribute('aria-expanded', String(open));
+        showMenu(button, $(menu).hidden || !!$(menu).exiting);
     });
 }
 document.addEventListener('pointerdown', e => {
@@ -493,6 +561,7 @@ document.addEventListener('keydown', e => {
         e.preventDefault();
         const box = $(calc === 'delay' ? 'woltPlus' : 'walker');
         box.checked = !box.checked;
+        stretchKnob(box);
         render();
     } else if (calc === 'delay') {
         const field = { KeyM: 'minutes', KeyP: 'price' }[e.code];

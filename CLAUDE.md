@@ -49,6 +49,16 @@ when the version goes up, so every user-facing deploy needs a bump.)
   href="#i-…"/></svg>` or the `icon(name)` helper. Plain text glyphs like ✓
   and ♡ are fine. One consistent visual language across the app.
 - The app is for PC users: design for keyboard and mouse, not phones.
+- Motion is liquid and on one spring (`--spring` in `app.css`): anything new
+  that appears, closes, resizes the card or moves should use the helpers in
+  `js/motion.js` (`glide`, `reveal`, `dripIn`, `morph` in `app.js`) or CSS
+  transitions under `.motion`, so it moves like the rest and stays still
+  with reduced motion. The user picked the Subtle spring and the Jelly
+  switch (round knob that slides over) over a knob that stretches across.
+  A switch knob or tab pill stretches by changing its width, never with
+  `scale`: squashing the round knob looked uncomfortable. The squash-and-
+  stretch scaling on menus, widgets, history rows, the amount and dragged
+  widgets is fine; the user chose to keep it.
 - Plan visual designs before coding: for a new theme or look, first show
   swatches of the proposed palette (and a mockup of any pattern) and wait
   for approval or tweaks. Iterating in code took several rounds on the
@@ -82,7 +92,7 @@ A static site for GitHub Pages, no build step.
   loaded in that order; the cascade depends on it.
 - `js/lib/`: the pure rules (`fees.js`, `delay.js`, `bonus.js`), the only
   code the tests load.
-- `js/`: `i18n.js`, `app.js` (calculators and page), `bonus-list.js`,
+- `js/`: `i18n.js`, `motion.js` (spring animation helpers), `app.js` (calculators and page), `bonus-list.js`,
   `main.js` (clock tick, startup, wake lock, update check); `js/widgets/`
   has one file per widget, plus `pets.js`, shared by the cat and the puppy.
 - Scripts are classic, not modules, sharing one global scope; `index.html`
