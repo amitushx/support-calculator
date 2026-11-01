@@ -6,6 +6,17 @@
 // change log skip it; only the README lists it, for developers.
 const CHANGELOG = [
     {
+        version: '1.16.1',
+        date: '2026-11-02',
+        notes: {
+            he: ['חלונות העזרה ויומן השינויים נסגרים עכשיו בהחלקה, כמו שהם נפתחים, גם ב־Esc.'],
+            en: ['The help and change log windows now glide closed the way they open, Esc included.'],
+            ar: ['شبابيك المساعدة وسجل التغييرات صارت تتسكّر بنعومة متل ما بتنفتح، حتى مع Esc.'],
+            ka: ['დახმარებისა და ცვლილებების ჟურნალის ფანჯრები ახლა რბილად იხურება, ისევე როგორც იხსნება, Esc-ითაც.'],
+            hi: ['मदद और बदलावों की सूची वाली विंडो अब वैसे ही धीरे से बंद होती हैं जैसे खुलती हैं, Esc दबाने पर भी।']
+        }
+    },
+    {
         version: '1.16.0',
         date: '2026-11-02',
         notes: {

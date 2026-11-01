@@ -52,6 +52,32 @@ function reveal(el, show, enter, exit, exitOptions = {}) {
     };
 }
 
+// A dialog sinks out the way it rose in (dialog-in in dialogs.css), its
+// backdrop fading with it, and only then closes. Escape goes through here
+// too, instead of the browser's instant close.
+function closeDialog(dialog) {
+    if (!dialog.open || dialog.exiting) return;
+    const options = { duration: 180, easing: 'cubic-bezier(.5, 0, .9, .4)', fill: 'forwards' };
+    const out = glide(dialog, { opacity: [1, 0], scale: ['1', '.92 .88'], translate: ['0 0', '0 16px'] }, options);
+    if (!out) return dialog.close();
+    dialog.exiting = [out, glide(dialog, { opacity: [1, 0] }, { ...options, pseudoElement: '::backdrop' })];
+    out.onfinish = () => {
+        keepDialog(dialog);   // drop the end frames once it's closed
+        dialog.close();
+    };
+}
+// Opening it again mid-exit cuts the exit short
+function keepDialog(dialog) {
+    dialog.exiting?.forEach(a => a.cancel());
+    dialog.exiting = null;
+}
+document.addEventListener('cancel', e => {
+    if (e.target.matches('dialog')) {
+        e.preventDefault();
+        closeDialog(e.target);
+    }
+}, true);
+
 // Rows drip in one after another
 function dripIn(els, delay = 40) {
     [...els].forEach((el, i) => glide(el, {
