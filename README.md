@@ -7,7 +7,7 @@
 **מחשבון סאפורט** · courier payments and Delivery Late compensation, one keystroke away
 
 <p>
-<!-- version --><img alt="Version" src="https://img.shields.io/badge/version-1.14.2-009DE0?style=for-the-badge"><!-- /version -->
+<!-- version --><img alt="Version" src="https://img.shields.io/badge/version-1.14.4-009DE0?style=for-the-badge"><!-- /version -->
 <a href="https://github.com/amitushx/support-calculator/actions/workflows/tests.yml"><img alt="Tests" src="https://img.shields.io/github/actions/workflow/status/amitushx/support-calculator/tests.yml?branch=main&label=tests&style=for-the-badge"></a>
 <img alt="Languages" src="https://img.shields.io/badge/languages-5-7C3AED?style=for-the-badge">
 <img alt="No build step" src="https://img.shields.io/badge/build-none-22C55E?style=for-the-badge">
@@ -144,7 +144,7 @@ js/                 i18n.js, app.js, bonus-list.js, main.js
 js/widgets/         one file per widget; pets.js is shared by the cat and the puppy
 pages/doom.html     the Doom widget's frame
 scripts/readme.js   writes the version and change log below
-tests/              test pages and their Node runner
+tests/              test pages, their Node runner and the Firefox smoke test
 ```
 
 ### Tests
@@ -153,7 +153,7 @@ tests/              test pages and their Node runner
 node tests/run.js
 ```
 
-The test pages in `tests/` also open in a browser. CI runs them on every push and pull request.
+The test pages in `tests/` cover the rules and the translations (every text in all five languages) and also open in a browser. Then `tests/smoke.js` loads the real page in headless Firefox and checks that it starts without script errors, that both calculators answer, that every language fills in every text and that every widget opens. Without Firefox it's skipped (set `FIREFOX` to its path if it isn't on `PATH`). CI runs everything on every push and pull request.
 
 ### Releases
 
@@ -168,6 +168,14 @@ CI checks that the version was bumped and that this README is up to date. After 
 ## Change log
 
 <!-- changelog -->
+### 1.14.4 · 1 November 2026 · internal
+
+- Added `tests/smoke.js`, run by `tests/run.js`: it serves the site locally, loads `index.html` in headless Firefox over WebDriver BiDi (no dependencies) and fails on any script error, a calculator that doesn’t answer, a language that leaves a `data-t` text empty or shows `undefined`/`NaN`, or a widget that doesn’t open. Skipped without Firefox, except in CI.
+
+### 1.14.3 · 1 November 2026 · internal
+
+- Added `tests/i18n.html`: every language in `js/i18n.js` has the same keys as Hebrew, with the same kind of value, function arity and `{placeholders}`, and no empty texts; every user-facing `changelog.js` entry has notes in all five languages, item for item, and internal ones a `dev` note; versions go down and dates never go up.
+
 ### 1.14.2 · 1 November 2026
 
 - In the Distance calculator, Esc also sets the city menu back to “Manual bonus”.

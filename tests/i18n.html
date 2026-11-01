@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Translation tests</title>
+<style>
+    body { font: 14px/1.6 system-ui, sans-serif; margin: 24px; }
+    .pass { color: #15803d; }
+    .fail { color: #b91c1c; font-weight: 600; }
+</style>
+</head>
+<body>
+<h1 id="summary"></h1>
+<ol id="results"></ol>
+<script src="../js/i18n.js"></script>
+<script src="../changelog.js"></script>
+<script>
+// Every text exists in all five languages: the UI in i18n.js, and every
+// user-facing release note in changelog.js. Hebrew is the reference.
+const LANGS = ['he', 'en', 'ar', 'ka', 'hi'];
+const results = [];
+const check = (ok, text) => results.push({ ok, text });
+
+// The {name} placeholders a string fills in, sorted
+const placeholders = s => [...s.matchAll(/\{(\w+)\}/g)].map(m => m[1]).sort().join(',');
+
+check(LANGS.every(l => translations[l]) && Object.keys(translations).length === LANGS.length,
+    `languages: ${Object.keys(translations).join(', ')}`);
+
+const reference = translations.he;
+for (const lang of LANGS.slice(1)) {
+    const t = translations[lang] || {};
+    const missing = Object.keys(reference).filter(k => !(k in t));
+    const extra = Object.keys(t).filter(k => !(k in reference));
+    check(!missing.length && !extra.length,
+        `${lang}: same keys as he` + (missing.length ? `; missing ${missing.join(', ')}` : '')
+            + (extra.length ? `; not in he ${extra.join(', ')}` : ''));
+    const wrong = Object.keys(reference).filter(k => k in t && (
+        typeof t[k] !== typeof reference[k]
+        || (typeof t[k] === 'function' && t[k].length !== reference[k].length)
+        || (typeof t[k] === 'string' && placeholders(t[k]) !== placeholders(reference[k]))));
+    check(!wrong.length, `${lang}: same kind of value and same {placeholders} as he`
+        + (wrong.length ? `; differs in ${wrong.join(', ')}` : ''));
+}
+for (const lang of LANGS) {
+    const t = translations[lang] || {};
+    const empty = Object.keys(t).filter(k => typeof t[k] === 'string' && !t[k].trim());
+    check(!empty.length, `${lang}: no empty texts` + (empty.length ? `; empty ${empty.join(', ')}` : ''));
+}
+
+// Release notes: user-facing ones in all five languages, item for item;
+// internal ones have a dev note instead
+for (const r of CHANGELOG) {
+    if (!r.notes) {
+        check(Array.isArray(r.dev) && r.dev.length > 0 && r.dev.every(n => n.trim()), `${r.version}: internal, with a dev note`);
+        continue;
+    }
+    const counts = LANGS.map(l => (r.notes[l] || []).length);
+    const empty = LANGS.filter(l => (r.notes[l] || []).some(n => !n.trim()));
+    check(counts[0] > 0 && counts.every(c => c === counts[0]) && !empty.length
+            && Object.keys(r.notes).length === LANGS.length,
+        `${r.version}: notes in ${LANGS.map((l, i) => `${l} ${counts[i]}`).join(', ')}`
+            + (empty.length ? `; empty in ${empty.join(', ')}` : ''));
+}
+
+// Versions go down and dates never go up, newest first
+const order = v => v.split('.').reduce((n, p) => n * 1000 + Number(p), 0);
+for (let i = 1; i < CHANGELOG.length; i++) {
+    const [newer, older] = [CHANGELOG[i - 1], CHANGELOG[i]];
+    check(order(newer.version) > order(older.version) && newer.date >= older.date
+            && /^\d{4}-\d\d-\d\d$/.test(newer.date),
+        `${newer.version} (${newer.date}) after ${older.version} (${older.date})`);
+}
+
+const failed = results.filter(r => !r.ok).length;
+document.getElementById('summary').textContent = failed ? `${failed} of ${results.length} failed` : `All ${results.length} passed`;
+document.getElementById('summary').className = failed ? 'fail' : 'pass';
+for (const r of results) {
+    const li = document.createElement('li');
+    li.className = r.ok ? 'pass' : 'fail';
+    li.textContent = r.text;
+    document.getElementById('results').append(li);
+}
+</script>
+</body>
+</html>

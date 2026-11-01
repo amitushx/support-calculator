@@ -68,7 +68,9 @@ Don't suggest these again:
 # Tests
 
 `node tests/run.js` runs the test pages in `tests/` (they also open in a
-browser). CI runs them on every PR, and checks that the changelog version
+browser), then `tests/smoke.js`, which loads the real page in headless
+Firefox: no script errors, both calculators, all languages, all widgets.
+Without Firefox locally the smoke test is skipped; in CI it fails. CI runs them on every PR, and checks that the changelog version
 was bumped and that `README.md` is up to date.
 
 # Layout

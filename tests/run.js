@@ -4,6 +4,7 @@
  * cases can be checked from the command line and in CI. Each page's scripts,
  * linked and inline, run in order in one sandbox with just enough of a
  * document for the pages to write their results into.
+ * Then runs the smoke test (smoke.js) on the real page.
  * Usage: node tests/run.js; exits with 1 if any case fails.
  */
 
@@ -52,4 +53,4 @@ for (const page of pages) {
     console.log(`${ok ? '✓' : '✗'} ${page}: ${result.summary}`);
     for (const f of result.failures) console.log(`    ${f}`);
 }
-process.exit(failed ? 1 : 0);
+require('./smoke')().then(ok => process.exit(failed || !ok ? 1 : 0));
