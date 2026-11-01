@@ -6,6 +6,17 @@
 // change log skip it; only the README lists it, for developers.
 const CHANGELOG = [
     {
+        version: '1.14.0',
+        date: '2026-11-01',
+        notes: {
+            he: ['בהפסקות, לחיצה על ההתראה של המערכת עוצרת את הצלצול.'],
+            en: ['In Breaks, clicking the system notification stops the alarm.'],
+            ar: ['بالبريكات، كبسة على إشعار النظام بتوقّف المنبّه.'],
+            ka: ['შესვენებებში სისტემის შეტყობინებაზე დაწკაპება აჩერებს მაღვიძარას.'],
+            hi: ['ब्रेक में, सिस्टम नोटिफ़िकेशन पर क्लिक करने से अलार्म रुक जाता है।']
+        }
+    },
+    {
         version: '1.13.3',
         date: '2026-10-30',
         notes: {
