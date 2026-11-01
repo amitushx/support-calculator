@@ -1,7 +1,7 @@
 /*
  * Smoke test: loads the real index.html in headless Firefox and checks that
  * the page starts without script errors (a wrong load order in index.html
- * only shows up there), that both calculators answer, that every language
+ * only shows up there), that both calculators answer (and Esc clears them), that every language
  * fills in every text, and that every widget turns on cleanly.
  * Firefox is driven over WebDriver BiDi, built into it, so nothing needs
  * installing; set FIREFOX to its path if it isn't on PATH. Without Firefox
@@ -82,7 +82,14 @@ const CHECKS = {
         field.value = '1000';
         field.dispatchEvent(new Event('input'));
         const shown = $('amount').textContent;
-        return shown.includes(String(payment(1000))) ? [] : ['1000 m shows ' + shown + ', expected ' + payment(1000)];
+        const problems = shown.includes(String(payment(1000))) ? [] : ['1000 m shows ' + shown + ', expected ' + payment(1000)];
+        $('bonus').value = '20';
+        $('bonus').dispatchEvent(new Event('input'));
+        document.body.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }));
+        updateBonus();
+        for (const id of ['distance', 'bonus'])
+            if ($(id).value) problems.push('Esc left ' + id + ' at ' + $(id).value);
+        return problems;
     })()`,
     'Delivery Late calculator': `(() => {
         document.querySelector('[data-calc="delay"]').click();

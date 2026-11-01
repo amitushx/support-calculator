@@ -168,8 +168,9 @@ CI checks that the version was bumped and that this README is up to date. After 
 ## Change log
 
 <!-- changelog -->
-### 1.14.4 · 1 November 2026 · internal
+### 1.14.4 · 1 November 2026
 
+- In the Distance calculator, Esc also clears the bonus field.
 - Added `tests/smoke.js`, run by `tests/run.js`: it serves the site locally, loads `index.html` in headless Firefox over WebDriver BiDi (no dependencies) and fails on any script error, a calculator that doesn’t answer, a language that leaves a `data-t` text empty or shows `undefined`/`NaN`, or a widget that doesn’t open. Skipped without Firefox, except in CI.
 
 ### 1.14.3 · 1 November 2026 · internal
