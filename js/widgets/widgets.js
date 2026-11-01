@@ -77,6 +77,11 @@ for (const name of WIDGETS) {
     el.querySelector('.close').addEventListener('click', () => setWidget(name, false));
     el.querySelector('.stop')?.addEventListener('click', () => stopRinging(el));
 }
+// The calculator stacks with the widgets: a click brings it to the front,
+// so opening the history isn't hidden under a widget it grows into
+document.querySelector('main').addEventListener('pointerdown', e => {
+    e.currentTarget.style.zIndex = ++topZ;
+});
 
 // Pull widgets back on screen when the window shrinks, without
 // forgetting where they were
