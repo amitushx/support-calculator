@@ -217,8 +217,9 @@ function startRinging(el) {
     ringOut?.disconnect();
     ringOut = playSound(60);
 }
-// However it stops (Stop, Esc, the popup, timing out, closing the widget),
-// the alarm that rang is switched off, so it doesn't ring again tomorrow
+// However it stops (Stop, Esc, the popup, the notification, timing out,
+// closing the widget), the alarm that rang is switched off, so it doesn't
+// ring again tomorrow
 function stopRinging(el) {
     el.classList.remove('ringing');
     el.querySelectorAll('.alarm-row.ringing').forEach(row => {
@@ -253,8 +254,8 @@ function showAlarm() {
         $('alarmStop').focus();
     }
 }
-// Stopping the Ending alarm by hand (a click or Esc) celebrates the
-// end of the shift
+// Stopping the Ending alarm by hand (a click, Esc or the notification)
+// celebrates the end of the shift
 function dismissAlarm() {
     const end = !!document.querySelector('.alarm-row[data-alarm="end"].ringing');
     stopRinging(widgetEl('alarm'));
@@ -267,6 +268,7 @@ overlay.addEventListener('keydown', e => {
 
 // System notification while the page is in the background, so a ringing
 // alarm is seen even with the tab hidden or the browser minimized.
+// Clicking it brings the page back and stops the alarm, like the popup.
 // Permission is asked for when an alarm is set.
 let notification = null;
 function notify() {
@@ -277,7 +279,7 @@ function notify() {
         { body: $('alarmTime').textContent, tag: 'alarm', requireInteraction: true });
     notification.onclick = () => {
         focus();
-        notification.close();
+        dismissAlarm();
     };
 }
 document.addEventListener('visibilitychange', () => {
