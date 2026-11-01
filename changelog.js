@@ -6,6 +6,17 @@
 // change log skip it; only the README lists it, for developers.
 const CHANGELOG = [
     {
+        version: '1.14.1',
+        date: '2026-11-01',
+        notes: {
+            he: ['הקונפטי בסוף המשמרת יורד גם כשהווידג׳ט ״התקדמות משמרת״ כבוי.'],
+            en: ['The end-of-shift confetti now falls even with the Shift progress widget off.'],
+            ar: ['الكونفيتي بآخر الشفت صار ينزل حتى لو ويدجت «تقدّم الشفت» مسكّرة.'],
+            ka: ['ცვლის ბოლოს კონფეტი ახლა მაშინაც ცვივა, როცა „ცვლის პროგრესის“ ვიჯეტი გამორთულია.'],
+            hi: ['शिफ़्ट के अंत का कॉन्फ़ेटी अब “शिफ़्ट की प्रगति” विजेट बंद होने पर भी गिरता है।']
+        }
+    },
+    {
         version: '1.14.0',
         date: '2026-11-01',
         notes: {

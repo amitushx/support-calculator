@@ -105,9 +105,10 @@ function updateShift(now) {
     else setShiftInfo(t.shiftDone);
 }
 
-// The end of the shift: the widget celebrates (if it's on) and confetti
-// rains over the whole screen
+// The end of the shift: confetti rains over the whole screen, and the
+// Shift progress widget celebrates too if it's on
 function celebrateShift() {
+    if (!matchMedia('(prefers-reduced-motion: reduce)').matches) confetti();
     if (!widgets.shift.on) return;
     const el = widgetEl('shift');
     el.classList.remove('celebrate');
@@ -115,7 +116,6 @@ function celebrateShift() {
     el.classList.add('celebrate');
     clearTimeout(el.celebrateTimer);
     el.celebrateTimer = setTimeout(() => el.classList.remove('celebrate'), 4000);
-    if (!matchMedia('(prefers-reduced-motion: reduce)').matches) confetti();
 }
 
 // Paper confetti: a shower from the top across the whole width plus two
