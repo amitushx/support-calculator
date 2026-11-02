@@ -1,15 +1,20 @@
 /*
  * Palettes come in light/dark pairs: data-palette picks the pair,
  * data-mode the variant. Classic (no data-palette) is the default.
- * --backdrop is the page background, --panel the cards on top of it
- * (see-through on gradients), --card a solid surface color.
+ * --backdrop is the page background, --card a solid surface color.
+ * The calculator and the widgets are liquid glass (app.css): --panel,
+ * the card's color at a faint tint, and the --glass-* settings below,
+ * one set for light mode and one for dark, shared by every palette.
  */
 /* Classic: white and Wolt blue, and a deep night version */
 :root {
     --backdrop: #ffffff;
     --bg: #f2f9fd;
     --card: #ffffff;
-    --panel: var(--card);
+    --panel: color-mix(in srgb, var(--card) 14%, transparent);
+    --glass-rim: .7;       /* the light on the rim, at its brightest */
+    --glass-chip: .16;     /* glass controls inside: tabs, dropdowns, switches */
+    --glass-shadow: 0 12px 40px rgba(0, 0, 0, .12);
     --text: #202125;
     --muted: #6c7075;
     --line: #e4eef4;
@@ -23,7 +28,10 @@
     --backdrop: #0a1117;
     --bg: #0f1a22;
     --card: #142029;
-    --panel: var(--card);
+    --panel: color-mix(in srgb, var(--card) 16%, transparent);
+    --glass-rim: .4;
+    --glass-chip: .06;
+    --glass-shadow: 0 12px 40px rgba(0, 0, 0, .35);
     --text: #f2f7fa;
     --muted: #8a9aa6;
     --line: #20303c;
@@ -37,7 +45,6 @@
     --backdrop: radial-gradient(#ffd3e6 1.5px, transparent 1.5px) 0 0 / 22px 22px, #fff0f6;
     --bg: #fff0f6;
     --card: #ffffff;
-    --panel: var(--card);
     --text: #4a2537;
     --muted: #a8607f;
     --line: #f8d2e3;
@@ -62,7 +69,6 @@
     --backdrop: linear-gradient(135deg, #ffecd2, #fcb69f);
     --bg: #fff4ec;
     --card: #ffffff;
-    --panel: rgba(255, 255, 255, .8);
     --text: #4a2a1d;
     --muted: #a0644a;
     --line: #f5d2bf;
@@ -75,7 +81,6 @@
     --backdrop: linear-gradient(135deg, #2b1331, #5a1f2b 55%, #8a3b1c);
     --bg: #1e0f17;
     --card: #2a1520;
-    --panel: rgba(24, 12, 20, .7);
     --text: #fde8dc;
     --muted: #c08a74;
     --line: rgba(255, 255, 255, .12);
@@ -89,7 +94,6 @@
         linear-gradient(135deg, #e0f2fe, #c7d2fe);
     --bg: #eef6ff;
     --card: #ffffff;
-    --panel: rgba(255, 255, 255, .8);
     --text: #0f2a44;
     --muted: #5b7895;
     --line: #cfe0f2;
@@ -103,7 +107,6 @@
         linear-gradient(135deg, #0f2027, #203a43, #2c5364);
     --bg: #0c1a21;
     --card: #13262f;
-    --panel: rgba(10, 22, 30, .7);
     --text: #e3f2f8;
     --muted: #7fa3b3;
     --line: rgba(255, 255, 255, .1);
@@ -116,7 +119,6 @@
     --backdrop: linear-gradient(135deg, #e0c3fc, #8ec5fc);
     --bg: #f3ecff;
     --card: #ffffff;
-    --panel: rgba(255, 255, 255, .78);
     --text: #2e1f4a;
     --muted: #7a68a0;
     --line: #e2d6f7;
@@ -129,7 +131,6 @@
     --backdrop: linear-gradient(135deg, #1a1036, #2a1458 45%, #0d4a4a);
     --bg: #140d29;
     --card: #1f1640;
-    --panel: rgba(16, 10, 32, .7);
     --text: #ece6ff;
     --muted: #9a8cc4;
     --line: rgba(255, 255, 255, .1);
@@ -144,7 +145,6 @@
     --backdrop: linear-gradient(160deg, #f2e5bc, #e5d2a6);
     --bg: #f2e5bc;
     --card: #fbf1c7;
-    --panel: rgba(251, 241, 199, .82);
     --text: #3c3836;
     --muted: #7c6f64;
     --line: #e0cda0;
@@ -157,7 +157,6 @@
     --backdrop: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='150'%3E%3CclipPath id='l'%3E%3Crect width='120' height='150'/%3E%3C/clipPath%3E%3CclipPath id='r'%3E%3Crect x='120' width='120' height='150'/%3E%3C/clipPath%3E%3Cg clip-path='url(%23l)' stroke='%231c110a' stroke-width='1.2'%3E%3Cpath fill='%235c3b24' d='M-80 0 L-40 0 L40 150 L0 150 Z'/%3E%3Cpath stroke='%232a1a10' stroke-opacity='0.22' stroke-width='.8' d='M-66.0 0 L14.0 150'/%3E%3Cpath stroke='%232a1a10' stroke-opacity='0.14' stroke-width='.8' d='M-52.0 0 L28.0 150'/%3E%3Cpath fill='%2366432a' d='M-40 0 L0 0 L80 150 L40 150 Z'/%3E%3Cpath stroke='%232a1a10' stroke-opacity='0.22' stroke-width='.8' d='M-26.0 0 L54.0 150'/%3E%3Cpath stroke='%232a1a10' stroke-opacity='0.14' stroke-width='.8' d='M-12.0 0 L68.0 150'/%3E%3Cpath fill='%234f321f' d='M0 0 L40 0 L120 150 L80 150 Z'/%3E%3Cpath stroke='%232a1a10' stroke-opacity='0.22' stroke-width='.8' d='M14.0 0 L94.0 150'/%3E%3Cpath stroke='%232a1a10' stroke-opacity='0.14' stroke-width='.8' d='M28.0 0 L108.0 150'/%3E%3Cpath fill='%23563720' d='M40 0 L80 0 L160 150 L120 150 Z'/%3E%3Cpath stroke='%232a1a10' stroke-opacity='0.22' stroke-width='.8' d='M54.0 0 L134.0 150'/%3E%3Cpath stroke='%232a1a10' stroke-opacity='0.14' stroke-width='.8' d='M68.0 0 L148.0 150'/%3E%3Cpath fill='%236e4a2f' d='M80 0 L120 0 L200 150 L160 150 Z'/%3E%3Cpath stroke='%232a1a10' stroke-opacity='0.22' stroke-width='.8' d='M94.0 0 L174.0 150'/%3E%3Cpath stroke='%232a1a10' stroke-opacity='0.14' stroke-width='.8' d='M108.0 0 L188.0 150'/%3E%3Cpath fill='%2366432a' d='M120 0 L160 0 L240 150 L200 150 Z'/%3E%3Cpath stroke='%232a1a10' stroke-opacity='0.22' stroke-width='.8' d='M134.0 0 L214.0 150'/%3E%3Cpath stroke='%232a1a10' stroke-opacity='0.14' stroke-width='.8' d='M148.0 0 L228.0 150'/%3E%3C/g%3E%3Cg clip-path='url(%23r)' stroke='%231c110a' stroke-width='1.2'%3E%3Cpath fill='%23563720' d='M120 0 L160 0 L80 150 L40 150 Z'/%3E%3Cpath stroke='%232a1a10' stroke-opacity='0.22' stroke-width='.8' d='M134.0 0 L54.0 150'/%3E%3Cpath stroke='%232a1a10' stroke-opacity='0.14' stroke-width='.8' d='M148.0 0 L68.0 150'/%3E%3Cpath fill='%234f321f' d='M160 0 L200 0 L120 150 L80 150 Z'/%3E%3Cpath stroke='%232a1a10' stroke-opacity='0.22' stroke-width='.8' d='M174.0 0 L94.0 150'/%3E%3Cpath stroke='%232a1a10' stroke-opacity='0.14' stroke-width='.8' d='M188.0 0 L108.0 150'/%3E%3Cpath fill='%236e4a2f' d='M200 0 L240 0 L160 150 L120 150 Z'/%3E%3Cpath stroke='%232a1a10' stroke-opacity='0.22' stroke-width='.8' d='M214.0 0 L134.0 150'/%3E%3Cpath stroke='%232a1a10' stroke-opacity='0.14' stroke-width='.8' d='M228.0 0 L148.0 150'/%3E%3Cpath fill='%235c3b24' d='M240 0 L280 0 L200 150 L160 150 Z'/%3E%3Cpath stroke='%232a1a10' stroke-opacity='0.22' stroke-width='.8' d='M254.0 0 L174.0 150'/%3E%3Cpath stroke='%232a1a10' stroke-opacity='0.14' stroke-width='.8' d='M268.0 0 L188.0 150'/%3E%3Cpath fill='%2366432a' d='M280 0 L320 0 L240 150 L200 150 Z'/%3E%3Cpath stroke='%232a1a10' stroke-opacity='0.22' stroke-width='.8' d='M294.0 0 L214.0 150'/%3E%3Cpath stroke='%232a1a10' stroke-opacity='0.14' stroke-width='.8' d='M308.0 0 L228.0 150'/%3E%3Cpath fill='%234f321f' d='M320 0 L360 0 L280 150 L240 150 Z'/%3E%3Cpath stroke='%232a1a10' stroke-opacity='0.22' stroke-width='.8' d='M334.0 0 L254.0 150'/%3E%3Cpath stroke='%232a1a10' stroke-opacity='0.14' stroke-width='.8' d='M348.0 0 L268.0 150'/%3E%3C/g%3E%3Cpath stroke='%231c110a' stroke-width='2' d='M0 1 H240 M120 0 V150 M.5 0 V150'/%3E%3C/svg%3E") 0 0 / 240px 150px, #4f321f;
     --bg: #1e130c;
     --card: #2b1c13;
-    --panel: rgba(35, 23, 16, .88);
     --text: #ebdbb2;
     --muted: #b09a82;
     --line: #4a3424;
@@ -173,13 +172,13 @@
         radial-gradient(ellipse at top, #f7dcff, #e6f6ff 75%);
     --bg: #f6efff;
     --card: #fdfaff;
-    --panel: rgba(253, 250, 255, .85);
     --text: #22103a;
     --muted: #7a68a0;
     --line: rgba(0, 150, 190, .25);
     --accent: #0089a8;
     --accent-soft: rgba(0, 190, 230, .12);
     --shadow: 0 0 0 1px rgba(214, 0, 170, .45), 0 0 28px rgba(214, 0, 170, .16);
+    --glass-shadow: var(--shadow);   /* the glass keeps the theme's own edge */
     --radius: 4px;
 }
 :root[data-palette="cyber"][data-mode="dark"] {
@@ -188,7 +187,6 @@
         radial-gradient(ellipse at top, #2a0a3d, #07040f 70%);
     --bg: #0b0614;
     --card: #120a1f;
-    --panel: rgba(14, 8, 26, .82);
     --text: #e8f9ff;
     --muted: #8a7fb0;
     --line: rgba(0, 240, 255, .22);
@@ -223,20 +221,19 @@
     --backdrop: repeating-linear-gradient(#f6f8ee 0 48px, #e3efd9 48px 96px);
     --bg: #edf3e4;
     --card: #fbfcf6;
-    --panel: rgba(251, 252, 246, .92);
     --text: #183c22;
     --muted: #5b7a62;
     --line: #b9cfb5;
     --accent: #1d7a3a;
     --accent-soft: #dcebd6;
     --shadow: 0 0 0 1px #9cbf9f, 4px 4px 0 #b9cfb5;
+    --glass-shadow: var(--shadow);   /* the glass keeps the theme's own edge */
     --radius: 0;
 }
 :root[data-palette="retro"][data-mode="dark"] {
     --backdrop: radial-gradient(ellipse at center, #062b10, #010802 75%);
     --bg: #021305;
     --card: #031807;
-    --panel: rgba(3, 24, 7, .9);
     --text: #39ff6a;
     --muted: #1f9a42;
     --line: rgba(57, 255, 106, .28);

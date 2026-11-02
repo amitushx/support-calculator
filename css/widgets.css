@@ -3,11 +3,7 @@
     top: 0;
     left: 0;
     padding: 6px 12px 10px;
-    background: var(--panel);
-    backdrop-filter: blur(16px);
-    border: 1px solid var(--line);
     border-radius: 14px;
-    box-shadow: var(--shadow);
     touch-action: none;
     user-select: none;
     cursor: grab;
@@ -266,7 +262,9 @@
     cursor: pointer;
 }
 
-/* Wolt courier scooting along the floor, behind the pets */
+/* Wolt courier scooting along the floor, behind the pets. The characters
+   stand in front of every panel, which stack below 80000 (raise() in
+   widgets.js), and under full-screen Doom, the update banner and the alarm. */
 #road {
     position: fixed;
     bottom: var(--floor);
@@ -274,7 +272,7 @@
     width: 100%;
     overflow: hidden;   /* no sideways scroll while he's off the edge */
     direction: ltr;     /* starts off the left edge in Hebrew too */
-    z-index: 5;
+    z-index: 80000;
     pointer-events: none;
     user-select: none;
 }
@@ -290,7 +288,7 @@
     position: fixed;
     bottom: var(--floor);
     left: 0;
-    z-index: 6;
+    z-index: 80001;
     image-rendering: pixelated;
     cursor: pointer;
     touch-action: manipulation;
@@ -299,7 +297,7 @@
 .pet.left { scale: -1 1; }
 .pet-fx {   /* a heart or a z rising from a pet */
     position: fixed;
-    z-index: 7;
+    z-index: 80002;
     pointer-events: none;
     color: var(--accent);
     font: 600 15px Rubik, system-ui, sans-serif;

@@ -7,7 +7,7 @@
 **מחשבון סאפורט** · courier payments and Delivery Late compensation, one keystroke away
 
 <p>
-<!-- version --><img alt="Version" src="https://img.shields.io/badge/version-1.16.2-009DE0?style=for-the-badge"><!-- /version -->
+<!-- version --><img alt="Version" src="https://img.shields.io/badge/version-1.18.0-009DE0?style=for-the-badge"><!-- /version -->
 <a href="https://github.com/amitushx/support-calculator/actions/workflows/tests.yml"><img alt="Tests" src="https://img.shields.io/github/actions/workflow/status/amitushx/support-calculator/tests.yml?branch=main&label=tests&style=for-the-badge"></a>
 <img alt="Languages" src="https://img.shields.io/badge/languages-5-7C3AED?style=for-the-badge">
 <img alt="No build step" src="https://img.shields.io/badge/build-none-22C55E?style=for-the-badge">
@@ -122,6 +122,8 @@ Eight color themes, each with a light and a dark version. The mode follows the s
 - **Cyberpunk**: a neon city in magenta, purple and cyan, with CRT scanlines in dark mode
 - **Retro terminal**: green-bar printer paper in light mode, a glowing green screen in dark mode
 
+The calculator and the widgets are liquid glass in every theme: nearly clear, with a soft blur, light caught on the rim from the top left, and, in Chrome and Edge, edges that bend the page behind them like thick glass. With the system set to reduce transparency they turn solid.
+
 Everything moves on one soft spring: the calculator glides to its new size, switches bounce over (holding the mouse down on a switch or a tab starts the move, letting go finishes it), menus, dropdowns and widgets pop in, a dragged widget wobbles like jelly, and a new mode or theme pours out of its button. All of it stays still when the system asks for reduced motion.
 
 The whole app, help included, is in **Hebrew** (default), **English**, **Arabic**, **Georgian** and **Hindi**, right to left where needed.
@@ -142,7 +144,7 @@ changelog.js        releases, newest first (stays at the root: older copies poll
 assets/             the logo, favicons and app icons
 css/                themes · app · widgets · dialogs, loaded in that order
 js/lib/             the rules: fees.js, delay.js, bonus.js
-js/                 i18n.js, motion.js, dropdown.js, app.js, bonus-list.js, main.js
+js/                 i18n.js, motion.js, glass.js, dropdown.js, app.js, bonus-list.js, main.js
 js/widgets/         one file per widget; pets.js is shared by the cat and the puppy
 pages/doom.html     the Doom widget's frame
 scripts/readme.js   writes the version and change log below
@@ -170,6 +172,22 @@ CI checks that the version was bumped and that this README is up to date. After 
 ## Change log
 
 <!-- changelog -->
+### 1.18.0 · 2 November 2026
+
+- The calculator and the widgets are now liquid glass, in every theme: nearly clear, with a soft blur and a thin light on the rim, and in Chrome and Edge their edges bend what’s behind them like thick glass. If your computer is set to reduce transparency, they stay solid.
+
+### 1.17.0 · 2 November 2026
+
+- The cat and the puppy now walk more smoothly: each leg steps in turn, the tail sways, and they glide along the floor a pixel at a time instead of hopping. The Wolt courier’s wheels now turn round, the scooter rides a little on its suspension, and a puff of exhaust trails behind.
+
+### 1.16.4 · 2 November 2026
+
+- The cat, the puppy and the Wolt courier now always stay in front of the calculator and the widgets, even after you click those.
+
+### 1.16.3 · 2 November 2026
+
+- The cat and the puppy now leave with an animation when turned off: a little hop up as they shrink away, the reverse of how they land.
+
 ### 1.16.2 · 2 November 2026
 
 - Clicking the calculator brings it in front of the widgets, so the history no longer opens underneath one. Click a widget to bring it back to the front.
