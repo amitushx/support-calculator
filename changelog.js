@@ -6,6 +6,17 @@
 // change log skip it; only the README lists it, for developers.
 const CHANGELOG = [
     {
+        version: '1.18.1',
+        date: '2026-11-02',
+        notes: {
+            he: ['הסמל בלשונית הדפדפן הוא עכשיו הלוגו האמיתי, עם הקווים המעוגלים, במקום גרסת הפיקסלים.'],
+            en: ['The icon in the browser tab is now the real logo, with its rounded lines, instead of the pixel version.'],
+            ar: ['الأيقونة بتبويب المتصفح صارت الشعار الحقيقي، بخطوطه المدوّرة، بدل نسخة البكسلات.'],
+            ka: ['ბრაუზერის ჩანართის ხატულა ახლა ნამდვილი ლოგოა, მომრგვალებული ხაზებით, პიქსელური ვერსიის ნაცვლად.'],
+            hi: ['ब्राउज़र टैब का आइकन अब असली लोगो है, अपनी गोल रेखाओं के साथ, पिक्सेल वाले संस्करण की जगह।']
+        }
+    },
+    {
         version: '1.18.0',
         date: '2026-11-02',
         notes: {
