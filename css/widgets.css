@@ -58,6 +58,40 @@
     color-scheme: var(--scheme);
 }
 #nextAlarm { margin-top: 6px; font-variant-numeric: tabular-nums; }
+#leads {
+    display: grid;
+    grid-template-columns: auto auto;
+    align-items: center;
+    gap: 4px 12px;
+    margin-top: 4px;
+}
+.lead-row { display: contents; }
+.lead-row span { font-size: 13px; color: var(--muted); cursor: help; }
+.lead-row span:hover { color: var(--text); }
+.lead-row input {
+    width: 110px;
+    padding: 1px 0;
+    border-bottom: 1px solid var(--line) !important;
+    font-size: 16px;
+    font-weight: 500;
+}
+.lead-row input::placeholder { color: var(--muted); opacity: .6; font-size: 13px; font-weight: 400; }
+#leadsNote { margin-top: 6px; }
+/* The job under a hovered role: above the panels, under the characters */
+#leadTip {
+    position: fixed;
+    z-index: 79000;
+    padding: 6px 10px;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    box-shadow: var(--shadow);
+    color: var(--text);
+    font-size: 12px;
+    white-space: nowrap;
+    pointer-events: none;
+}
+#leadTip[hidden] { display: none; }
 .alarm-sound {
     display: flex;
     align-items: center;
