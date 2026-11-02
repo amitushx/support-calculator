@@ -53,6 +53,7 @@ lensDefs.setAttribute('aria-hidden', 'true');
 lensDefs.style.cssText = 'position: absolute; width: 0; height: 0';
 document.body.append(lensDefs);
 const lensBuilt = new Map();   // panel → the size and corner its lens has
+const lensOf = new Map();      // panel → its filter's id
 
 function buildLens(panel, n) {
     const w = panel.offsetWidth, h = panel.offsetHeight;
@@ -74,7 +75,35 @@ function buildLens(panel, n) {
         <feDisplacementMap in="blur" in2="map" scale="${lensScale(big)}" xChannelSelector="R" yChannelSelector="G" result="bent"/>
         <feColorMatrix in="bent" type="saturate" values="1.8"/>`;
     lensDefs.append(filter);
-    panel.style.backdropFilter = `url(#${id}) brightness(1.05)`;
+    lensOf.set(panel, id);
+    applyLenses();
+}
+
+// A panel partly under another one keeps the plain blur from app.css.
+// Chrome sometimes draws a lens buried under another panel's glass into
+// that glass, even past its own edges: a lighter stripe that flickered
+// in and out.
+function covered(panel) {
+    const r = panel.getBoundingClientRect(), z = +getComputedStyle(panel).zIndex || 0;
+    return glassPanels.some(other => {
+        if (other === panel || !other.offsetWidth || (+getComputedStyle(other).zIndex || 0) <= z) return false;
+        const o = other.getBoundingClientRect();
+        return o.left < r.right && o.right > r.left && o.top < r.bottom && o.bottom > r.top;
+    });
+}
+const lensApplied = new Map();   // panel → the backdrop filter it was given
+function applyLenses() {
+    for (const [panel, id] of lensOf) {
+        const filter = covered(panel) ? '' : `url(#${id}) brightness(1.05)`;
+        if (lensApplied.get(panel) === filter) continue;
+        lensApplied.set(panel, filter);
+        panel.style.backdropFilter = filter;
+    }
+}
+let applyFrame = 0;
+function scheduleLenses() {
+    cancelAnimationFrame(applyFrame);
+    applyFrame = requestAnimationFrame(applyLenses);
 }
 
 const glassPanels = [document.querySelector('main'), ...document.querySelectorAll('.widget')];
@@ -92,6 +121,10 @@ function startLenses() {
     glassPanels.forEach(panel => resized.observe(panel));
     // A palette can change the corners without changing the size
     new MutationObserver(updateLenses).observe(document.documentElement, { attributeFilter: ['data-palette'] });
+    // Dragged, raised, opened or closed: which panels are covered changes
+    const moved = new MutationObserver(scheduleLenses);
+    glassPanels.forEach(panel => moved.observe(panel, { attributeFilter: ['style', 'hidden', 'class'] }));
+    addEventListener('resize', scheduleLenses);
     updateLenses();
 }
 startLenses();

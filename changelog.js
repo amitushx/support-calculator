@@ -6,6 +6,17 @@
 // change log skip it; only the README lists it, for developers.
 const CHANGELOG = [
     {
+        version: '1.19.1',
+        date: '2026-11-02',
+        notes: {
+            he: ['כשווידג׳טים מונחים חלקית מתחת למחשבון, לא מופיע יותר פס בהיר ומרצד לאורך קצה המחשבון.'],
+            en: ['When widgets sit partly under the calculator, a light flickering stripe no longer appears along the calculator’s edge.'],
+            ar: ['لما تكون الويدجتات جزئياً تحت الحاسبة، ما عاد يطلع خط فاتح بيرجف على طرف الحاسبة.'],
+            ka: ['როცა ვიჯეტები ნაწილობრივ კალკულატორის ქვეშაა, კალკულატორის კიდეზე ღია, მოციმციმე ზოლი აღარ ჩნდება.'],
+            hi: ['जब विजेट आंशिक रूप से कैलकुलेटर के नीचे हों, तो कैलकुलेटर के किनारे पर अब हल्की टिमटिमाती पट्टी नहीं दिखती।']
+        }
+    },
+    {
         version: '1.19.0',
         date: '2026-11-02',
         notes: {
