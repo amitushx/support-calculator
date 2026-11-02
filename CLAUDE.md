@@ -63,6 +63,11 @@ when the version goes up, so every user-facing deploy needs a bump.)
   `scale`: squashing the round knob looked uncomfortable. The squash-and-
   stretch scaling on menus, widgets, history rows, the amount and dragged
   widgets is fine; the user chose to keep it.
+- The calculator and widgets are liquid glass, after iOS (`--panel` and
+  `--glass-*` in `themes.css`, `js/glass.js`): nearly clear, lens edges,
+  a thin rim light. No diagonal sheen or colored tint: that read as
+  Windows Vista. The rim light is fixed at the top left: following the
+  mouse was too much, with the mouse always moving.
 - Plan visual designs before coding: for a new theme or look, first show
   swatches of the proposed palette (and a mockup of any pattern) and wait
   for approval or tweaks. Iterating in code took several rounds on the
@@ -96,7 +101,8 @@ A static site for GitHub Pages, no build step.
   loaded in that order; the cascade depends on it.
 - `js/lib/`: the pure rules (`fees.js`, `delay.js`, `bonus.js`), the only
   code the tests load.
-- `js/`: `i18n.js`, `motion.js` (spring animation helpers), `dropdown.js`
+- `js/`: `i18n.js`, `motion.js` (spring animation helpers), `glass.js`
+  (the liquid glass lens edges), `dropdown.js`
   (styled dropdowns over hidden selects), `app.js` (calculators and page), `bonus-list.js`,
   `main.js` (clock tick, startup, wake lock, update check); `js/widgets/`
   has one file per widget, plus `pets.js`, shared by the cat and the puppy.

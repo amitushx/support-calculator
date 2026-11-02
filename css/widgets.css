@@ -3,11 +3,7 @@
     top: 0;
     left: 0;
     padding: 6px 12px 10px;
-    background: var(--panel);
-    backdrop-filter: blur(16px);
-    border: 1px solid var(--line);
     border-radius: 14px;
-    box-shadow: var(--shadow);
     touch-action: none;
     user-select: none;
     cursor: grab;
