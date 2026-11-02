@@ -11,6 +11,34 @@ const petCalm = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
 document.addEventListener('pointermove', e => { petInput.mouseX = e.clientX; petInput.last = Date.now(); });
 document.addEventListener('keydown', () => { petInput.last = Date.now(); });
 
+// A walk of PET_STRIDE frames from a body with no legs or tail. Each leg
+// is a line from its hip down to its paw, swinging back and forth a
+// quarter of a stride after the one before; the far legs are a shade
+// darker and drawn behind. The back stays level: a pixel's bob looked
+// jumpy at this size. `legs` are the hips' columns: far hind, near hind,
+// far front, near front. The tail sways through `tails`, a pose every
+// `tailHold` frames; each pose is the tail's column on every row from the
+// top, null for none.
+const PET_STRIDE = 8;
+function petGait({ body, legs, fur, far, paw, tail, tails, tailHold = 1, legLen = 3 }) {
+    const phases = [Math.PI, 0, Math.PI * 1.5, Math.PI * .5];
+    const frames = {};
+    for (let f = 0; f < PET_STRIDE; f++) {
+        const t = f / PET_STRIDE * 2 * Math.PI;
+        const grid = [...body, ...Array(legLen).fill('')].map(row => [...row.padEnd(body[0].length, '.')]);
+        tails[Math.floor(f / tailHold) % tails.length].forEach((x, y) => { if (x !== null) grid[y][x] = tail; });
+        for (const i of [0, 2, 1, 3]) {   // the far legs first
+            const dx = Math.round(Math.sin(t + phases[i]) * 2);
+            for (let r = 0; r < legLen; r++) {
+                const x = legs[i] + Math.round(dx * (r + 1) / legLen);
+                grid[body.length + r][x] = grid[body.length + r][x + 1] = r === legLen - 1 ? paw : i % 2 ? fur : far;
+            }
+        }
+        frames['walk' + f] = grid.map(row => row.join(''));
+    }
+    return frames;
+}
+
 const pets = {};
 // A pet on the canvas with id `name`. Every sprite gets the same w × h
 // canvas, standing on the bottom edge and centered, with a dark outline
@@ -83,7 +111,9 @@ function makePet(name, { sprites, colors, w, h, scale = 3, stepMs = 140 }) {
         tick();
     };
     // Walk (or run, with a longer `stride` and shorter `ms`) to `to`, then
-    // do `then`, or sit down if there's no `then`
+    // do `then`, or sit down if there's no `then`: `stride` pet pixels
+    // every `ms`, a pixel at a time so it glides, and a new leg frame
+    // every other pixel
     pet.walk = (to, { then, ms = stepMs, stride = 3 } = {}) => {
         pet.resting = false;
         to = Math.max(0, Math.min(to, pet.maxX()));
@@ -95,13 +125,12 @@ function makePet(name, { sprites, colors, w, h, scale = 3, stepMs = 140 }) {
         }
         const dir = Math.sign(to - pet.x);
         el.classList.toggle('left', dir < 0);
-        let leg = false;
+        let step = 0;
         pet.run(60000, () => {
-            leg = !leg;
-            pet.draw(leg ? 'walk1' : 'walk2');
-            pet.x += dir * scale * stride;
+            pet.draw('walk' + Math.floor(step++ / 2) % PET_STRIDE);
+            pet.x += dir * scale;
             pet.place();
-            return (to - pet.x) * dir > 0 ? ms : false;   // false: arrived
+            return (to - pet.x) * dir > 0 ? ms / stride : false;   // false: arrived
         }, then);
     };
     // Where to go to sit or sleep (`bed`): null if right here is fine, or

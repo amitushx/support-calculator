@@ -60,21 +60,7 @@ const DOG_SPRITES = {
     scratch2: withRows(DOG_SCRATCH, { 5: '.BBFWNNWFBBW..' }),
     bow1: DOG_BOW,
     bow2: withRows(DOG_BOW, { 0: '....................', 1: 'B...................', 2: '.BBFFF..............' }),   // the tail wags
-    walk1: [
-        '...........FFFFF...',
-        '..B.......FFFFFFF..',
-        '.B.......BBFFFEFFF.',
-        '.B.......BBFFFFFFWN',
-        '..B......BBFFFFWWW.',
-        '..FFFBBBFFFRRYRR...',
-        '..FFFBBBFFFFFWWF...',
-        '..FFFFFFFFFFFWWF...',
-        '...FFFFFFFFFFWW....',
-        '...FF..FF...FF.FF..',
-        '..FF...FF....FF.FF.',
-        '..WW...WW....WW..WW'
-    ],
-    walk2: [
+    stand: [
         '...........FFFFF...',
         '..........FFFFFFF..',
         '..B......BBFFFEFFF.',
@@ -88,6 +74,21 @@ const DOG_SPRITES = {
         '....FF.FF...FF.FF..',
         '....WW.WW...WW.WW..'
     ],
+    ...petGait({   // wagging as it goes: tail up, level, down, level
+        body: [
+            '...........FFFFF...',
+            '..........FFFFFFF..',
+            '.........BBFFFEFFF.',
+            '.........BBFFFFFFWN',
+            '.........BBFFFFWWW.',
+            '...FFBBBFFFRRYRR...',
+            '...FFBBBFFFFFWWF...',
+            '...FFFFFFFFFFWWF...',
+            '...FFFFFFFFFFWW....'
+        ],
+        legs: [3, 6, 12, 15], fur: 'F', far: 'b', paw: 'W',
+        tail: 'B', tails: [[null, 2, 1, 1, 2], [null, null, 2, 1, 1], [null, null, null, 2, 1], [null, null, 2, 1, 1]]
+    }),
     sleep: [
         '............FFFF..',
         '...FFFBBBF.FFFFFF.',

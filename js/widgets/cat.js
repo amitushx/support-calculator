@@ -39,22 +39,7 @@ const CAT_SPRITES = {
     groom: withRows(SIT, {   // a paw up at the mouth, eyes shut
         4: '.OoOOOoO......', 5: '.OOPPPOO......', 6: '..OWWWWW......', 7: '..OWWWWW......'
     }),
-    walk1: [
-        '.............O..O.',
-        '..O..........OOOO.',
-        '.O..........OOOOOO',
-        '.O..........OEOOEO',
-        '.O..........OOOPOO',
-        '..O..........OWWO.',
-        '..OOOOOOOOOOOOWWO.',
-        '..OOoOOoOOoOOOWW..',
-        '..OOOOOOOOOOOOWW..',
-        '...OOOOOOOOOOOW...',
-        '...OO..OO..OO.OO..',
-        '..OO...OO...OO.OO.',
-        '..WW...WW...WW..WW'
-    ],
-    walk2: [
+    stand: [
         '.............O..O.',
         '.............OOOO.',
         '..O.........OOOOOO',
@@ -69,6 +54,22 @@ const CAT_SPRITES = {
         '....OO.OO..OO.OO..',
         '....WW.WW..WW.WW..'
     ],
+    ...petGait({   // tail up, swaying at the tip
+        body: [
+            '.............O..O.',
+            '.............OOOO.',
+            '............OOOOOO',
+            '............OEOOEO',
+            '............OOOPOO',
+            '.............OWWO.',
+            '...OOOOOOOOOOOWWO.',
+            '...OoOOoOOoOOOWW..',
+            '...OOOOOOOOOOOWW..',
+            '...OOOOOOOOOOOW...'
+        ],
+        legs: [3, 6, 11, 14], fur: 'O', far: 'o', paw: 'W',
+        tail: 'O', tails: [[2, 1, 1, 1, 1, 2], [null, 1, 1, 1, 1, 2], [0, 0, 1, 1, 1, 2], [null, 1, 1, 1, 1, 2]], tailHold: 2
+    }),
     sleep: [
         '..........O..O......',
         '......OOOOOOOOO.....',

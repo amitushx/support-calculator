@@ -85,13 +85,13 @@ function playStart() {
     // canvases overlap by the blank column and outline beyond the noses
     function boop() {
         dog.el.classList.toggle('left', away < 0);
-        playHold(dog, ['walk2'], 1000);
+        playHold(dog, ['stand'], 1000);
         const touch = 9;
         cat.walk(away > 0 ? dog.x + dog.width - touch : dog.x - cat.width + touch, { then: go(heart) });
     }
     function heart() {
         cat.el.classList.toggle('left', away > 0);
-        playHold(cat, ['walk2'], 1000);
+        playHold(cat, ['stand'], 1000);
         const noses = dog.el.getBoundingClientRect();
         cat.fx('<svg class="icon"><use href="#i-heart"/></svg>', away > 0 ? noses.right - 6 : noses.left + 6);
         dog.run(1800, () => 600, go(end));
