@@ -6,6 +6,13 @@
 // the backdrop; elsewhere the panels keep the plain blur from app.css.
 const glassLens = /Chrome\//.test(navigator.userAgent);
 const reducedTransparency = matchMedia('(prefers-reduced-transparency: reduce)');
+// How far the rim reaches in, and how far it pulls the page at its edge:
+// at most 3/8 of the bezel, so each point of the rim shows the page a
+// little further in than its neighbor. Pulling further folds the page
+// back on itself, and a line behind the rim (another panel's edge)
+// smeared into a stripe that jumped as the panel moved.
+const lensBezel = big => big ? 40 : 26;
+const lensScale = big => lensBezel(big) * .75;   // twice the pull at the edge
 
 // The map: red for sideways, green for up and down, 128 for still. Drawn
 // at half size; the filter stretches it over the panel.
@@ -27,7 +34,7 @@ function lensMap(w, h, r, bezel) {
         let nx = 0, ny = 0;
         if (d > 0 && d < bezel) {   // within the bezel: toward the middle
             const gx = edge(x + 1, y) - edge(x - 1, y), gy = edge(x, y + 1) - edge(x, y - 1);
-            const len = Math.hypot(gx, gy) || 1, pull = (1 - d / bezel) ** 2.2;
+            const len = Math.hypot(gx, gy) || 1, pull = (1 - d / bezel) ** 2;
             nx = -gx / len * pull;
             ny = -gy / len * pull;
         }
@@ -62,9 +69,9 @@ function buildLens(panel, n) {
         primitiveUnits: 'userSpaceOnUse', 'color-interpolation-filters': 'sRGB' })) filter.setAttribute(name, value);
     filter.innerHTML = `<feGaussianBlur in="SourceGraphic" stdDeviation="${big ? 3 : 2.5}" result="blur"/>
         <feFlood flood-color="rgb(128, 128, 128)" result="still"/>
-        <feImage href="${lensMap(w, h, r, big ? 34 : 22)}" width="${w}" height="${h}" preserveAspectRatio="none" result="lens"/>
+        <feImage href="${lensMap(w, h, r, lensBezel(big))}" width="${w}" height="${h}" preserveAspectRatio="none" result="lens"/>
         <feComposite in="lens" in2="still" operator="over" result="map"/>
-        <feDisplacementMap in="blur" in2="map" scale="${big ? 70 : 44}" xChannelSelector="R" yChannelSelector="G" result="bent"/>
+        <feDisplacementMap in="blur" in2="map" scale="${lensScale(big)}" xChannelSelector="R" yChannelSelector="G" result="bent"/>
         <feColorMatrix in="bent" type="saturate" values="1.8"/>`;
     lensDefs.append(filter);
     panel.style.backdropFilter = `url(#${id}) brightness(1.05)`;

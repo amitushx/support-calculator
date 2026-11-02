@@ -20,7 +20,8 @@ const COURIER_COLORS = {
     p: '#c8ccd4'    // exhaust
 };
 const COURIER = [
-    '...................................',
+    '...................................',   // room for the cap's outline
+    '...................................',   // when he rides a pixel up
     '...............BBBBB...............',
     '.............BBLLBBBB..............',
     '.............BBBBBBBBBBB...........',
@@ -52,17 +53,17 @@ const COURIER_PAD = 6;
 // and a puff of exhaust drifting back and thinning out over the first 3
 const COURIER_STEPS = 8;
 const COURIER_PUFFS = [
-    { at: [-1, 21], dots: [[0, 0], [1, 0], [0, -1], [1, -1]] },
-    { at: [-3, 20], dots: [[0, 0], [1, 0], [0, -1]] },
-    { at: [-5, 20], dots: [[0, 0]] }
+    { at: [-1, 22], dots: [[0, 0], [1, 0], [0, -1], [1, -1]] },
+    { at: [-3, 21], dots: [[0, 0], [1, 0], [0, -1]] },
+    { at: [-5, 21], dots: [[0, 0]] }
 ];
 function courierFrame(step) {
     const width = Math.max(...COURIER.map(row => row.length)) + COURIER_PAD;
     const rows = COURIER.map(row => ('.'.repeat(COURIER_PAD) + row).padEnd(width, '.'));
     const grid = rows.map(row => [...row]);
     if (step % 4 >= 2) {   // everything but the wheels a pixel up
-        for (let y = 0; y < 21; y++) grid[y] = [...rows[y + 1]];
-        grid[21] = [...'.'.repeat(width)];
+        for (let y = 0; y < 22; y++) grid[y] = [...rows[y + 1]];
+        grid[22] = [...'.'.repeat(width)];
     }
     const turn = step * Math.PI / 8;
     for (const cx of [9 + COURIER_PAD, 27 + COURIER_PAD]) {   // wheels
@@ -70,7 +71,7 @@ function courierFrame(step) {
             const d = Math.hypot(x, y);
             const off = ((Math.atan2(y, x) - turn) % (Math.PI / 2) + Math.PI / 2) % (Math.PI / 2);
             const spoke = Math.min(off, Math.PI / 2 - off) < .3;
-            if (d <= 4.4 && (d > 2.4 || d < 1 || spoke)) grid[23 + y][cx + x] = d > 2.4 ? 'G' : 'g';
+            if (d <= 4.4 && (d > 2.4 || d < 1 || spoke)) grid[24 + y][cx + x] = d > 2.4 ? 'G' : 'g';
         }
     }
     const puff = COURIER_PUFFS[step];
