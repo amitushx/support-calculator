@@ -161,14 +161,17 @@ function makePet(name, { sprites, colors, w, h, scale = 3, stepMs = 140 }) {
 
 function setPet(name, on) {
     const pet = pets[name];
-    pet.el.hidden = !on;
     pet.resting = pet.sleeping = false;
     store.set(name, on ? '1' : '0');
     $('widgetMenu').querySelector(`[data-pet="${name}"]`).checked = on;
     clearTimeout(pet.timer);
+    // Drops onto the floor with a little bounce; turned off, it hops up
+    // and shrinks away the way it came
+    reveal(pet.el, on,
+        { transform: ['translateY(-28px) scale(.7)', 'none'], opacity: [0, 1], transformOrigin: ['50% 100%', '50% 100%'] },
+        { transform: ['none', 'translateY(-28px) scale(.7)'], opacity: [1, 0], transformOrigin: ['50% 100%', '50% 100%'] },
+        { duration: 220 });
     if (!on) return;
     pet.place();
     pet.start();
-    // Drops onto the floor with a little bounce
-    glide(pet.el, { transform: ['translateY(-28px) scale(.7)', 'none'], opacity: [0, 1], transformOrigin: ['50% 100%', '50% 100%'] });
 }
