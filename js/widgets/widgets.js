@@ -9,6 +9,18 @@ const saveWidgets = () => store.set('widgets', JSON.stringify(widgets));
 const widgetEl = name => $(`w-${name}`);
 const DEFAULT_Y = { clock: 16, alarm: 112, shift: 330, note: 430, sky: 590, doom: 16 };
 let topZ = 10;
+// Bring a panel to the front. Panels stay under the characters (80000 in
+// widgets.css): once the count nears them, the stack is renumbered from
+// the bottom, in the same order.
+function raise(el) {
+    if (topZ >= 70000) {
+        topZ = 10;
+        [...document.querySelectorAll('.widget, main')].filter(e => e.style.zIndex)
+            .sort((a, b) => a.style.zIndex - b.style.zIndex)
+            .forEach(e => { e.style.zIndex = ++topZ; });
+    }
+    el.style.zIndex = ++topZ;
+}
 
 function translateWidgets() {
     const t = translations[lang];
@@ -38,7 +50,7 @@ function setWidget(name, on) {
         { duration: 220 });
     $('widgetMenu').querySelector(`[data-widget="${name}"]`).checked = on;
     if (on) {
-        el.style.zIndex = ++topZ;
+        raise(el);
         tick();
         // Default spot: stacked down the left edge
         placeWidget(name, w.x ?? 16, w.y ?? DEFAULT_Y[name]);
@@ -52,7 +64,7 @@ function setWidget(name, on) {
 for (const name of WIDGETS) {
     const el = widgetEl(name);
     el.addEventListener('pointerdown', e => {
-        el.style.zIndex = ++topZ;
+        raise(el);
         if (e.button !== 0 || e.target.closest('input, textarea, select, button, label, .dd') || el.classList.contains('big')) return;
         const dx = e.clientX - el.offsetLeft;
         const dy = e.clientY - el.offsetTop;
@@ -80,7 +92,7 @@ for (const name of WIDGETS) {
 // The calculator stacks with the widgets: a click brings it to the front,
 // so opening the history isn't hidden under a widget it grows into
 document.querySelector('main').addEventListener('pointerdown', e => {
-    e.currentTarget.style.zIndex = ++topZ;
+    raise(e.currentTarget);
 });
 
 // Pull widgets back on screen when the window shrinks, without

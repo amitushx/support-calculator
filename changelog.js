@@ -6,6 +6,17 @@
 // change log skip it; only the README lists it, for developers.
 const CHANGELOG = [
     {
+        version: '1.16.4',
+        date: '2026-11-02',
+        notes: {
+            he: ['החתול, הכלבלב והשליח של וולט תמיד בחזית, לפני המחשבון והווידג׳טים, גם אחרי שלוחצים עליהם.'],
+            en: ['The cat, the puppy and the Wolt courier now always stay in front of the calculator and the widgets, even after you click those.'],
+            ar: ['البسة والجرو وموصّل وولت صاروا دايماً قدّام الحاسبة والويدجتات، حتى بعد ما تكبس عليهم.'],
+            ka: ['კატა, ლეკვი და Wolt-ის კურიერი ახლა ყოველთვის კალკულატორისა და ვიჯეტების წინ არიან, მათზე დაწკაპუნების შემდეგაც.'],
+            hi: ['बिल्ली, पिल्ला और Wolt कूरियर अब हमेशा कैलकुलेटर और विजेट के आगे रहते हैं, उन पर क्लिक करने के बाद भी।']
+        }
+    },
+    {
         version: '1.16.3',
         date: '2026-11-02',
         notes: {
