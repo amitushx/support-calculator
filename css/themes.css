@@ -13,7 +13,10 @@
     --card: #ffffff;
     --panel: color-mix(in srgb, var(--card) 14%, transparent);
     --glass-rim: .7;       /* the light on the rim, at its brightest */
-    --glass-chip: .16;     /* glass controls inside: tabs, dropdowns, switches */
+    /* Glass controls inside: tabs, dropdowns, switches. In light mode a
+       faint shade of the text, since white on a white page doesn't show */
+    --glass-chip: color-mix(in srgb, var(--text) 7%, transparent);
+    --glass-chip-edge: rgb(255 255 255 / .45);
     --glass-shadow: 0 12px 40px rgba(0, 0, 0, .12);
     --text: #202125;
     --muted: #6c7075;
@@ -30,7 +33,8 @@
     --card: #142029;
     --panel: color-mix(in srgb, var(--card) 16%, transparent);
     --glass-rim: .4;
-    --glass-chip: .06;
+    --glass-chip: rgb(255 255 255 / .06);
+    --glass-chip-edge: rgb(255 255 255 / .16);
     --glass-shadow: 0 12px 40px rgba(0, 0, 0, .35);
     --text: #f2f7fa;
     --muted: #8a9aa6;
