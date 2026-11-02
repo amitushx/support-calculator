@@ -1,13 +1,13 @@
 // Widgets: small draggable panels, all off by default. Which ones are on,
 // where they sit and what they hold is remembered in localStorage.
-const WIDGETS = ['clock', 'alarm', 'shift', 'note', 'sky', 'doom'];
+const WIDGETS = ['clock', 'alarm', 'shift', 'leads', 'note', 'sky', 'doom'];
 let widgets = {};
 try { widgets = JSON.parse(store.get('widgets')) || {}; } catch {}
 for (const name of WIDGETS) widgets[name] = { on: false, ...widgets[name] };
 delete widgets.timer;   // removed widget
 const saveWidgets = () => store.set('widgets', JSON.stringify(widgets));
 const widgetEl = name => $(`w-${name}`);
-const DEFAULT_Y = { clock: 16, alarm: 112, shift: 330, note: 430, sky: 590, doom: 16 };
+const DEFAULT_Y = { clock: 16, alarm: 112, shift: 330, leads: 260, note: 430, sky: 590, doom: 16 };
 let topZ = 10;
 // Bring a panel to the front. Panels stay under the characters (80000 in
 // widgets.css): once the count nears them, the stack is renumbered from
@@ -28,6 +28,10 @@ function translateWidgets() {
     document.querySelectorAll('.widget .close').forEach(el => { el.title = t.close; });
     $('widgetsBtn').title = t.widgets;
     $('noteText').placeholder = t.notePlaceholder;
+    document.querySelectorAll('.lead-row input').forEach(el => {
+        el.placeholder = t.leadName;
+        el.setAttribute('aria-label', el.previousElementSibling.textContent);
+    });
     $('doomFull').title = t.fullscreen;
     updateShort2();
 }

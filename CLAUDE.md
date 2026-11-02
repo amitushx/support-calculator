@@ -40,6 +40,11 @@ when the version goes up, so every user-facing deploy needs a bump.)
   the time of day.
 - The breaks widget is **Breaks** (הפסקות), not "Alarms"; its alarms ring
   for the breaks.
+- The widget of who's in charge this shift is **Shift Leads** (שיפט לידים).
+  Its roles are כ"א, מוביל and שטח (HR, Leader, Field). The user dropped a
+  fourth, Astra (אסטרה): not important enough for the widget.
+- Arabic follows the Hebrew work jargon, in Arabic letters (موبيل, شيطح),
+  not Arabic or English words for it: it's how the team actually talks.
 
 # UI
 
@@ -72,6 +77,9 @@ when the version goes up, so every user-facing deploy needs a bump.)
   swatches of the proposed palette (and a mockup of any pattern) and wait
   for approval or tweaks. Iterating in code took several rounds on the
   Wood theme.
+- The same goes for any new widget or UI feature: show a draft (a mockup
+  in the running app) and wait for approval before writing the real code.
+  The user shouldn't have to ask for it each time.
 
 # Ideas turned down
 

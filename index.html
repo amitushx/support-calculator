@@ -89,6 +89,7 @@
                 <label class="switch"><input type="checkbox" data-widget="clock"><span class="track"></span><span data-t="clock"></span></label>
                 <label class="switch"><input type="checkbox" data-widget="alarm"><span class="track"></span><span data-t="alarm"></span></label>
                 <label class="switch"><input type="checkbox" data-widget="shift"><span class="track"></span><span data-t="shift"></span></label>
+                <label class="switch"><input type="checkbox" data-widget="leads"><span class="track"></span><span data-t="leads"></span></label>
                 <label class="switch"><input type="checkbox" data-widget="note"><span class="track"></span><span data-t="note"></span></label>
                 <label class="switch"><input type="checkbox" data-widget="sky"><span class="track"></span><span data-t="sky"></span></label>
                 <label class="switch"><input type="checkbox" data-pet="cat"><span class="track"></span><span data-t="cat"></span></label>
@@ -478,6 +479,16 @@
     </div>
     <div id="shiftTrack"><div id="shiftFill"></div><div id="shiftPoints"></div></div>
 </div>
+<div class="widget" id="w-leads" hidden>
+    <div class="widget-bar"><span data-t="leads"></span><button class="close" type="button">×</button></div>
+    <div id="leads">
+        <div class="lead-row" data-lead="hr"><span data-t="leadHr"></span><input type="text" dir="auto" autocomplete="off" spellcheck="false"></div>
+        <div class="lead-row" data-lead="leader"><span data-t="leadLeader"></span><input type="text" dir="auto" autocomplete="off" spellcheck="false"></div>
+        <div class="lead-row" data-lead="field"><span data-t="leadField"></span><input type="text" dir="auto" autocomplete="off" spellcheck="false"></div>
+    </div>
+    <div id="leadsNote" class="widget-small" data-t="leadsCleared" hidden></div>
+</div>
+<div id="leadTip" role="tooltip" hidden></div>
 <div class="widget" id="w-note" hidden>
     <div class="widget-bar"><span data-t="note"></span><button class="close" type="button">×</button></div>
     <textarea id="noteText" dir="auto"></textarea>
@@ -497,6 +508,7 @@
 <script src="js/widgets/doom.js"></script>
 <script src="js/widgets/alarm.js"></script>
 <script src="js/widgets/shift.js"></script>
+<script src="js/widgets/leads.js"></script>
 <script src="js/widgets/courier.js"></script>
 <script src="js/widgets/pets.js"></script>
 <script src="js/widgets/cat.js"></script>
