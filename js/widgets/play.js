@@ -7,7 +7,7 @@ const PLAY_EVERY = 3 * 60000;   // at most one game this often
 const PLAY_RUN = { ms: 60, stride: 4 };   // running, not walking
 const play = { id: 0, on: false, last: Date.now() };
 
-const playReady = () => !pets.cat.el.hidden && !pets.dog.el.hidden && !pets.cat.sleeping
+const playReady = () => !pets.cat.el.hidden && !pets.dog.el.hidden && !pets.cat.sleeping && !fishGame.on
     && !petCalm() && !petAlone() && Date.now() - play.last > PLAY_EVERY;
 // Only the puppy starts a game
 const dogNextAlone = dog.next;
