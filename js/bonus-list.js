@@ -92,6 +92,9 @@ function updateBonus() {
         $('bonus').value = store.get('bonus') || '';
         render();
     }
+    // No list yet today: how to get one, until the first paste
+    if (!bonusList) info = t.bonusHint;
+    $('bonusInfo').classList.toggle('hint', !bonusList);
     if (!bonusNoteTimer) $('bonusInfo').textContent = info;
     $('bonusPasteBtn').classList.toggle('active', !!bonusList);
 

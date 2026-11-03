@@ -7,7 +7,7 @@
 **מחשבון סאפורט** · courier payments and Delivery Late compensation, one keystroke away
 
 <p>
-<!-- version --><img alt="Version" src="https://img.shields.io/badge/version-1.19.5-009DE0?style=for-the-badge"><!-- /version -->
+<!-- version --><img alt="Version" src="https://img.shields.io/badge/version-1.20.0-009DE0?style=for-the-badge"><!-- /version -->
 <a href="https://github.com/amitushx/support-calculator/actions/workflows/tests.yml"><img alt="Tests" src="https://img.shields.io/github/actions/workflow/status/amitushx/support-calculator/tests.yml?branch=main&label=tests&style=for-the-badge"></a>
 <img alt="Languages" src="https://img.shields.io/badge/languages-5-7C3AED?style=for-the-badge">
 <img alt="No build step" src="https://img.shields.io/badge/build-none-22C55E?style=for-the-badge">
@@ -53,7 +53,7 @@ The customer's maximum compensation for a late order.
 
 ### Daily bonus list
 
-Copy the day's bonus message, paste it with one button and pick a city: the bonus follows the clock by itself and shows until when it holds.
+Copy the day's bonus message, paste it with one button and pick a city: the bonus follows the clock by itself and shows until when it holds. Until the day's list is pasted, a line under the city menu says how.
 
 - Reads the list in whatever layout it arrives, Slack emoji codes included
 - Kept until the end of the day; the city is remembered for tomorrow
@@ -173,6 +173,10 @@ CI checks that the version was bumped and that this README is up to date. After 
 ## Change log
 
 <!-- changelog -->
+### 1.20.0 · 3 November 2026
+
+- Until there’s a bonus list for today, a line under the city menu explains how to add it: copy the list from Slack and click the paste button.
+
 ### 1.19.5 · 3 November 2026
 
 - The light stripe that flickered at the calculator’s edge when widgets sat under it is gone: each panel now draws its own glass. The edges that bend what’s behind them are back.
