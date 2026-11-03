@@ -41,7 +41,7 @@ setOrderType(orderType);
 setCalc(calc, false);
 applyLanguage();
 firstField().focus();
-if (notedReleases.some(r => isNewer(r.version, versionSeen))) openNews(false);   // not for internal ones
+if (featureReleases.some(r => isNewer(r.version, versionSeen))) openNews(false);   // not for fixes or internal ones
 store.set('version', VERSION);
 startMotion();   // from here on, changes animate
 

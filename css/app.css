@@ -36,8 +36,7 @@ main {
 
 /* Liquid glass, for the calculator and the widgets: nearly clear, the
    page behind blurred a little and its colors lifted, and light caught
-   on the rim from the top left. In Chromium, js/glass.js also bends the
-   page behind near the edges, like thick glass. */
+   on the rim from the top left. */
 main, .widget {
     position: relative;   /* for the rim; backdrop-filter places their contents already */
     background: var(--panel);
@@ -65,7 +64,7 @@ main .switch input:not(:checked) + .track, .widget .switch input:not(:checked) +
     box-shadow: inset 0 0 0 .5px var(--glass-chip-edge), inset 0 1px 1px var(--glass-chip-edge);
 }
 @media (prefers-reduced-transparency: reduce) {
-    main, .widget { background: var(--card); backdrop-filter: none !important; }
+    main, .widget { background: var(--card); backdrop-filter: none; }
 }
 
 @media (max-width: 360px) { main { padding: 20px; } }

@@ -7,7 +7,7 @@
 **מחשבון סאפורט** · courier payments and Delivery Late compensation, one keystroke away
 
 <p>
-<!-- version --><img alt="Version" src="https://img.shields.io/badge/version-1.19.2-009DE0?style=for-the-badge"><!-- /version -->
+<!-- version --><img alt="Version" src="https://img.shields.io/badge/version-1.19.4-009DE0?style=for-the-badge"><!-- /version -->
 <a href="https://github.com/amitushx/support-calculator/actions/workflows/tests.yml"><img alt="Tests" src="https://img.shields.io/github/actions/workflow/status/amitushx/support-calculator/tests.yml?branch=main&label=tests&style=for-the-badge"></a>
 <img alt="Languages" src="https://img.shields.io/badge/languages-5-7C3AED?style=for-the-badge">
 <img alt="No build step" src="https://img.shields.io/badge/build-none-22C55E?style=for-the-badge">
@@ -73,7 +73,7 @@ The last 10 calculations of each calculator, under the amount.
 </tr>
 </table>
 
-**And around it:** a What's new window after every update, a refresh offer when a new version is out, settings backup to a file (at the bottom of the help), and the screen stays awake while the calculator is open.
+**And around it:** a What's new window after every new feature, a refresh offer when a new version is out, settings backup to a file (at the bottom of the help), and the screen stays awake while the calculator is open.
 
 ## Keyboard shortcuts
 
@@ -123,7 +123,7 @@ Eight color themes, each with a light and a dark version. The mode follows the s
 - **Cyberpunk**: a neon city in magenta, purple and cyan, with CRT scanlines in dark mode
 - **Retro terminal**: green-bar printer paper in light mode, a glowing green screen in dark mode
 
-The calculator and the widgets are liquid glass in every theme: nearly clear, with a soft blur, light caught on the rim from the top left, and, in Chrome and Edge, edges that bend the page behind them like thick glass. With the system set to reduce transparency they turn solid.
+The calculator and the widgets are liquid glass in every theme: nearly clear, with a soft blur, and light caught on the rim from the top left. With the system set to reduce transparency they turn solid.
 
 Everything moves on one soft spring: the calculator glides to its new size, switches bounce over (holding the mouse down on a switch or a tab starts the move, letting go finishes it), menus, dropdowns and widgets pop in, a dragged widget wobbles like jelly, and a new mode or theme pours out of its button. All of it stays still when the system asks for reduced motion.
 
@@ -145,7 +145,7 @@ changelog.js        releases, newest first (stays at the root: older copies poll
 assets/             the logo, favicons and app icons
 css/                themes · app · widgets · dialogs, loaded in that order
 js/lib/             the rules: fees.js, delay.js, bonus.js
-js/                 i18n.js, motion.js, glass.js, dropdown.js, app.js, bonus-list.js, main.js
+js/                 i18n.js, motion.js, dropdown.js, app.js, bonus-list.js, main.js
 js/widgets/         one file per widget; pets.js is shared by the cat and the puppy
 pages/doom.html     the Doom widget's frame
 scripts/readme.js   writes the version and change log below
@@ -173,6 +173,14 @@ CI checks that the version was bumped and that this README is up to date. After 
 ## Change log
 
 <!-- changelog -->
+### 1.19.4 · 3 November 2026
+
+- The What’s new window now only opens for new features. Small fixes are listed in the full change log.
+
+### 1.19.3 · 3 November 2026
+
+- The edges of the glass no longer bend what’s behind them: in Chrome that drew flickering stripes where panels overlapped. The glass stays clear with a soft blur and the light on the rim.
+
 ### 1.19.2 · 3 November 2026
 
 - The bonus list now also reads lists where each line says "תוספת 30% בין השעות 12:00-13:00" under the city name. Until now all their cities merged into one row.

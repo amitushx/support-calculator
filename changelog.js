@@ -1,10 +1,33 @@
 // Releases, newest first. The first entry is the running version: add a new
-// one on top for each release (semver: major.minor.patch) and the What's new
-// window shows it once to everyone who ran an older version. An internal
+// one on top for each release (semver: major.minor.patch). A minor or major
+// release pops up in the What's new window once for everyone who ran an
+// older version; a patch only shows in the full change log. An internal
 // release (a refactor, tests, tooling) has a `dev` note in English instead
 // of `notes`: users are still offered the refresh, but What's new and the
 // change log skip it; only the README lists it, for developers.
 const CHANGELOG = [
+    {
+        version: '1.19.4',
+        date: '2026-11-03',
+        notes: {
+            he: ['חלון "מה חדש" נפתח עכשיו רק כשיש פיצ׳ר חדש. תיקונים קטנים מופיעים ב"כל השינויים".'],
+            en: ['The What’s new window now only opens for new features. Small fixes are listed in the full change log.'],
+            ar: ['شباك "شو الجديد" صار يفتح بس لما في ميزة جديدة. التصليحات الصغيرة موجودة بـ"كل التغييرات".'],
+            ka: ['ფანჯარა „რა არის ახალი“ ახლა მხოლოდ ახალი ფუნქციებისთვის იხსნება. მცირე შესწორებები ცვლილებების სრულ სიაშია.'],
+            hi: ['“नया क्या है” विंडो अब सिर्फ़ नई सुविधाओं के लिए खुलती है। छोटे सुधार पूरी बदलाव सूची में दिखते हैं।']
+        }
+    },
+    {
+        version: '1.19.3',
+        date: '2026-11-03',
+        notes: {
+            he: ['הקצוות של הזכוכית כבר לא מעקמים את מה שמאחוריהם: בכרום זה צייר פסים מרצדים כשפאנלים עלו זה על זה. הזכוכית נשארת שקופה ומטושטשת קלות, עם האור על השוליים.'],
+            en: ['The edges of the glass no longer bend what’s behind them: in Chrome that drew flickering stripes where panels overlapped. The glass stays clear with a soft blur and the light on the rim.'],
+            ar: ['أطراف الزجاج ما عادت تعوّج اللي وراها: بكروم كانت ترسم خطوط بترجف لما اللوحات تركب فوق بعض. الزجاج بيضل شفاف مع تغبيش ناعم والضو عالأطراف.'],
+            ka: ['მინის კიდეები აღარ ღუნავს იმას, რაც მათ უკანაა: Chrome-ში ეს მოციმციმე ზოლებს ხატავდა, სადაც პანელები ერთმანეთს ფარავდა. მინა რჩება გამჭვირვალე, რბილი გაბუნდოვნებით და შუქით კიდეზე.'],
+            hi: ['काँच के किनारे अब पीछे की चीज़ों को नहीं मोड़ते: Chrome में इससे पैनलों के एक-दूसरे पर आने पर टिमटिमाती पट्टियाँ बनती थीं। काँच पारदर्शी रहता है, हल्के धुंधलेपन और किनारे की रोशनी के साथ।']
+        }
+    },
     {
         version: '1.19.2',
         date: '2026-11-03',
