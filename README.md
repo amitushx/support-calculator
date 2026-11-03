@@ -192,7 +192,7 @@ CI checks that the version was bumped and that this README is up to date. After 
 <!-- changelog -->
 ### 1.24.0 · 4 November 2026
 
-- A third tab: a plain calculator, to add, subtract, multiply, divide and take percentages, with no rounding. Type on the keyboard or click the keys, and C switches to it. Percentages work like on a phone: 200 + 10% is 220. Results go into the history.
+- A third tab: a plain calculator, to add, subtract, multiply, divide and take percentages, with up to 3 digits after the point. Type on the keyboard or click the keys, and C switches to it. Percentages work like on a phone: 200 + 10% is 220. Results go into the history.
 
 ### 1.23.0 · 3 November 2026
 
