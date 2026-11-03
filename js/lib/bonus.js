@@ -16,7 +16,7 @@ const TIME = String.raw`(\d{1,2}):(\d{2})`;
 const RANGE = String.raw`${TIME}\s*(?:[-–—]|עד)\s*${TIME}`;
 const PERCENT = String.raw`(\d+(?:\.\d+)?)\s*%`;
 // Hebrew filler words; matched as whole words so city names stay intact
-const FILLER = /(?<!\p{L})(?:תוספת|בונוס|בשעות|בשעה|משעה|שעות|ממשיך|ממשיכה|בין|עד)(?!\p{L})/gu;
+const FILLER = /(?<!\p{L})(?:תוספת|בונוס|בשעות|בשעה|משעה|השעות|השעה|שעות|ממשיך|ממשיכה|בין|עד)(?!\p{L})/gu;
 
 const minutes = (h, m) => Number(h) * 60 + Number(m);
 
