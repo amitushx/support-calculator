@@ -26,6 +26,23 @@ const SIT = [
     '.OoWWWoOOOOOO.',
     '.WW...WWOOOO..'
 ];
+const REACH = [
+    '.......O...O...',
+    '.......OO.OO...',
+    '.......OPOPO.WW',
+    '......OOOOOOOWW',
+    '......OEOOOEO..',
+    '......OOOPOOO..',
+    '.......OWWWO...',
+    '.......OWWWOO..',
+    '......OOWWWOO..',
+    '......OOWWWOO..',
+    '......OOWWWOO..',
+    '.....OOOWWWOOO.',
+    '.O..OOOOOOOOOO.',
+    '.OOOOOOOOOOOOO.',
+    '......WW..WW...'
+];
 const CAT_SPRITES = {
     sit: SIT,
     blink: withRows(SIT, { 4: '.OoOOOoO......' }),
@@ -39,6 +56,8 @@ const CAT_SPRITES = {
     groom: withRows(SIT, {   // a paw up at the mouth, eyes shut
         4: '.OoOOOoO......', 5: '.OOPPPOO......', 6: '..OWWWWW......', 7: '..OWWWWW......'
     }),
+    reach1: REACH,   // up on its hind legs, pawing over the goldfish bowl
+    reach2: withRows(REACH, { 1: '.......OO.OO.WW', 2: '.......OPOPO.WW', 3: '......OOOOOOOO.', 12: 'O...OOOOOOOOOO.' }),
     stand: [
         '.............O..O.',
         '.............OOOO.',

@@ -7,7 +7,7 @@
 **מחשבון סאפורט** · courier payments and Delivery Late compensation, one keystroke away
 
 <p>
-<!-- version --><img alt="Version" src="https://img.shields.io/badge/version-1.22.0-009DE0?style=for-the-badge"><!-- /version -->
+<!-- version --><img alt="Version" src="https://img.shields.io/badge/version-1.23.0-009DE0?style=for-the-badge"><!-- /version -->
 <a href="https://github.com/amitushx/support-calculator/actions/workflows/tests.yml"><img alt="Tests" src="https://img.shields.io/github/actions/workflow/status/amitushx/support-calculator/tests.yml?branch=main&label=tests&style=for-the-badge"></a>
 <img alt="Languages" src="https://img.shields.io/badge/languages-5-7C3AED?style=for-the-badge">
 <img alt="No build step" src="https://img.shields.io/badge/build-none-22C55E?style=for-the-badge">
@@ -106,6 +106,7 @@ Small panels, all off by default, turned on from the header: the puzzle button h
 | **Sky** | A pixel-art skyline under the real sky of the moment, sun and moon included; matrix rain in the Retro terminal theme |
 | **Cat** | Wanders along the bottom of the screen, grooms, and naps when nobody's around. Click it and it meows |
 | **Puppy** | Lives there too: pants, wags, scratches an ear, runs zoomies and naps. Click it and it barks. Now and then it invites the cat to play: a swat, a chase and a nose boop. When both fall asleep they curl up side by side |
+| **Goldfish** | A bowl in the middle of the floor, with gravel, seaweed and a little castle, and a goldfish that swims about now and then. Click it and bubbles pop out. With the cat out too, the cat often comes over to tap the glass and try to fish it out, to no avail |
 | **Doom** | The shareware episode, downloaded (about 6.5 MB) only when you press play. <kbd>F</kbd> goes full screen |
 
 Every 10 minutes a pixel-art Wolt courier also scoots across the page. Click him and he pays out 10₪, with a kaching.
@@ -146,7 +147,7 @@ assets/             the logo, favicons and app icons
 css/                themes · app · widgets · dialogs, loaded in that order
 js/lib/             the rules: fees.js, delay.js, bonus.js
 js/                 i18n.js, motion.js, glass.js, dropdown.js, app.js, bonus-list.js, main.js
-js/widgets/         one file per widget; pets.js is shared by the cat and the puppy
+js/widgets/         one file per widget; pets.js is shared by the cat, the puppy and the goldfish
 pages/doom.html     the Doom widget's frame
 scripts/readme.js   writes the version and change log below
 tests/              test pages, their Node runner and the Firefox smoke test
@@ -173,6 +174,10 @@ CI checks that the version was bumped and that this README is up to date. After 
 ## Change log
 
 <!-- changelog -->
+### 1.23.0 · 3 November 2026
+
+- A goldfish joins the Extras: a round bowl in the middle of the screen, with gravel, seaweed and a little castle. Click it and bubbles pop out. When the cat is out too, it often comes over to tap the glass and try to fish it out, to no avail.
+
 ### 1.22.0 · 3 November 2026
 
 - You can click the Wolt courier who scoots across the screen every 10 minutes: a 10₪ pops up with the kaching of a cash register.

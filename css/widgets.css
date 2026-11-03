@@ -320,7 +320,8 @@
     transform: translateX(-100%);
 }
 
-/* The pets: live on the floor, a click makes them meow or bark */
+/* The pets: live on the floor, a click makes them meow or bark; the
+   goldfish bowl sits among them, behind them */
 .pet {
     position: fixed;
     bottom: var(--floor);
@@ -342,6 +343,14 @@
 }
 .pet-fx.cash { color: #2fae5a; font-size: 18px; direction: ltr; }   /* 10₪ from the courier */
 .pet-fx .icon { width: 20px; height: 20px; color: #ff6b8a; fill: currentColor; }
+.fish-bubble {   /* out of the goldfish bowl when it's clicked */
+    position: fixed;
+    z-index: 80002;
+    width: 15px;
+    height: 15px;
+    pointer-events: none;
+    image-rendering: pixelated;
+}
 @keyframes pet-float {
     from { opacity: 0; translate: 0 0; }
     15% { opacity: 1; }

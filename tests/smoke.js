@@ -128,6 +128,16 @@ const CHECKS = {
         const off = WIDGETS.filter(name => widgetEl(name).hidden);
         for (const name of WIDGETS) setWidget(name, false);
         return off.map(name => name + ' did not open');
+    })()`,
+    'every pet': `(() => {
+        const names = Object.keys(pets);
+        for (const name of names) setPet(name, true);
+        const off = names.filter(name => pets[name].el.hidden);
+        pets.fish.el.click();   // bubbles
+        fishGame.last = 0;
+        fishPlay();   // the cat comes over to the bowl
+        for (const name of names) setPet(name, false);
+        return off.map(name => name + ' did not come out');
     })()`
 };
 
