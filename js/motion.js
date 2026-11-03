@@ -101,14 +101,24 @@ document.addEventListener('change', e => {
     if (e.target.matches('.switch input')) stretchKnob(e.target);
 });
 
-// Holding the mouse down on a switch or on the other tab starts the move
+// Before a tab is chosen: whether the pill heads back toward the start,
+// which sets which of its edges leads (app.css)
+function tabsToward(button) {
+    const tabs = [...button.parentElement.querySelectorAll('button')];
+    const from = tabs.findIndex(b => b.getAttribute('aria-selected') === 'true');
+    button.parentElement.classList.toggle('back', tabs.indexOf(button) < from);
+}
+
+// Holding the mouse down on a switch or on another tab starts the move
 // (.pressing); letting go finishes it. Let go elsewhere, there's no click
 // and it springs back.
 let pressed = null;
 document.addEventListener('pointerdown', e => {
     if (e.button !== 0 || !motion()) return;
     const box = e.target.closest('.switch')?.querySelector('input:not(:disabled)');
-    pressed = box ?? e.target.closest('.tabs button:not([aria-selected="true"])')?.parentElement ?? null;
+    const tab = e.target.closest('.tabs button:not([aria-selected="true"])');
+    if (tab) tabsToward(tab);
+    pressed = box ?? tab?.parentElement ?? null;
     pressed?.classList.remove('unpress', 'flipped');   // a stretch still running would override the press
     pressed?.classList.add('pressing');
 });

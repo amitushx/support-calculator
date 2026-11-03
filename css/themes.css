@@ -254,6 +254,7 @@
 :root[data-palette="retro"] .menu,
 :root[data-palette="retro"] .tabs,
 :root[data-palette="retro"] .tabs button,
+:root[data-palette="retro"] .keypad button,
 :root[data-palette="retro"] .dd-list,
 :root[data-palette="retro"] .dd-btn,
 :root[data-palette="retro"] .dd-hl { border-radius: 0; }

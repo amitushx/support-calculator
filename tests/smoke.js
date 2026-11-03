@@ -1,7 +1,7 @@
 /*
  * Smoke test: loads the real index.html in headless Firefox and checks that
  * the page starts without script errors (a wrong load order in index.html
- * only shows up there), that both calculators answer (and Esc clears them), that every language
+ * only shows up there), that the three calculators answer (and Esc clears them), that every language
  * fills in every text, and that every widget turns on cleanly.
  * Firefox is driven over WebDriver BiDi, built into it, so nothing needs
  * installing; set FIREFOX to its path if it isn't on PATH. Without Firefox
@@ -101,6 +101,21 @@ const CHECKS = {
         const expected = delayCompensation(40, 145.90);
         document.querySelector('[data-calc="distance"]').click();
         return shown.includes(String(expected)) ? [] : ['40 min, ₪145.90 shows ' + shown + ', expected ' + expected];
+    })()`,
+    'plain calculator': `(() => {
+        document.querySelector('[data-calc="basic"]').click();
+        const press = key => document.body.dispatchEvent(new KeyboardEvent('keydown', { key, bubbles: true }));
+        const problems = [];
+        for (const key of '145.9*28%') press(key);
+        press('Enter');
+        if ($('amount').textContent !== '40.852') problems.push('145.9 × 28% shows ' + $('amount').textContent + ', expected 40.852');
+        for (const key of '+.1') press(key);
+        document.querySelector('[data-key="="]').click();
+        if ($('amount').textContent !== '40.952') problems.push('then + .1 shows ' + $('amount').textContent + ', expected 40.952');
+        press('Escape');
+        if (basicExpr) problems.push('Esc left ' + basicExpr);
+        document.querySelector('[data-calc="distance"]').click();
+        return problems;
     })()`,
     'every language': `(() => {
         const problems = [];

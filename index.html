@@ -57,6 +57,8 @@
     <symbol id="i-clipboard" viewBox="0 0 24 24"><path d="M9 5h-2a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-12a2 2 0 0 0 -2 -2h-2"/><path d="M9 5a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2a2 2 0 0 1 -2 2h-2a2 2 0 0 1 -2 -2z"/></symbol>
     <symbol id="i-calculator" viewBox="0 0 24 24"><path d="M4 5a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2z"/><path d="M8 8a1 1 0 0 1 1 -1h6a1 1 0 0 1 1 1v1a1 1 0 0 1 -1 1h-6a1 1 0 0 1 -1 -1z"/><path d="M8 14v.01M12 14v.01M16 14v.01M8 17v.01M12 17v.01M16 17v.01"/></symbol>
     <symbol id="i-clock-late" viewBox="0 0 24 24"><path d="M20.986 12.502a9 9 0 1 0 -5.973 7.98"/><path d="M12 7v5l3 3"/><path d="M19 16v3"/><path d="M19 22v.01"/></symbol>
+    <symbol id="i-math" viewBox="0 0 24 24"><path d="M3 12h18M12 3v18M16.5 4.5l3 3M19.5 4.5l-3 3M6 4v4M4 6h4M18 16v.01M18 20v.01M4 18h4"/></symbol>
+    <symbol id="i-backspace" viewBox="0 0 24 24"><path d="M20 6a1 1 0 0 1 1 1v10a1 1 0 0 1 -1 1h-11l-5 -5a1.5 1.5 0 0 1 0 -2l5 -5z"/><path d="M12 10l4 4m0 -4l-4 4"/></symbol>
     <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M20 11a8.1 8.1 0 0 0 -15.5 -2m-.5 -4v4h4"/><path d="M4 13a8.1 8.1 0 0 0 15.5 2m.5 4v-4h-4"/></symbol>
     <symbol id="i-history" viewBox="0 0 24 24"><path d="M12 8v4l2 2"/><path d="M3.05 11a9 9 0 1 1 .5 4m-.5 5v-5h5"/></symbol>
     <symbol id="i-player-play" viewBox="0 0 24 24"><path d="M7 4v16l13 -8z"/></symbol>
@@ -109,6 +111,7 @@
         <span class="pill" aria-hidden="true"></span>
         <button type="button" role="tab" data-calc="distance" data-t="tabDistance"></button>
         <button type="button" role="tab" data-calc="delay" data-t="tabDelay"></button>
+        <button type="button" role="tab" data-calc="basic" data-t="tabBasic"></button>
     </div>
 
     <div id="distanceCalc">
@@ -165,9 +168,31 @@
     </div>
 
     <button id="result" type="button" disabled>
+        <span id="expr" hidden><span dir="ltr"></span></span>
         <span id="amount" dir="ltr">—</span>
         <span id="caption"></span>
     </button>
+    <div id="basicCalc" class="keypad" dir="ltr" tabindex="-1" hidden>
+        <button type="button" data-key="c" class="op">C</button>
+        <button type="button" data-key="back" class="op"><svg class="icon"><use href="#i-backspace"/></svg></button>
+        <button type="button" data-key="%" class="op">%</button>
+        <button type="button" data-key="/" class="op">÷</button>
+        <button type="button" data-key="7">7</button>
+        <button type="button" data-key="8">8</button>
+        <button type="button" data-key="9">9</button>
+        <button type="button" data-key="*" class="op">×</button>
+        <button type="button" data-key="4">4</button>
+        <button type="button" data-key="5">5</button>
+        <button type="button" data-key="6">6</button>
+        <button type="button" data-key="-" class="op">−</button>
+        <button type="button" data-key="1">1</button>
+        <button type="button" data-key="2">2</button>
+        <button type="button" data-key="3">3</button>
+        <button type="button" data-key="+" class="op">+</button>
+        <button type="button" data-key="0" class="zero">0</button>
+        <button type="button" data-key=".">.</button>
+        <button type="button" data-key="=" class="equals">=</button>
+    </div>
     <section id="history" hidden>
         <div class="history-head">
             <span><svg class="icon"><use href="#i-history"/></svg> <span data-t="history"></span></span>
@@ -215,9 +240,15 @@
                 <li>הפיצוי המקסימלי מופיע למטה, מעוגל כלפי מעלה לשקל שלם (קרדיט אחד הוא שקל). הפעילו <b>וולט פלוס</b> ללקוחות המנוי.</li>
                 <li>קיצורים: <kbd>M</kbd> דקות, <kbd>P</kbd> סכום, <kbd>W</kbd> וולט פלוס, <kbd>T</kbd> מסעדה או ריטייל.</li>
             </ul>
+            <h3><svg class="icon"><use href="#i-math"/></svg>מחשבון</h3>
+            <ul>
+                <li>מחשבון רגיל לכל השאר: חיבור, חיסור, כפל, חילוק ואחוזים, עם עד 3 ספרות אחרי הנקודה. עוברים אליו מהלשונית למעלה, או עם <kbd>C</kbd>.</li>
+                <li>מקלידים במקלדת או לוחצים על הכפתורים. התוצאה מתעדכנת תוך כדי הקלדה. <kbd>Enter</kbd> או לחיצה עליה מעתיקים אותה, <kbd>=</kbd> מסכם את החישוב בלי להעתיק, <kbd>Backspace</kbd> מוחק תו ו־<kbd>Esc</kbd> מנקה.</li>
+                <li>אחוזים כמו בטלפון: <span dir="ltr">200 + 10%</span> הם 220, ו־<span dir="ltr">145.9 × 28%</span> הם 40.852.</li>
+            </ul>
             <h3><svg class="icon"><use href="#i-history"/></svg>היסטוריה</h3>
             <ul>
-                <li><svg class="icon"><use href="#i-history"/></svg> או <kbd>H</kbd> פותחים מתחת לסכום את 10 החישובים האחרונים, בנפרד למרחק ולדליברי לייט: כל חישוב שהועתק, או שנשאר על המסך כמה שניות. מוצגים 5, ו״הצגת עוד״ פותח את כל ה־10.</li>
+                <li><svg class="icon"><use href="#i-history"/></svg> או <kbd>H</kbd> פותחים מתחת לסכום את 10 החישובים האחרונים, בנפרד לכל מחשבון: כל חישוב שהועתק, או שנשאר על המסך כמה שניות (במחשבון: כל תוצאה). מוצגים 5, ו״הצגת עוד״ פותח את כל ה־10.</li>
                 <li>לחיצה על שורה מעתיקה שוב את הסכום שלה, ו־<svg class="icon"><use href="#i-trash"/></svg> מנקה את הרשימה.</li>
             </ul>
             <h3><svg class="icon"><use href="#i-clipboard"/></svg>רשימת הבונוסים</h3>
@@ -254,9 +285,15 @@
                 <li>The maximum compensation shows below, rounded up to a whole shekel (one credit is one shekel). Turn on <b>Wolt+</b> for subscribers.</li>
                 <li>Shortcuts: <kbd>M</kbd> minutes, <kbd>P</kbd> price, <kbd>W</kbd> Wolt+, <kbd>T</kbd> restaurant or retail.</li>
             </ul>
+            <h3><svg class="icon"><use href="#i-math"/></svg>Calculator</h3>
+            <ul>
+                <li>A plain calculator for everything else: add, subtract, multiply, divide and percentages, with up to 3 digits after the point. Switch to it with the tab at the top, or press <kbd>C</kbd>.</li>
+                <li>Type on the keyboard or click the keys. The result updates as you type. <kbd>Enter</kbd> or a click on it copies it, <kbd>=</kbd> settles the sum without copying, <kbd>Backspace</kbd> deletes a character and <kbd>Esc</kbd> clears.</li>
+                <li>Percentages work like on a phone: 200 + 10% is 220, and 145.9 × 28% is 40.852.</li>
+            </ul>
             <h3><svg class="icon"><use href="#i-history"/></svg>History</h3>
             <ul>
-                <li><svg class="icon"><use href="#i-history"/></svg> or <kbd>H</kbd> opens your last 10 calculations under the amount, kept apart for distance and Delivery Late: each one you copied, or that stayed on screen for a few seconds. 5 show at first, and “Show more” opens all 10.</li>
+                <li><svg class="icon"><use href="#i-history"/></svg> or <kbd>H</kbd> opens your last 10 calculations under the amount, kept apart for each calculator: each one you copied, or that stayed on screen for a few seconds (in the Calculator, each result). 5 show at first, and “Show more” opens all 10.</li>
                 <li>Click a row to copy its amount again; <svg class="icon"><use href="#i-trash"/></svg> clears the list.</li>
             </ul>
             <h3><svg class="icon"><use href="#i-clipboard"/></svg>The bonus list</h3>
@@ -294,9 +331,15 @@
                 <li>أعلى تعويض بيطلع تحت، مدوّر لفوق لأقرب شيكل (كل كريديت بشيكل). شغّلوا <b>Wolt+</b> للزباين المشتركين.</li>
                 <li>اختصارات: <kbd>M</kbd> دقايق، <kbd>P</kbd> مبلغ، <kbd>W</kbd> Wolt+، <kbd>T</kbd> مطعم أو متجر.</li>
             </ul>
+            <h3><svg class="icon"><use href="#i-math"/></svg>حاسبة</h3>
+            <ul>
+                <li>حاسبة عادية لكل إشي تاني: جمع وطرح وضرب وقسمة ونسب مئوية، مع لحد 3 أرقام بعد الفاصلة. بتوصلوها من التاب فوق، أو بـ<kbd>C</kbd>.</li>
+                <li>اكتبوا عالكيبورد أو اكبسوا عالأزرار. النتيجة بتتحدّث وانتو بتكتبوا. <kbd>Enter</kbd> أو كبسة عليها بتنسخها، و<kbd>=</kbd> بيسكّر الحساب بدون نسخ، <kbd>Backspace</kbd> بيمحي خانة و<kbd>Esc</kbd> بيمسح.</li>
+                <li>النسب زي بالتلفون: <span dir="ltr">200 + 10%</span> بتطلع 220، و<span dir="ltr">145.9 × 28%</span> بتطلع 40.852.</li>
+            </ul>
             <h3><svg class="icon"><use href="#i-history"/></svg>السجل</h3>
             <ul>
-                <li><svg class="icon"><use href="#i-history"/></svg> أو <kbd>H</kbd> بيفتح تحت المبلغ آخر 10 حسابات، لحال للمسافة ولحال للديليفري ليت: كل حساب نسختوه، أو ضل عالشاشة كم ثانية. بيبيّن 5، و«عرض أكتر» بيفتح كل الـ10.</li>
+                <li><svg class="icon"><use href="#i-history"/></svg> أو <kbd>H</kbd> بيفتح تحت المبلغ آخر 10 حسابات، لحال لكل حاسبة: كل حساب نسختوه، أو ضل عالشاشة كم ثانية (بالحاسبة: كل نتيجة). بيبيّن 5، و«عرض أكتر» بيفتح كل الـ10.</li>
                 <li>كبسة على سطر بتنسخ مبلغه مرة تانية، و <svg class="icon"><use href="#i-trash"/></svg> بيمسح القائمة.</li>
             </ul>
             <h3><svg class="icon"><use href="#i-clipboard"/></svg>قائمة البونصات</h3>
@@ -333,9 +376,15 @@
                 <li>მაქსიმალური კომპენსაცია ქვემოთ ჩანს, მთელ შეკელამდე ზემოთ დამრგვალებული (ერთი კრედიტი ერთი შეკელია). გამომწერებისთვის ჩართეთ <b>Wolt+</b>.</li>
                 <li>მალსახმობები: <kbd>M</kbd> წუთები, <kbd>P</kbd> თანხა, <kbd>W</kbd> Wolt+, <kbd>T</kbd> რესტორანი ან მაღაზია.</li>
             </ul>
+            <h3><svg class="icon"><use href="#i-math"/></svg>კალკულატორი</h3>
+            <ul>
+                <li>ჩვეულებრივი კალკულატორი ყველაფრისთვის დანარჩენისთვის: მიმატება, გამოკლება, გამრავლება, გაყოფა და პროცენტები, მძიმის შემდეგ მაქსიმუმ 3 ციფრით. გადადით მასზე ზედა ჩანართით, ან დააჭირეთ <kbd>C</kbd>-ს.</li>
+                <li>აკრიფეთ კლავიატურაზე ან დააწკაპეთ ღილაკებს. შედეგი აკრეფისას ახლდება. <kbd>Enter</kbd> ან მასზე დაწკაპება აკოპირებს, <kbd>=</kbd> ასრულებს გამოთვლას კოპირების გარეშე, <kbd>Backspace</kbd> ერთ სიმბოლოს შლის, ხოლო <kbd>Esc</kbd> ასუფთავებს.</li>
+                <li>პროცენტები ტელეფონივით მუშაობს: 200 + 10% არის 220, ხოლო 145.9 × 28% არის 40.852.</li>
+            </ul>
             <h3><svg class="icon"><use href="#i-history"/></svg>ისტორია</h3>
             <ul>
-                <li><svg class="icon"><use href="#i-history"/></svg> ან <kbd>H</kbd> თანხის ქვემოთ ხსნის ბოლო 10 გამოთვლას, ცალ-ცალკე მანძილისა და დაგვიანებისთვის: ყველა, რომელიც დააკოპირეთ, ან რამდენიმე წამი ეკრანზე დარჩა. ჯერ 5 ჩანს, ხოლო „მეტის ჩვენება“ ყველა 10-ს ხსნის.</li>
+                <li><svg class="icon"><use href="#i-history"/></svg> ან <kbd>H</kbd> თანხის ქვემოთ ხსნის ბოლო 10 გამოთვლას, ცალ-ცალკე თითოეული კალკულატორისთვის: ყველა, რომელიც დააკოპირეთ, ან რამდენიმე წამი ეკრანზე დარჩა (კალკულატორში: ყველა შედეგი). ჯერ 5 ჩანს, ხოლო „მეტის ჩვენება“ ყველა 10-ს ხსნის.</li>
                 <li>სტრიქონზე დაწკაპება მის თანხას ისევ აკოპირებს, ხოლო <svg class="icon"><use href="#i-trash"/></svg> სიას ასუფთავებს.</li>
             </ul>
             <h3><svg class="icon"><use href="#i-clipboard"/></svg>ბონუსების სია</h3>
@@ -372,9 +421,15 @@
                 <li>अधिकतम मुआवज़ा नीचे दिखता है, पूरे शेकेल तक ऊपर की ओर पूर्णांकित (एक क्रेडिट एक शेकेल है)। सब्सक्राइबर के लिए <b>Wolt+</b> चालू करें।</li>
                 <li>शॉर्टकट: <kbd>M</kbd> मिनट, <kbd>P</kbd> राशि, <kbd>W</kbd> Wolt+, <kbd>T</kbd> रेस्टोरेंट या रिटेल।</li>
             </ul>
+            <h3><svg class="icon"><use href="#i-math"/></svg>कैलकुलेटर</h3>
+            <ul>
+                <li>बाक़ी सब के लिए एक सादा कैलकुलेटर: जोड़, घटाव, गुणा, भाग और प्रतिशत, दशमलव के बाद ज़्यादा से ज़्यादा 3 अंकों तक। ऊपर के टैब से उस पर जाएँ, या <kbd>C</kbd> दबाएँ।</li>
+                <li>कीबोर्ड पर टाइप करें या बटन क्लिक करें। नतीजा टाइप करते-करते बदलता है। <kbd>Enter</kbd> या उस पर क्लिक उसे कॉपी करता है, <kbd>=</kbd> बिना कॉपी किए हिसाब पूरा करता है, <kbd>Backspace</kbd> एक अक्षर मिटाता है और <kbd>Esc</kbd> साफ़ करता है।</li>
+                <li>प्रतिशत फ़ोन की तरह चलते हैं: 200 + 10% होता है 220, और 145.9 × 28% होता है 40.852।</li>
+            </ul>
             <h3><svg class="icon"><use href="#i-history"/></svg>इतिहास</h3>
             <ul>
-                <li><svg class="icon"><use href="#i-history"/></svg> या <kbd>H</kbd> रकम के नीचे आपके आख़िरी 10 हिसाब खोलता है, दूरी और देर से डिलीवरी के लिए अलग-अलग: हर वह जो आपने कॉपी किया, या जो कुछ सेकंड स्क्रीन पर रहा। पहले 5 दिखते हैं, और “और दिखाएँ” सभी 10 खोलता है।</li>
+                <li><svg class="icon"><use href="#i-history"/></svg> या <kbd>H</kbd> रकम के नीचे आपके आख़िरी 10 हिसाब खोलता है, हर कैलकुलेटर के लिए अलग-अलग: हर वह जो आपने कॉपी किया, या जो कुछ सेकंड स्क्रीन पर रहा (कैलकुलेटर में: हर नतीजा)। पहले 5 दिखते हैं, और “और दिखाएँ” सभी 10 खोलता है।</li>
                 <li>किसी पंक्ति पर क्लिक करने से उसकी रकम फिर कॉपी होती है; <svg class="icon"><use href="#i-trash"/></svg> सूची मिटाता है।</li>
             </ul>
             <h3><svg class="icon"><use href="#i-clipboard"/></svg>बोनस सूची</h3>
@@ -504,6 +559,7 @@
 <script src="js/lib/fees.js"></script>
 <script src="js/lib/bonus.js"></script>
 <script src="js/lib/delay.js"></script>
+<script src="js/lib/arith.js"></script>
 <script src="changelog.js"></script>
 <script src="js/i18n.js"></script>
 <script src="js/motion.js"></script>
