@@ -7,6 +7,17 @@
 // change log skip it; only the README lists it, for developers.
 const CHANGELOG = [
     {
+        version: '1.22.0',
+        date: '2026-11-03',
+        notes: {
+            he: ['אפשר ללחוץ על השליח של וולט שחוצה את המסך כל 10 דקות: קופץ ממנו 10₪ ונשמע צלצול של קופה רושמת.'],
+            en: ['You can click the Wolt courier who scoots across the screen every 10 minutes: a 10₪ pops up with the kaching of a cash register.'],
+            ar: ['صار فيكم تكبسوا على مندوب وولت اللي بيقطع الشاشة كل 10 دقايق: بيطلع منه 10₪ مع رنّة كاشير.'],
+            ka: ['ახლა შეგიძლიათ დააჭიროთ Wolt-ის კურიერს, რომელიც ყოველ 10 წუთში ეკრანზე გადის: ამოხტება 10₪ და სალაროს წკრიალი ისმის.'],
+            hi: ['अब आप हर 10 मिनट में स्क्रीन पार करने वाले Wolt कूरियर पर क्लिक कर सकते हैं: 10₪ उछलता है और कैश रजिस्टर की खनक सुनाई देती है।']
+        }
+    },
+    {
         version: '1.21.0',
         date: '2026-11-03',
         notes: {
