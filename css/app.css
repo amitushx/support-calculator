@@ -229,9 +229,12 @@ header {
 #widgetsBtn[aria-expanded="true"], #extrasBtn[aria-expanded="true"], #paletteBtn[aria-expanded="true"] { color: var(--accent); }
 
 /* Segmented switches: which calculator, and the order type. A pill
-   behind the buttons marks the chosen one; moving over, its leading edge
-   sets off first and the trailing edge follows, so it stretches across. */
+   behind the buttons marks the chosen one (--i of --n); moving over, its
+   leading edge sets off first and the trailing edge follows, so it
+   stretches across. .back (js/motion.js): it's heading for the start. */
 .tabs {
+    --n: 2;
+    --i: 0;
     position: relative;
     display: flex;
     overflow: hidden;   /* the pill's overshoot squashes against the edge */
@@ -256,24 +259,27 @@ header {
 .tabs button:hover { color: var(--text); }
 .tabs button[aria-selected="true"] { color: var(--accent); font-weight: 500; }
 .tabs button:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+.tabs:has(button:nth-of-type(2)[aria-selected="true"]) { --i: 1; }
+.tabs:has(button:nth-of-type(3)[aria-selected="true"]) { --i: 2; }
+#calcTabs { --n: 3; }
 .tabs .pill {
+    --tab: (100% - 6px) / var(--n);
     position: absolute;
     inset-block: 3px;
-    inset-inline: 3px 50%;
+    inset-inline: calc(3px + var(--tab) * var(--i)) calc(3px + var(--tab) * (var(--n) - 1 - var(--i)));
     border-radius: inherit;
     background: var(--accent-soft);
 }
-.tabs:has(button:last-of-type[aria-selected="true"]) .pill { inset-inline: 50% 3px; }
 .motion .tabs .pill {
     transition: inset-inline-start var(--dur) var(--spring), inset-inline-end var(--dur) var(--spring);
-    transition-delay: 0s, 70ms;
+    transition-delay: 70ms, 0s;
 }
-.motion .tabs:has(button:last-of-type[aria-selected="true"]) .pill { transition-delay: 70ms, 0s; }
-/* Holding the mouse down on the other tab (.pressing, js/motion.js)
-   reaches the pill partway into it; letting go finishes the move, and
+.motion .tabs.back .pill { transition-delay: 0s, 70ms; }
+/* Holding the mouse down on another tab (.pressing, js/motion.js)
+   reaches the pill partway toward it; letting go finishes the move, and
    letting go elsewhere springs it back */
-.tabs:has(button:first-of-type[aria-selected="true"]).pressing .pill { inset-inline-end: 38%; }
-.tabs:has(button:last-of-type[aria-selected="true"]).pressing .pill { inset-inline-start: 38%; }
+.tabs.pressing:not(.back) .pill { inset-inline-end: calc(3px + var(--tab) * (var(--n) - 1.24 - var(--i))); }
+.tabs.pressing.back .pill { inset-inline-start: calc(3px + var(--tab) * (var(--i) - .24)); }
 .motion .tabs.pressing:has(button[aria-selected="true"]) .pill {
     transition: inset-inline-start .35s cubic-bezier(.2, .8, .2, 1), inset-inline-end .35s cubic-bezier(.2, .8, .2, 1);
 }
@@ -512,6 +518,57 @@ header {
 #amount small { font-size: .5em; font-weight: 500; margin-inline-end: 4px; }
 #amount.words { font-size: 34px; line-height: 56px; }   /* "Delivery Fee" instead of a sum */
 #caption { display: block; margin-top: 10px; font-size: 13px; opacity: .8; }
+
+/* The plain calculator: the expression over the sum, which starts right
+   under the tabs, and the keypad under them. A long expression is cut
+   at its start, keeping what was typed last. */
+main:has(#basicCalc:not([hidden])) #result { margin-top: 0; padding-top: 14px; }
+#expr {
+    display: flex;
+    justify-content: safe center;
+    direction: rtl;   /* overflows at the left */
+    overflow: hidden;
+    margin: 0 16px 8px;
+    min-height: 1.4em;
+    color: var(--muted);
+    font-size: 15px;
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+}
+#expr[hidden] { display: none; }
+main:has(#basicCalc:not([hidden])) #amount { overflow-wrap: anywhere; padding-inline: 12px; }
+.keypad {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 6px;
+    margin-top: 14px;
+    outline: none;
+}
+.keypad[hidden] { display: none; }
+.keypad button {
+    height: 44px;
+    border: none;
+    border-radius: 12px;
+    background: var(--glass-chip);
+    box-shadow: inset 0 0 0 .5px var(--glass-chip-edge), inset 0 1px 1px var(--glass-chip-edge);
+    color: var(--text);
+    font: inherit;
+    font-size: 18px;
+    font-variant-numeric: tabular-nums;
+    cursor: pointer;
+    transition: background .15s, transform .08s;
+}
+.keypad button:hover { background: var(--accent-soft); }
+.keypad button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+/* .lit: its key was typed on the keyboard */
+.keypad button:active, .keypad button.lit { transform: scale(.93); background: var(--accent-soft); }
+.motion .keypad button { transition: background .15s, transform var(--dur) var(--spring); }
+.motion .keypad button:active, .motion .keypad button.lit { transition-duration: .08s; }
+.keypad .op { color: var(--accent); font-weight: 500; }
+.keypad .icon { width: 20px; height: 20px; vertical-align: -4px; }
+.keypad .zero { grid-column: span 2; }
+.keypad .equals, .keypad .equals:hover { background: var(--accent); color: var(--card); font-weight: 600; }
+.keypad .equals:active, .keypad .equals.lit { background: var(--accent); filter: brightness(1.1); }
 
 /* Recent calculations under the result; a row copies its amount */
 #history { margin-top: 18px; }

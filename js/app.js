@@ -14,7 +14,8 @@ const versionSeen = store.get('version') ??
     ((() => { try { return localStorage.length > 0; } catch { return false; } })() ? '0.4.0' : VERSION);
 
 let lang = translations[store.get('lang')] ? store.get('lang') : 'he';
-let calc = store.get('calc') === 'delay' ? 'delay' : 'distance';   // which calculator is shown
+const CALCS = ['distance', 'delay', 'basic'];
+let calc = CALCS.includes(store.get('calc')) ? store.get('calc') : 'distance';   // which calculator is shown
 let orderType = store.get('orderType') === 'retail' ? 'retail' : 'restaurant';
 let current = null;      // amount currently shown, or null if none
 let captionTimer = null;
@@ -36,6 +37,8 @@ function applyLanguage() {
     $('paletteBtn').title = t.palette;
     $('bonusPasteBtn').title = t.pasteList;
     $('helpBtn').title = t.help;
+    $('basicCalc').querySelector('[data-key="c"]').title = t.clearAll;
+    $('basicCalc').querySelector('[data-key="back"]').title = t.backspace;
     $('helpBtn').setAttribute('aria-label', t.help);
     $('helpTitle').textContent = t.helpTitle;
     $('helpClose').title = t.close;
@@ -104,16 +107,19 @@ function render() {
     clearTimeout(captionTimer);
     const before = $('amount').innerHTML;
     $('amount').classList.remove('words');
+    $('amount').style.fontSize = '';
     if (calc === 'delay') renderDelay();
+    else if (calc === 'basic') renderBasic();
     else renderDistance();
     // A new amount settles in like a drop
     if ($('amount').innerHTML !== before) glide($('amount'), {
         transform: ['translateY(8px) scale(.94, 1.06)', 'none'], filter: ['blur(3px)', 'blur(0)'], opacity: [.4, 1]
     });
     $('result').disabled = current === null && !$('amount').classList.contains('words');
-    // A result left unchanged for a moment goes into the history
+    // A result left unchanged for a moment goes into the history; the
+    // plain calculator's only on = or a copy, not halfway through typing
     clearTimeout(historyTimer);
-    if (!$('result').disabled) historyTimer = setTimeout(addHistory, 3000);
+    if (!$('result').disabled && calc !== 'basic') historyTimer = setTimeout(addHistory, 3000);
 }
 
 // Recent calculations, newest first: the inputs (shown in the current
@@ -129,6 +135,7 @@ let historyTimer = null;
 function historyEntry() {
     const amount = $('amount').classList.contains('words') ? 'deliveryFee' : current;
     if (amount === null) return null;
+    if (calc === 'basic') return { calc, expr: basicDone ?? prettyExpr(basicExpr), amount };
     if (calc === 'delay') {
         const retail = orderType === 'retail';
         const minutes = Number($('minutes').value);
@@ -156,6 +163,7 @@ function addHistory() {
     if (historyOpen) dripIn([$('historyList').firstElementChild], 0);
 }
 function historyDetail(e, t) {
+    if (e.calc === 'basic') return `\u2066${e.expr}\u2069`;   // left to right in Hebrew and Arabic too
     const parts = e.calc === 'delay'
         ? [`${e.minutes} ${t.minShort}`, t[e.retail ? 'retail' : 'restaurant'],
             e.price !== null && `₪${e.price}`, e.woltPlus && t.woltPlus]
@@ -187,10 +195,11 @@ function renderHistory() {
         b.querySelector('time').textContent = when;
         b.querySelector('.detail').textContent = historyDetail(e, t);
         const sum = b.querySelector('.sum');
-        sum.textContent = e.amount === 'deliveryFee' ? t.deliveryFee : `₪${e.amount}`;
+        const shown = e.amount === 'deliveryFee' ? t.deliveryFee : e.calc === 'basic' ? String(e.amount) : `₪${e.amount}`;
+        sum.textContent = shown;
         b.addEventListener('click', () => {
             copyText(String(e.amount)).then(() => { sum.textContent = t.copied; }, () => { sum.textContent = t.copyFailed; })
-                .finally(() => setTimeout(() => { sum.textContent = `₪${e.amount}`; }, 1500));
+                .finally(() => setTimeout(() => { sum.textContent = shown; }, 1500));
             firstField().focus();
         });
         li.append(b);
@@ -268,25 +277,105 @@ function renderDelay() {
     }
 }
 
-// Switch between the distance and Delivery Late calculators
+// The plain calculator: what's typed so far, as calculate() reads it
+// (js/lib/arith.js), and after = the expression that gave the result,
+// which then stands in basicExpr
+let basicExpr = '';
+let basicDone = null;
+// For the screen: spaces around the operators, and × ÷ − for * / -
+const prettyExpr = expr => expr.replace(/(?<=[\d.%])[-+*/]/g, op => ` ${op} `)
+    .replace(/\*/g, '×').replace(/\//g, '÷').replace(/-/g, '−');
+
+function renderBasic() {
+    const t = translations[lang];
+    const value = calculate(basicExpr);
+    $('expr').firstElementChild.textContent = basicDone !== null ? `${basicDone} =` : prettyExpr(basicExpr);
+    current = typeof value === 'number' ? value : null;
+    $('amount').textContent = current ?? (value === 'divByZero' ? '—' : '0');
+    $('caption').innerHTML = value === 'divByZero' ? t.divByZero : current === null ? ' ' : t.hint;
+    // A long number shrinks to fit
+    const length = $('amount').textContent.length;
+    if (length > 9) $('amount').style.fontSize = `${Math.max(56 * 9 / length, 24)}px`;
+}
+
+// A key of the keypad, clicked or typed: a digit, '.', '%', + - * /,
+// '=', 'back' or 'c'
+function basicKey(key) {
+    const before = basicDone, done = before !== null;
+    basicDone = null;
+    const last = basicExpr.slice(-1);
+    const number = basicExpr.match(/[\d.]*$/)[0];   // the number being typed
+    if (key === 'c') basicExpr = '';
+    else if (key === 'back') basicExpr = basicExpr.slice(0, -1);
+    else if (key === '=') {
+        const value = calculate(basicExpr);
+        // Nothing to work out: a result already, or a lone number
+        if (done || typeof value !== 'number' || /^-?[\d.]+$/.test(basicExpr)) {
+            basicDone = before;
+            return;
+        }
+        basicDone = prettyExpr(basicExpr.replace(/[-+*/]+$/, ''));
+        basicExpr = String(value);
+        render();
+        addHistory();
+        return;
+    } else if (/\d/.test(key)) {
+        if (done) basicExpr = '';
+        else if (last === '%') return;
+        else if (number === '0') basicExpr = basicExpr.slice(0, -1);   // no leading zeros
+        basicExpr += key;
+    } else if (key === '.') {
+        if (done) basicExpr = '';
+        else if (last === '%' || number.includes('.')) return;
+        basicExpr += number === '' || done ? '0.' : '.';
+    } else if (key === '%') {
+        if (!/[\d.]/.test(last)) return;
+        basicExpr += '%';
+    } else {   // an operator: replaces one just typed, but a - after * or / is a sign
+        if (/[-+*/]/.test(last) && !(key === '-' && /[*/]/.test(last))) {
+            basicExpr = basicExpr.replace(/[-+*/]+$/, '');
+            if (basicExpr === '' && key !== '-') return render();
+        } else if (basicExpr === '' && key !== '-') return;
+        basicExpr += key;
+    }
+    render();
+}
+// A typed key lights up its button, as if it was pressed
+function lightKey(key) {
+    const button = $('basicCalc').querySelector(`[data-key="${CSS.escape(key)}"]`);
+    if (!button) return;
+    button.classList.remove('lit');
+    void button.offsetWidth;
+    button.classList.add('lit');
+    clearTimeout(button.litTimer);
+    button.litTimer = setTimeout(() => button.classList.remove('lit'), 120);
+}
+$('basicCalc').addEventListener('click', e => {
+    const button = e.target.closest('[data-key]');
+    if (button) basicKey(button.dataset.key);
+});
+
+// Switch between the distance, Delivery Late and plain calculators
 function setCalc(name, focus = true) {
+    tabsToward($('calcTabs').querySelector(`[data-calc="${name}"]`));
     calc = name;
     store.set('calc', calc);
     morph(() => {
-        $('distanceCalc').hidden = calc !== 'distance';
-        $('delayCalc').hidden = calc !== 'delay';
+        for (const c of CALCS) $(`${c}Calc`).hidden = calc !== c;
+        $('expr').hidden = calc !== 'basic';
         $('calcTabs').querySelectorAll('[data-calc]').forEach(b => {
             b.setAttribute('aria-selected', String(b.dataset.calc === calc));
         });
         render();
         renderHistory();
-    }, { enter: $(calc === 'delay' ? 'delayCalc' : 'distanceCalc') });
+    }, { enter: $(`${calc}Calc`) });
     if (historyOpen) dripIn($('historyList').children, 80);
     if (focus) firstField().focus();
 }
-const firstField = () => $(calc === 'delay' ? 'minutes' : 'distance');
+const firstField = () => $({ distance: 'distance', delay: 'minutes', basic: 'basicCalc' }[calc]);
 
 function setOrderType(type) {
+    tabsToward($('orderType').querySelector(`[data-order="${type}"]`));
     orderType = type;
     store.set('orderType', orderType);
     $('orderType').querySelectorAll('[data-order]').forEach(b => {
@@ -528,6 +617,11 @@ $('importFile').addEventListener('change', async () => {
     }
 });
 
+// The plain calculator's keys, by e.key: on the number row and the numpad
+const BASIC_KEYS = {
+    ...Object.fromEntries([...'0123456789.%+-*/='].map(k => [k, k])),
+    ',': '.', Enter: '=', Backspace: 'back', Delete: 'c'
+};
 document.addEventListener('keydown', e => {
     // Dialogs handle their own keys (Escape closes them)
     if (e.target.closest('dialog')) return;
@@ -541,11 +635,19 @@ document.addEventListener('keydown', e => {
     // Let widgets (e.g. the note) take typing without triggering shortcuts
     if (e.target.closest('.widget, .menu, #alarmOverlay, .dd')) return;
     if (e.ctrlKey || e.metaKey || e.altKey) return;
-    if (e.key === 'Enter') {
+    if (calc === 'basic' && BASIC_KEYS[e.key]) {
+        e.preventDefault();
+        lightKey(BASIC_KEYS[e.key]);
+        basicKey(BASIC_KEYS[e.key]);
+        if (e.key === 'Enter') copyAmount();   // the result, as on the other calculators
+    } else if (e.key === 'Enter') {
         e.preventDefault();
         copyAmount();
     } else if (e.key === 'Escape') {
-        if (calc === 'delay') {
+        if (calc === 'basic') {
+            lightKey('c');
+            basicKey('c');
+        } else if (calc === 'delay') {
             $('minutes').value = $('price').value = '';
             $('woltPlus').checked = false;
         } else {
@@ -563,6 +665,15 @@ document.addEventListener('keydown', e => {
     } else if (e.code === 'KeyL') {   // physical key, works on Hebrew layout too
         e.preventDefault();
         setCalc(calc === 'delay' ? 'distance' : 'delay');
+    } else if (e.code === 'KeyC') {   // to the plain calculator, where it clears like the C key
+        e.preventDefault();
+        if (calc !== 'basic') setCalc('basic');
+        else {
+            lightKey('c');
+            basicKey('c');
+        }
+    } else if (calc === 'basic') {
+        return;   // the other calculators' shortcuts
     } else if (e.code === 'KeyW') {
         e.preventDefault();
         const box = $(calc === 'delay' ? 'woltPlus' : 'walker');

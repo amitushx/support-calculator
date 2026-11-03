@@ -7,7 +7,7 @@
 **מחשבון סאפורט** · courier payments and Delivery Late compensation, one keystroke away
 
 <p>
-<!-- version --><img alt="Version" src="https://img.shields.io/badge/version-1.23.0-009DE0?style=for-the-badge"><!-- /version -->
+<!-- version --><img alt="Version" src="https://img.shields.io/badge/version-1.24.0-009DE0?style=for-the-badge"><!-- /version -->
 <a href="https://github.com/amitushx/support-calculator/actions/workflows/tests.yml"><img alt="Tests" src="https://img.shields.io/github/actions/workflow/status/amitushx/support-calculator/tests.yml?branch=main&label=tests&style=for-the-badge"></a>
 <img alt="Languages" src="https://img.shields.io/badge/languages-5-7C3AED?style=for-the-badge">
 <img alt="No build step" src="https://img.shields.io/badge/build-none-22C55E?style=for-the-badge">
@@ -71,6 +71,19 @@ The last 10 calculations of each calculator, under the amount.
 
 </td>
 </tr>
+<tr>
+<td valign="top" colspan="2">
+
+### Calculator
+
+A plain calculator for everything else: + − × ÷ and percentages, with up to 3 digits after the point.
+
+- Type on the keyboard or click the keypad; typed keys light up on it
+- Percentages work like on a phone: 200 + 10% is 220, 145.9 × 28% is 40.852
+- The result updates as you type; <kbd>Enter</kbd> or a click copies it
+
+</td>
+</tr>
 </table>
 
 **And around it:** a What's new window after every new feature, a refresh offer when a new version is out, settings backup to a file (at the bottom of the help), and the screen stays awake while the calculator is open.
@@ -79,18 +92,21 @@ The last 10 calculations of each calculator, under the amount.
 
 Shortcuts use the physical key, so they work on a Hebrew keyboard layout too.
 
-| Key | Distance | Delivery Late |
-| :-: | --- | --- |
-| <kbd>Enter</kbd> | Copy the amount | Copy the amount |
-| <kbd>Esc</kbd> | Clear (or stop a ringing alarm, close a menu) | Clear (or stop a ringing alarm, close a menu) |
-| <kbd>L</kbd> | Switch to Delivery Late | Switch to distance |
-| <kbd>H</kbd> | Show or hide the history | Show or hide the history |
-| <kbd>W</kbd> | Walker on/off | Wolt+ on/off |
-| <kbd>D</kbd> | Distance field | |
-| <kbd>B</kbd> | Bonus field | |
-| <kbd>M</kbd> | | Minutes field |
-| <kbd>P</kbd> | | Order total field |
-| <kbd>T</kbd> | | Restaurant or retail |
+| Key | Distance | Delivery Late | Calculator |
+| :-: | --- | --- | --- |
+| <kbd>Enter</kbd> | Copy the amount | Copy the amount | Copy the result |
+| <kbd>Esc</kbd> | Clear (or stop a ringing alarm, close a menu) | Clear (or stop a ringing alarm, close a menu) | Clear (or stop a ringing alarm, close a menu) |
+| <kbd>L</kbd> | Switch to Delivery Late | Switch to distance | Switch to Delivery Late |
+| <kbd>C</kbd> | Switch to the calculator | Switch to the calculator | Clear |
+| <kbd>H</kbd> | Show or hide the history | Show or hide the history | Show or hide the history |
+| <kbd>W</kbd> | Walker on/off | Wolt+ on/off | |
+| <kbd>D</kbd> | Distance field | | |
+| <kbd>B</kbd> | Bonus field | | |
+| <kbd>M</kbd> | | Minutes field | |
+| <kbd>P</kbd> | | Order total field | |
+| <kbd>T</kbd> | | Restaurant or retail | |
+| <kbd>0</kbd>–<kbd>9</kbd> <kbd>.</kbd> <kbd>+</kbd> <kbd>-</kbd> <kbd>*</kbd> <kbd>/</kbd> <kbd>%</kbd> <kbd>=</kbd> | | | The keypad, on the number row or the numpad |
+| <kbd>Backspace</kbd> | | | Delete the last character |
 
 ## Widgets
 
@@ -159,7 +175,7 @@ tests/              test pages, their Node runner and the Firefox smoke test
 node tests/run.js
 ```
 
-The test pages in `tests/` cover the rules and the translations (every text in all five languages) and also open in a browser. Then `tests/smoke.js` loads the real page in headless Firefox and checks that it starts without script errors, that both calculators answer, that every language fills in every text and that every widget opens. Without Firefox it's skipped (set `FIREFOX` to its path if it isn't on `PATH`). CI runs everything on every push and pull request.
+The test pages in `tests/` cover the rules and the translations (every text in all five languages) and also open in a browser. Then `tests/smoke.js` loads the real page in headless Firefox and checks that it starts without script errors, that all three calculators answer, that every language fills in every text and that every widget opens. Without Firefox it's skipped (set `FIREFOX` to its path if it isn't on `PATH`). CI runs everything on every push and pull request.
 
 ### Releases
 
@@ -174,6 +190,10 @@ CI checks that the version was bumped and that this README is up to date. After 
 ## Change log
 
 <!-- changelog -->
+### 1.24.0 · 4 November 2026
+
+- A third tab: a plain calculator, to add, subtract, multiply, divide and take percentages, with up to 3 digits after the point. Type on the keyboard or click the keys, and C switches to it. Percentages work like on a phone: 200 + 10% is 220. Results go into the history.
+
 ### 1.23.0 · 3 November 2026
 
 - A goldfish joins the Extras: a round bowl in the middle of the screen, with gravel, seaweed and a little castle. Click it and bubbles pop out. When the cat is out too, it often comes over to tap the glass and try to fish it out, to no avail.

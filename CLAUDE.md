@@ -45,6 +45,8 @@ when the version goes up, so every user-facing deploy needs a bump.)
 - The widget of who's in charge this shift is **Shift Leads** (שיפט לידים).
   Its roles are כ"א, מוביל and שטח (HR, Leader, Field). The user dropped a
   fourth, Astra (אסטרה): not important enough for the widget.
+- The third tab, the plain + − × ÷ % calculator, is **Calculator**
+  (מחשבון): the other two are named for what they calculate.
 - Arabic follows the Hebrew work jargon, in Arabic letters (موبيل, شيطح),
   not Arabic or English words for it: it's how the team actually talks.
 
@@ -83,6 +85,10 @@ when the version goes up, so every user-facing deploy needs a bump.)
   the middle of a three-deep stack hides what's under it. Rejected:
   covered panels turning solid (looked bad as focus moved), and every
   panel blurring only the page (the top one read as solid).
+- The Calculator has an on-screen keypad as well as the keyboard (the
+  user's pick): quicker with a hand on the mouse, and it shows how % and
+  backspace work. Results keep up to 3 decimals (the user's call: more
+  is noise); % works like a phone calculator.
 - Plan visual designs before coding: for a new theme or look, first show
   swatches of the proposed palette (and a mockup of any pattern) and wait
   for approval or tweaks. Iterating in code took several rounds on the
@@ -106,7 +112,7 @@ Don't suggest these again:
 
 `node tests/run.js` runs the test pages in `tests/` (they also open in a
 browser), then `tests/smoke.js`, which loads the real page in headless
-Firefox: no script errors, both calculators, all languages, all widgets.
+Firefox: no script errors, all three calculators, all languages, all widgets.
 Without Firefox locally the smoke test is skipped; in CI it fails. CI runs them on every PR, and checks that the changelog version
 was bumped and that `README.md` is up to date.
 
@@ -117,7 +123,7 @@ A static site for GitHub Pages, no build step.
 - `index.html`: markup, the icon sprite and the inline pre-paint theme script.
 - `css/`: `themes.css` (palettes), `app.css`, `widgets.css`, `dialogs.css`,
   loaded in that order; the cascade depends on it.
-- `js/lib/`: the pure rules (`fees.js`, `delay.js`, `bonus.js`), the only
+- `js/lib/`: the pure rules (`fees.js`, `delay.js`, `bonus.js`, `arith.js`), the only
   code the tests load.
 - `js/`: `i18n.js`, `motion.js` (spring animation helpers), `glass.js`
   (the glass layers and lens edges), `dropdown.js`
