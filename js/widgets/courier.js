@@ -130,3 +130,62 @@ function driveCourier() {
         });
 }
 scheduleCourier();
+
+// A click on him pays out: a "ka" of the register's drawer, then the
+// "ching" of its bell, a few bright partials that ring out. Another click
+// while it's still ringing cuts it off and starts a new one.
+let courierPay = null;   // gain node the current kaching plays through
+function kaching(out, at) {
+    const ka = audio.createBufferSource();
+    ka.buffer = audio.createBuffer(1, Math.ceil(audio.sampleRate * 0.05), audio.sampleRate);
+    ka.buffer.getChannelData(0).forEach((_, i, data) => { data[i] = Math.random() * 2 - 1; });
+    const clack = audio.createBiquadFilter();
+    clack.type = 'bandpass';
+    clack.frequency.value = 1800;
+    clack.Q.value = 1.5;
+    const kaLevel = audio.createGain();
+    kaLevel.gain.setValueAtTime(0.6, at);
+    kaLevel.gain.exponentialRampToValueAtTime(0.001, at + 0.05);
+    ka.connect(clack).connect(kaLevel).connect(out);
+    ka.start(at);
+    const ching = at + 0.07;
+    let last;
+    [[2093, 0.18, 1.1], [3136, 0.12, 0.9], [4186, 0.1, 0.7], [5274, 0.06, 0.5], [6272, 0.04, 0.35]]
+        .forEach(([freq, peak, dur]) => {
+            const bell = audio.createOscillator();
+            const level = audio.createGain();
+            bell.frequency.value = freq * (1 + (Math.random() - .5) * 0.004);
+            level.gain.setValueAtTime(0.0001, ching);
+            level.gain.exponentialRampToValueAtTime(peak, ching + 0.004);
+            level.gain.exponentialRampToValueAtTime(0.0001, ching + dur);
+            bell.connect(level).connect(out);
+            bell.start(ching);
+            bell.stop(ching + dur + 0.01);
+            last ??= bell;   // the lowest rings longest
+        });
+    return last;
+}
+courier.addEventListener('click', e => {
+    unlockAudio();
+    if (audio) {
+        const now = audio.currentTime;
+        if (courierPay) {   // a quick fade, so the cut doesn't click
+            courierPay.gain.setTargetAtTime(0, now, 0.005);
+            const cut = courierPay;
+            setTimeout(() => cut.disconnect(), 60);
+        }
+        const pay = courierPay = audio.createGain();
+        pay.connect(audio.destination);
+        kaching(pay, now + 0.02).onended = () => {
+            pay.disconnect();
+            if (courierPay === pay) courierPay = null;
+        };
+    }
+    const fx = document.createElement('div');
+    fx.className = 'pet-fx cash';
+    fx.textContent = '10₪';
+    fx.style.top = `${courier.getBoundingClientRect().top - 10}px`;
+    document.body.append(fx);
+    fx.style.left = `${e.clientX - fx.offsetWidth / 2}px`;
+    fx.addEventListener('animationend', () => fx.remove());
+});

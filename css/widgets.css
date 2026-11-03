@@ -312,8 +312,10 @@
     user-select: none;
 }
 #road[hidden] { display: none; }
-#courier {
+#courier {   /* a click pays him: 10₪ and a kaching */
     display: block;
+    pointer-events: auto;
+    cursor: pointer;
     image-rendering: pixelated;
     transform: translateX(-100%);
 }
@@ -338,6 +340,7 @@
     font: 600 15px Rubik, system-ui, sans-serif;
     animation: pet-float 1.8s ease-out forwards;
 }
+.pet-fx.cash { color: #2fae5a; font-size: 18px; direction: ltr; }   /* 10₪ from the courier */
 .pet-fx .icon { width: 20px; height: 20px; color: #ff6b8a; fill: currentColor; }
 @keyframes pet-float {
     from { opacity: 0; translate: 0 0; }

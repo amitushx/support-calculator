@@ -7,7 +7,7 @@
 **מחשבון סאפורט** · courier payments and Delivery Late compensation, one keystroke away
 
 <p>
-<!-- version --><img alt="Version" src="https://img.shields.io/badge/version-1.21.0-009DE0?style=for-the-badge"><!-- /version -->
+<!-- version --><img alt="Version" src="https://img.shields.io/badge/version-1.22.0-009DE0?style=for-the-badge"><!-- /version -->
 <a href="https://github.com/amitushx/support-calculator/actions/workflows/tests.yml"><img alt="Tests" src="https://img.shields.io/github/actions/workflow/status/amitushx/support-calculator/tests.yml?branch=main&label=tests&style=for-the-badge"></a>
 <img alt="Languages" src="https://img.shields.io/badge/languages-5-7C3AED?style=for-the-badge">
 <img alt="No build step" src="https://img.shields.io/badge/build-none-22C55E?style=for-the-badge">
@@ -108,7 +108,7 @@ Small panels, all off by default, turned on from the header: the puzzle button h
 | **Puppy** | Lives there too: pants, wags, scratches an ear, runs zoomies and naps. Click it and it barks. Now and then it invites the cat to play: a swat, a chase and a nose boop. When both fall asleep they curl up side by side |
 | **Doom** | The shareware episode, downloaded (about 6.5 MB) only when you press play. <kbd>F</kbd> goes full screen |
 
-Every 10 minutes a pixel-art Wolt courier also scoots across the page.
+Every 10 minutes a pixel-art Wolt courier also scoots across the page. Click him and he pays out 10₪, with a kaching.
 
 ## Themes and languages
 
@@ -173,6 +173,10 @@ CI checks that the version was bumped and that this README is up to date. After 
 ## Change log
 
 <!-- changelog -->
+### 1.22.0 · 3 November 2026
+
+- You can click the Wolt courier who scoots across the screen every 10 minutes: a 10₪ pops up with the kaching of a cash register.
+
 ### 1.21.0 · 3 November 2026
 
 - The widgets are now split in two: the puzzle keeps the shift tools (clock, breaks, shift progress, Shift Leads and note), and the sky, cat, puppy and Doom moved to a new Extras button with a gamepad.
