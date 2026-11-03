@@ -112,4 +112,4 @@ function playStop(except) {
 }
 cat.el.addEventListener('click', () => playStop(cat));
 dog.el.addEventListener('click', () => playStop(dog));
-$('widgetMenu').addEventListener('change', e => { if (e.target.dataset.pet) playStop(); });
+$('extrasMenu').addEventListener('change', e => { if (e.target.dataset.pet) playStop(); });

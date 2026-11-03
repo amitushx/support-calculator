@@ -49,6 +49,7 @@
 <!-- Line icons (Tabler, outline), used as <svg class="icon"><use href="#i-name"/></svg> -->
 <svg width="0" height="0" style="position: absolute" aria-hidden="true">
     <symbol id="i-puzzle" viewBox="0 0 24 24"><path d="M4 7h3a1 1 0 0 0 1 -1v-1a2 2 0 0 1 4 0v1a1 1 0 0 0 1 1h3a1 1 0 0 1 1 1v3a1 1 0 0 0 1 1h1a2 2 0 0 1 0 4h-1a1 1 0 0 0 -1 1v3a1 1 0 0 1 -1 1h-3a1 1 0 0 1 -1 -1v-1a2 2 0 0 0 -4 0v1a1 1 0 0 1 -1 1h-3a1 1 0 0 1 -1 -1v-3a1 1 0 0 1 1 -1h1a2 2 0 0 0 0 -4h-1a1 1 0 0 1 -1 -1v-3a1 1 0 0 1 1 -1"/></symbol>
+    <symbol id="i-gamepad" viewBox="0 0 24 24"><path d="M12 5h3.5a5 5 0 0 1 0 10h-5.5l-4.015 4.227a2.3 2.3 0 0 1 -3.923 -2.035l1.634 -8.173a5 5 0 0 1 4.904 -4.019h3.4z"/><path d="M14 15l4.07 4.284a2.3 2.3 0 0 0 3.925 -2.023l-1.6 -8.232"/><path d="M8 9v2"/><path d="M7 10h2"/><path d="M14 10h2"/></symbol>
     <symbol id="i-palette" viewBox="0 0 24 24"><path d="M12 21a9 9 0 0 1 0 -18c4.97 0 9 3.582 9 8c0 1.06 -.474 2.078 -1.318 2.828c-.844 .75 -1.989 1.172 -3.182 1.172h-2.5a2 2 0 0 0 -1 3.75a1.3 1.3 0 0 1 -1 2.25"/><path d="M7.5 10.5a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"/><path d="M11.5 7.5a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"/><path d="M15.5 10.5a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"/></symbol>
     <symbol id="i-moon" viewBox="0 0 24 24"><path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z"/></symbol>
     <symbol id="i-sun" viewBox="0 0 24 24"><path d="M8 12a4 4 0 1 0 8 0a4 4 0 1 0 -8 0"/><path d="M3 12h1m8 -9v1m8 8h1m-9 8v1m-6.4 -15.4l.7 .7m12.1 -.7l-.7 .7m0 11.4l.7 .7m-12.1 -.7l-.7 .7"/></symbol>
@@ -74,6 +75,7 @@
             <button id="theme" type="button"></button>
             <button id="paletteBtn" type="button" aria-expanded="false"><svg class="icon"><use href="#i-palette"/></svg></button>
             <button id="widgetsBtn" type="button" aria-expanded="false"><svg class="icon"><use href="#i-puzzle"/></svg></button>
+            <button id="extrasBtn" type="button" aria-expanded="false"><svg class="icon"><use href="#i-gamepad"/></svg></button>
             <button id="historyBtn" type="button" aria-expanded="false" aria-controls="history"><svg class="icon"><use href="#i-history"/></svg></button>
             <div id="paletteMenu" class="menu" role="menu" hidden>
                 <button type="button" role="menuitemradio" data-palette="classic"><span class="swatch"><i style="background: linear-gradient(#ffffff, #cdeefc)"></i><i style="background: linear-gradient(#0a1117, #009de0)"></i></span><span data-t="classic"></span></button>
@@ -91,6 +93,8 @@
                 <label class="switch"><input type="checkbox" data-widget="shift"><span class="track"></span><span data-t="shift"></span></label>
                 <label class="switch"><input type="checkbox" data-widget="leads"><span class="track"></span><span data-t="leads"></span></label>
                 <label class="switch"><input type="checkbox" data-widget="note"><span class="track"></span><span data-t="note"></span></label>
+            </div>
+            <div id="extrasMenu" class="menu" hidden>
                 <label class="switch"><input type="checkbox" data-widget="sky"><span class="track"></span><span data-t="sky"></span></label>
                 <label class="switch"><input type="checkbox" data-pet="cat"><span class="track"></span><span data-t="cat"></span></label>
                 <label class="switch"><input type="checkbox" data-pet="dog"><span class="track"></span><span data-t="dog"></span></label>
@@ -222,7 +226,7 @@
             </ul>
             <h3><svg class="icon"><use href="#i-puzzle"/></svg>ווידג׳טים</h3>
             <ul>
-                <li>מהכפתור <svg class="icon"><use href="#i-puzzle"/></svg> מפעילים שעון, שעון מעורר, התקדמות משמרת, פתק, שמיים, חתול ודום. גררו אותם לאן שנוח, והם יישארו שם.</li>
+                <li>מהכפתור <svg class="icon"><use href="#i-puzzle"/></svg> מפעילים שעון, הפסקות, התקדמות משמרת, שיפט לידים ופתק, ומהכפתור <svg class="icon"><use href="#i-gamepad"/></svg> את האקסטרות: שמיים, חתול, כלבלב ודום. גררו אותם לאן שנוח, והם יישארו שם.</li>
                 <li>החתול מסתובב בתחתית המסך, יושב, מתלקק ונרדם כשאין אף אחד בסביבה. לחיצה עליו, והוא מיילל.</li>
                 <li>בדום, <svg class="icon"><use href="#i-player-play"/></svg> מוריד את המשחק (בערך 6.5MB) רק כשלוחצים עליו. החיצים זזים, <kbd>Ctrl</kbd> יורה, <kbd>רווח</kbd> פותח דלתות, ו־<kbd>F</kbd> או <svg class="icon"><use href="#i-maximize"/></svg> למסך מלא.</li>
                 <li>בשעון המעורר קובעים שעה להפסקה ארוכה, להפסקה קצרה ולירידה מהמשמרת, ובוחרים צליל. במשמרת ארוכה, <svg class="icon"><use href="#i-plus"/></svg> מוסיף הפסקה קצרה שנייה. כשהוא מצלצל, לחיצה, <kbd>Esc</kbd> או לחיצה על ההתראה של המערכת עוצרים אותו.</li>
@@ -261,7 +265,7 @@
             </ul>
             <h3><svg class="icon"><use href="#i-puzzle"/></svg>Widgets</h3>
             <ul>
-                <li>The <svg class="icon"><use href="#i-puzzle"/></svg> button turns on a clock, breaks, shift progress, a note, the sky, a cat, a puppy and Doom. Drag them anywhere and they stay put.</li>
+                <li>The <svg class="icon"><use href="#i-puzzle"/></svg> button turns on the shift tools: a clock, breaks, shift progress, Shift Leads and a note. The <svg class="icon"><use href="#i-gamepad"/></svg> button has the extras: the sky, a cat, a puppy and Doom. Drag them anywhere and they stay put.</li>
                 <li>The cat wanders along the bottom of the screen, sits, grooms and falls asleep when nobody's around. Click it and it meows.</li>
                 <li>The puppy pants, wags, scratches an ear, runs zoomies and naps there too. Click it and it barks. Now and then it invites the cat to play, and when both fall asleep they curl up side by side.</li>
                 <li>Doom downloads the game (about 6.5 MB) only when you press <svg class="icon"><use href="#i-player-play"/></svg>. Arrows move, <kbd>Ctrl</kbd> fires, <kbd>Space</kbd> opens doors, and <kbd>F</kbd> or <svg class="icon"><use href="#i-maximize"/></svg> goes full screen.</li>
@@ -301,7 +305,7 @@
             </ul>
             <h3><svg class="icon"><use href="#i-puzzle"/></svg>ويدجتات</h3>
             <ul>
-                <li>من الزر <svg class="icon"><use href="#i-puzzle"/></svg> بتشغّلوا ساعة، منبّه، تقدّم الشفت، ملاحظة، السما، بسّة ودوم. اسحبوهم وين ما بدكم، وبضلّوا هناك.</li>
+                <li>من الزر <svg class="icon"><use href="#i-puzzle"/></svg> بتشغّلوا أدوات الشفت: ساعة، بريكات، تقدّم الشفت، شفت ليدز وملاحظة. والزر <svg class="icon"><use href="#i-gamepad"/></svg> فيه الإضافات: السما، بسّة، جرو ودوم. اسحبوهم وين ما بدكم، وبضلّوا هناك.</li>
                 <li>البسّة بتتمشّى تحت الشاشة، بتقعد، بتلحس حالها وبتنام لما ما حدا موجود. كبسة عليها وبتنوّي.</li>
                 <li>بدوم، <svg class="icon"><use href="#i-player-play"/></svg> بينزّل اللعبة (حوالي 6.5MB) بس لما تكبسوا عليه. الأسهم للحركة، <kbd>Ctrl</kbd> بيطخّ، <kbd>Space</kbd> بيفتح البواب، و<kbd>F</kbd> أو <svg class="icon"><use href="#i-maximize"/></svg> لملء الشاشة.</li>
                 <li>بالمنبّه بتحددوا ساعة للاستراحة الطويلة، للاستراحة القصيرة ولنهاية الشفت، وبتختاروا صوت. بالشفت الطويل، <svg class="icon"><use href="#i-plus"/></svg> بيزيد استراحة قصيرة تانية. لما يرنّ، كبسة، <kbd>Esc</kbd> أو كبسة على إشعار النظام بتوقفه.</li>
@@ -340,7 +344,7 @@
             </ul>
             <h3><svg class="icon"><use href="#i-puzzle"/></svg>ვიჯეტები</h3>
             <ul>
-                <li>ღილაკი <svg class="icon"><use href="#i-puzzle"/></svg> რთავს საათს, მაღვიძარას, ცვლის პროგრესს, ჩანაწერს, ცას, კატას და დუმს. გადაათრიეთ ისინი სადაც გინდათ და იქ დარჩებიან.</li>
+                <li>ღილაკი <svg class="icon"><use href="#i-puzzle"/></svg> რთავს ცვლის ხელსაწყოებს: საათს, შესვენებებს, ცვლის პროგრესს, ცვლის ლიდებს და ჩანაწერს. ღილაკში <svg class="icon"><use href="#i-gamepad"/></svg> ექსტრებია: ცა, კატა, ლეკვი და დუმი. გადაათრიეთ ისინი სადაც გინდათ და იქ დარჩებიან.</li>
                 <li>კატა ეკრანის ქვედა ნაწილში დასეირნობს, ზის, ილოკება და იძინებს, როცა არავინაა. დააწკაპეთ და იკნავლებს.</li>
                 <li>დუმი თამაშს (დაახლოებით 6.5 MB) მხოლოდ <svg class="icon"><use href="#i-player-play"/></svg>-ზე დაჭერისას ჩამოტვირთავს. ისრები გადაადგილებისთვისაა, <kbd>Ctrl</kbd> ისვრის, <kbd>Space</kbd> კარებს აღებს, ხოლო <kbd>F</kbd> ან <svg class="icon"><use href="#i-maximize"/></svg> სრულ ეკრანზე გადადის.</li>
                 <li>დააყენეთ მაღვიძარა გრძელი შესვენებისთვის, მოკლე შესვენებისთვის და ცვლის დასრულებისთვის, და აირჩიეთ ხმა. გრძელ ცვლაზე <svg class="icon"><use href="#i-plus"/></svg> ამატებს მეორე მოკლე შესვენებას. როცა რეკავს, დაწკაპება, <kbd>Esc</kbd> ან სისტემის შეტყობინებაზე დაწკაპება აჩერებს მას.</li>
@@ -379,7 +383,7 @@
             </ul>
             <h3><svg class="icon"><use href="#i-puzzle"/></svg>विजेट</h3>
             <ul>
-                <li><svg class="icon"><use href="#i-puzzle"/></svg> बटन से घड़ी, अलार्म, शिफ़्ट की प्रगति, नोट, आसमान, बिल्ली और डूम चालू होते हैं। उन्हें कहीं भी खींचें, वे वहीं रहेंगे।</li>
+                <li><svg class="icon"><use href="#i-puzzle"/></svg> बटन से शिफ़्ट के टूल चालू होते हैं: घड़ी, ब्रेक, शिफ़्ट की प्रगति, शिफ़्ट लीड और नोट। <svg class="icon"><use href="#i-gamepad"/></svg> बटन में एक्स्ट्रा हैं: आसमान, बिल्ली, पिल्ला और डूम। उन्हें कहीं भी खींचें, वे वहीं रहेंगे।</li>
                 <li>बिल्ली स्क्रीन के नीचे घूमती है, बैठती है, खुद को चाटती है और जब कोई न हो तो सो जाती है। उस पर क्लिक करें और वह म्याऊँ करेगी।</li>
                 <li>डूम गेम (लगभग 6.5 MB) तभी डाउनलोड करता है जब आप <svg class="icon"><use href="#i-player-play"/></svg> दबाते हैं। तीर चलाते हैं, <kbd>Ctrl</kbd> फ़ायर करता है, <kbd>Space</kbd> दरवाज़े खोलता है, और <kbd>F</kbd> या <svg class="icon"><use href="#i-maximize"/></svg> पूर्ण स्क्रीन करता है।</li>
                 <li>लंबे ब्रेक, छोटे ब्रेक और शिफ़्ट के अंत के लिए अलार्म लगाएँ, और आवाज़ चुनें। लंबी शिफ़्ट में <svg class="icon"><use href="#i-plus"/></svg> दूसरा छोटा ब्रेक जोड़ता है। जब अलार्म बजे, तो रोकने के लिए क्लिक करें, <kbd>Esc</kbd> दबाएँ या सिस्टम नोटिफ़िकेशन पर क्लिक करें।</li>

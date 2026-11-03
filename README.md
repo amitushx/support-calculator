@@ -7,7 +7,7 @@
 **מחשבון סאפורט** · courier payments and Delivery Late compensation, one keystroke away
 
 <p>
-<!-- version --><img alt="Version" src="https://img.shields.io/badge/version-1.20.0-009DE0?style=for-the-badge"><!-- /version -->
+<!-- version --><img alt="Version" src="https://img.shields.io/badge/version-1.21.0-009DE0?style=for-the-badge"><!-- /version -->
 <a href="https://github.com/amitushx/support-calculator/actions/workflows/tests.yml"><img alt="Tests" src="https://img.shields.io/github/actions/workflow/status/amitushx/support-calculator/tests.yml?branch=main&label=tests&style=for-the-badge"></a>
 <img alt="Languages" src="https://img.shields.io/badge/languages-5-7C3AED?style=for-the-badge">
 <img alt="No build step" src="https://img.shields.io/badge/build-none-22C55E?style=for-the-badge">
@@ -94,7 +94,7 @@ Shortcuts use the physical key, so they work on a Hebrew keyboard layout too.
 
 ## Widgets
 
-Small panels, all off by default, turned on from the puzzle button in the header. Drag them anywhere; they stay where you leave them. A click brings a widget, or the calculator, to the front.
+Small panels, all off by default, turned on from the header: the puzzle button has the shift tools (Clock to Note below), the gamepad button the Extras (Sky to Doom). Drag them anywhere; they stay where you leave them. A click brings a widget, or the calculator, to the front.
 
 | Widget | What it does |
 | --- | --- |
@@ -173,6 +173,10 @@ CI checks that the version was bumped and that this README is up to date. After 
 ## Change log
 
 <!-- changelog -->
+### 1.21.0 · 3 November 2026
+
+- The widgets are now split in two: the puzzle keeps the shift tools (clock, breaks, shift progress, Shift Leads and note), and the sky, cat, puppy and Doom moved to a new Extras button with a gamepad.
+
 ### 1.20.0 · 3 November 2026
 
 - Until there’s a bonus list for today, a line under the city menu explains how to add it: copy the list from Slack and click the paste button.
