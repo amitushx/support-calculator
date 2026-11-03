@@ -27,6 +27,7 @@ function translateWidgets() {
     document.querySelectorAll('[data-t]').forEach(el => { el.textContent = t[el.dataset.t]; });
     document.querySelectorAll('.widget .close').forEach(el => { el.title = t.close; });
     $('widgetsBtn').title = t.widgets;
+    $('extrasBtn').title = t.extras;
     $('noteText').placeholder = t.notePlaceholder;
     document.querySelectorAll('.lead-row input').forEach(el => {
         el.placeholder = t.leadName;
@@ -52,7 +53,7 @@ function setWidget(name, on) {
         { opacity: [0, 1], transform: ['scale(.4, .6)', 'none'], filter: ['blur(8px)', 'blur(0)'] },
         { opacity: [1, 0], transform: ['none', 'scale(1.1, .2)'], filter: ['blur(0)', 'blur(6px)'] },
         { duration: 220 });
-    $('widgetMenu').querySelector(`[data-widget="${name}"]`).checked = on;
+    document.querySelector(`.menu [data-widget="${name}"]`).checked = on;
     if (on) {
         raise(el);
         tick();
@@ -107,10 +108,13 @@ addEventListener('resize', () => {
     }
 });
 
-$('widgetMenu').addEventListener('change', e => {
-    if (e.target.dataset.pet) setPet(e.target.dataset.pet, e.target.checked);
-    else setWidget(e.target.dataset.widget, e.target.checked);
-});
+// Shift tools under Widgets, the fun ones under Extras
+for (const menu of ['widgetMenu', 'extrasMenu']) {
+    $(menu).addEventListener('change', e => {
+        if (e.target.dataset.pet) setPet(e.target.dataset.pet, e.target.checked);
+        else setWidget(e.target.dataset.widget, e.target.checked);
+    });
+}
 
 // Sticky note
 const note = $('noteText');

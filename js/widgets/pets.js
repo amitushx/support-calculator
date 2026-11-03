@@ -192,7 +192,7 @@ function setPet(name, on) {
     const pet = pets[name];
     pet.resting = pet.sleeping = false;
     store.set(name, on ? '1' : '0');
-    $('widgetMenu').querySelector(`[data-pet="${name}"]`).checked = on;
+    $('extrasMenu').querySelector(`[data-pet="${name}"]`).checked = on;
     clearTimeout(pet.timer);
     // Drops onto the floor with a little bounce; turned off, it hops up
     // and shrinks away the way it came

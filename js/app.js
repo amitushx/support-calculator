@@ -401,7 +401,7 @@ updatePaletteMenu();
 
 // Header menus: one open at a time, closed by clicking elsewhere or
 // Escape. They bloom out of their corner and fold back into it.
-const MENUS = { widgetsBtn: 'widgetMenu', paletteBtn: 'paletteMenu' };
+const MENUS = { widgetsBtn: 'widgetMenu', extrasBtn: 'extrasMenu', paletteBtn: 'paletteMenu' };
 function showMenu(button, open) {
     const menu = $(MENUS[button]);
     $(button).setAttribute('aria-expanded', String(open));
@@ -420,7 +420,7 @@ for (const [button, menu] of Object.entries(MENUS)) {
     });
 }
 document.addEventListener('pointerdown', e => {
-    if (!e.target.closest('.menu, #widgetsBtn, #paletteBtn')) closeMenus();
+    if (!e.target.closest('.menu, #widgetsBtn, #extrasBtn, #paletteBtn')) closeMenus();
 });
 // Each language listed in its own name
 for (const [code, t] of Object.entries(translations)) {

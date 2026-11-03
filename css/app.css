@@ -216,7 +216,7 @@ header {
     stroke-linejoin: round;
     vertical-align: middle;
 }
-#historyBtn, #widgetsBtn, #paletteBtn, #theme {
+#historyBtn, #widgetsBtn, #extrasBtn, #paletteBtn, #theme {
     display: grid;
     padding: 0;
     border: none;
@@ -225,8 +225,8 @@ header {
     cursor: pointer;
     transition: color .15s;
 }
-#historyBtn:hover, #widgetsBtn:hover, #paletteBtn:hover, #theme:hover, #historyBtn[aria-expanded="true"],
-#widgetsBtn[aria-expanded="true"], #paletteBtn[aria-expanded="true"] { color: var(--accent); }
+#historyBtn:hover, #widgetsBtn:hover, #extrasBtn:hover, #paletteBtn:hover, #theme:hover, #historyBtn[aria-expanded="true"],
+#widgetsBtn[aria-expanded="true"], #extrasBtn[aria-expanded="true"], #paletteBtn[aria-expanded="true"] { color: var(--accent); }
 
 /* Segmented switches: which calculator, and the order type. A pill
    behind the buttons marks the chosen one; moving over, its leading edge
