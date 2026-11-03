@@ -100,7 +100,7 @@
     font-size: 13px;
 }
 .alarm-sound .dd-btn { color: var(--text); }
-#w-note { background: var(--accent-soft); }
+#w-note .glass::after { background: var(--accent-soft); }
 
 /* Shift progress: start to end, with the breaks as points on the line */
 #w-shift { width: 240px; }
@@ -249,7 +249,8 @@
 }
 .widget .stop:hover { color: var(--card); }
 .widget.ringing .stop { display: block; }
-.widget.ringing { border-color: var(--accent); animation: ring 1s infinite; }
+.widget.ringing { border-color: var(--accent); }
+.widget.ringing .glass::after { animation: ring 1s infinite; }
 @keyframes ring { 50% { background: var(--accent-soft); } }
 
 /* Full-screen popup while an alarm rings; a click anywhere stops it */

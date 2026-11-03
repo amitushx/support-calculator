@@ -71,10 +71,18 @@ when the version goes up, so every user-facing deploy needs a bump.)
   stretch scaling on menus, widgets, history rows, the amount and dragged
   widgets is fine; the user chose to keep it.
 - The calculator and widgets are liquid glass, after iOS (`--panel` and
-  `--glass-*` in `themes.css`): nearly clear, a soft blur,
-  a thin rim light. No diagonal sheen or colored tint: that read as
-  Windows Vista. The rim light is fixed at the top left: following the
-  mouse was too much, with the mouse always moving.
+  `--glass-*` in `themes.css`, `js/glass.js`): nearly clear, a soft
+  blur, lens edges, a thin rim light. No diagonal sheen or colored tint:
+  that read as Windows Vista. The rim light is fixed at the top left:
+  following the mouse was too much, with the mouse always moving.
+- Never let one `backdrop-filter` lie under another: Chrome draws it
+  wrongly, as flickering stripes (three fixes went after the wrong
+  cause). Each panel blurs its own copy of the page background
+  (`.glass`); only a panel over another, with none over it, is a real
+  see-through backdrop blur (`.see-through`, picked in `glass.js`). So
+  the middle of a three-deep stack hides what's under it. Rejected:
+  covered panels turning solid (looked bad as focus moved), and every
+  panel blurring only the page (the top one read as solid).
 - Plan visual designs before coding: for a new theme or look, first show
   swatches of the proposed palette (and a mockup of any pattern) and wait
   for approval or tweaks. Iterating in code took several rounds on the
@@ -93,9 +101,6 @@ Don't suggest these again:
   elsewhere.
 - A full-day bonus timeline for the chosen city.
 - PWA, offline or installable app: PC users only.
-- Lens edges on the glass (an SVG displacement filter in the backdrop,
-  bending the page near the rim): Chrome kept drawing flickering stripes
-  where panels overlapped, through two fixes. Removed in 1.19.3.
 
 # Tests
 
@@ -114,7 +119,8 @@ A static site for GitHub Pages, no build step.
   loaded in that order; the cascade depends on it.
 - `js/lib/`: the pure rules (`fees.js`, `delay.js`, `bonus.js`), the only
   code the tests load.
-- `js/`: `i18n.js`, `motion.js` (spring animation helpers), `dropdown.js`
+- `js/`: `i18n.js`, `motion.js` (spring animation helpers), `glass.js`
+  (the glass layers and lens edges), `dropdown.js`
   (styled dropdowns over hidden selects), `app.js` (calculators and page), `bonus-list.js`,
   `main.js` (clock tick, startup, wake lock, update check); `js/widgets/`
   has one file per widget, plus `pets.js`, shared by the cat and the puppy.
