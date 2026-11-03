@@ -1,10 +1,22 @@
 // Releases, newest first. The first entry is the running version: add a new
-// one on top for each release (semver: major.minor.patch) and the What's new
-// window shows it once to everyone who ran an older version. An internal
+// one on top for each release (semver: major.minor.patch). A minor or major
+// release pops up in the What's new window once for everyone who ran an
+// older version; a patch only shows in the full change log. An internal
 // release (a refactor, tests, tooling) has a `dev` note in English instead
 // of `notes`: users are still offered the refresh, but What's new and the
 // change log skip it; only the README lists it, for developers.
 const CHANGELOG = [
+    {
+        version: '1.19.4',
+        date: '2026-11-03',
+        notes: {
+            he: ['חלון "מה חדש" נפתח עכשיו רק כשיש פיצ׳ר חדש. תיקונים קטנים מופיעים ב"כל השינויים".'],
+            en: ['The What’s new window now only opens for new features. Small fixes are listed in the full change log.'],
+            ar: ['شباك "شو الجديد" صار يفتح بس لما في ميزة جديدة. التصليحات الصغيرة موجودة بـ"كل التغييرات".'],
+            ka: ['ფანჯარა „რა არის ახალი“ ახლა მხოლოდ ახალი ფუნქციებისთვის იხსნება. მცირე შესწორებები ცვლილებების სრულ სიაშია.'],
+            hi: ['“नया क्या है” विंडो अब सिर्फ़ नई सुविधाओं के लिए खुलती है। छोटे सुधार पूरी बदलाव सूची में दिखते हैं।']
+        }
+    },
     {
         version: '1.19.3',
         date: '2026-11-03',

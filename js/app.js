@@ -449,15 +449,18 @@ const isNewer = (a, b) => {
     const i = x.findIndex((n, i) => n !== y[i]);
     return i >= 0 && x[i] > y[i];
 };
-// The releases users hear about: internal ones have no notes
+// The releases users hear about: internal ones have no notes. What's new
+// only pops up for new features (a minor or major version, x.y.0); fixes
+// wait in the change log.
 const notedReleases = CHANGELOG.filter(r => r.notes);
+const featureReleases = notedReleases.filter(r => r.version.endsWith('.0'));
 let newsAll = false;
 function renderNews() {
     const t = translations[lang];
-    // What's new lists every release since the version last seen, so
-    // several releases shipped between visits are all shown
-    const unseen = notedReleases.filter(r => isNewer(r.version, versionSeen));
-    const releases = newsAll ? notedReleases : unseen.length ? unseen : notedReleases.slice(0, 1);
+    // What's new lists every feature release since the version last seen,
+    // so several shipped between visits are all shown
+    const unseen = featureReleases.filter(r => isNewer(r.version, versionSeen));
+    const releases = newsAll ? notedReleases : unseen.length ? unseen : featureReleases.slice(0, 1);
     $('newsTitle').textContent = newsAll ? t.changelog : t.whatsNew;
     $('changelogBtn').hidden = newsAll;
     $('newsBody').replaceChildren(...releases.map(r => {

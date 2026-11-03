@@ -11,7 +11,9 @@ Every change merged into `main` ships as a new version: before merging, add an
 entry on top of `CHANGELOG` in `changelog.js` with the bumped version (semver:
 patch for fixes and small tweaks, minor for new features), today's date, and a
 user-facing note in all five languages (he, en, ar, ka, hi), in the same PR as
-the change. Internal changes users can't see (refactors, tests, CI, tooling,
+the change. Only minor and major releases pop up in What's new; patch notes
+wait in the full change log (the user's call: fixes aren't worth
+interrupting anyone for). Internal changes users can't see (refactors, tests, CI, tooling,
 docs) still get a patch version, for the refresh offer and the tag, but no
 `notes`: end users don't care. Instead they get `dev`, a technical note in
 English that only the README shows, for developers on GitHub. Then run `node scripts/readme.js` to copy the new version and

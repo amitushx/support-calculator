@@ -7,7 +7,7 @@
 **מחשבון סאפורט** · courier payments and Delivery Late compensation, one keystroke away
 
 <p>
-<!-- version --><img alt="Version" src="https://img.shields.io/badge/version-1.19.3-009DE0?style=for-the-badge"><!-- /version -->
+<!-- version --><img alt="Version" src="https://img.shields.io/badge/version-1.19.4-009DE0?style=for-the-badge"><!-- /version -->
 <a href="https://github.com/amitushx/support-calculator/actions/workflows/tests.yml"><img alt="Tests" src="https://img.shields.io/github/actions/workflow/status/amitushx/support-calculator/tests.yml?branch=main&label=tests&style=for-the-badge"></a>
 <img alt="Languages" src="https://img.shields.io/badge/languages-5-7C3AED?style=for-the-badge">
 <img alt="No build step" src="https://img.shields.io/badge/build-none-22C55E?style=for-the-badge">
@@ -73,7 +73,7 @@ The last 10 calculations of each calculator, under the amount.
 </tr>
 </table>
 
-**And around it:** a What's new window after every update, a refresh offer when a new version is out, settings backup to a file (at the bottom of the help), and the screen stays awake while the calculator is open.
+**And around it:** a What's new window after every new feature, a refresh offer when a new version is out, settings backup to a file (at the bottom of the help), and the screen stays awake while the calculator is open.
 
 ## Keyboard shortcuts
 
@@ -173,6 +173,10 @@ CI checks that the version was bumped and that this README is up to date. After 
 ## Change log
 
 <!-- changelog -->
+### 1.19.4 · 3 November 2026
+
+- The What’s new window now only opens for new features. Small fixes are listed in the full change log.
+
 ### 1.19.3 · 3 November 2026
 
 - The edges of the glass no longer bend what’s behind them: in Chrome that drew flickering stripes where panels overlapped. The glass stays clear with a soft blur and the light on the rim.
