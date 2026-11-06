@@ -6,7 +6,6 @@ const COURIER_COLORS = {
     B: '#00a8e8',   // jacket, cap and box
     L: '#8ad8f8',   // highlights
     D: '#0070b0',   // shading
-    W: '#f8f8f8',   // the W on the box
     S: '#f8c898',   // skin
     s: '#d89060',   // skin shading
     H: '#584030',   // hair
@@ -32,10 +31,10 @@ const COURIER = [
     '..............sSSSss...............',
     '.BLLLLLLLLLB....SS.................',
     '.BBBBBBBBBBB..BBBBBB...............',
-    '.BWBBBBBBBWB.BBBBBBBB.......gg.....',   // a lowercase w
-    '.BWBBBWBBBWB.BBBBBBBBSSSSSSSgg.....',
-    '.BBWBWBWBWBB.BBBBBBBB......MM......',
-    '.BBBWBBBWBBB.BBBBBBB.......MM......',
+    '.BBBBBBBBBBB.BBBBBBBB.......gg.....',   // a plain box, no logo
+    '.BBBBBBBBBBB.BBBBBBBBSSSSSSSgg.....',
+    '.BBBBBBBBBBB.BBBBBBBB......MM......',
+    '.BBBBBBBBBBB.BBBBBBB.......MM......',
     '.BBBBBBBBBBB.PPPPPPPPPP....MMY.....',
     '.DDDDDDDDDDD.PPPPPPPPPP....MMYY....',
     '...gggggggggggggggg.PPP....MM......',

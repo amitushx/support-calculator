@@ -7,6 +7,17 @@
 // change log skip it; only the README lists it, for developers.
 const CHANGELOG = [
     {
+        version: '1.24.3',
+        date: '2026-11-06',
+        notes: {
+            he: ['לשליח שחוצה את המסך יש עכשיו תיק חלק, בלי ה־W.'],
+            en: ['The courier who scoots across the screen now carries a plain bag, without the W.'],
+            ar: ['المندوب اللي بيقطع الشاشة صار معه شنطة سادة، بدون الـW.'],
+            ka: ['კურიერს, რომელიც ეკრანზე გადის, ახლა უბრალო ჩანთა აქვს, W-ს გარეშე.'],
+            hi: ['स्क्रीन पार करने वाले कूरियर के पास अब सादा बैग है, W के बिना।']
+        }
+    },
+    {
         version: '1.24.2',
         date: '2026-11-06',
         notes: {
