@@ -7,6 +7,17 @@
 // change log skip it; only the README lists it, for developers.
 const CHANGELOG = [
     {
+        version: '1.32.0',
+        date: '2026-11-06',
+        notes: {
+            he: ['לחיצה על ? (Shift ו־/) פותחת את כל קיצורי המקלדת: קודם של הלשונית שבה אתם נמצאים, ואחר כך אלה שעובדים בכל מקום.'],
+            en: ['Press ? (Shift and /) to see every keyboard shortcut: first those of the tab you’re on, then the ones that work everywhere.'],
+            ar: ['كبسة على ? (Shift و/) بتفتح كل اختصارات الكيبورد: أول إشي تبعات التبويب اللي إنتو فيه، وبعدين اللي بتشتغل بكل مكان.'],
+            ka: ['დააჭირეთ ? (Shift და /), რომ ნახოთ კლავიატურის ყველა მალსახმობი: ჯერ იმ ჩანართის, რომელზეც ხართ, შემდეგ კი ის, რაც ყველგან მუშაობს.'],
+            hi: ['सारे कीबोर्ड शॉर्टकट देखने के लिए ? (Shift और /) दबाएँ: पहले उस टैब के जिस पर आप हैं, फिर वे जो हर जगह काम करते हैं।']
+        }
+    },
+    {
         version: '1.31.0',
         date: '2026-11-06',
         notes: {
