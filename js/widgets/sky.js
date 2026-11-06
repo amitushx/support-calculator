@@ -1,5 +1,6 @@
 // Sky: a pixel-art window onto a city skyline under the sky of the moment,
-// following the real sunrise and sunset over Tel Aviv
+// following the real sunrise and sunset over Tel Aviv; a neon city in the
+// Cyberpunk theme
 const SKY_LAT = 32.08, SKY_LNG = 34.78;
 const SKY_W = 64, SKY_H = 40, HORIZON = 34;
 // The pixel art is drawn on a 64x40 canvas and blown up 6x into the
@@ -78,6 +79,117 @@ for (let x = 0; x < SKY_W;) {
     BUILDINGS.push({ x, w, top, windows });
     x += w + (skyRand() < 0.3 ? 1 : 0);
 }
+// Cyberpunk: two rows of tall towers, the back row hazier, with spires,
+// neon signs and lit windows in neon colors, and flying cars between them
+const NEON = ['#ff2bd6', '#00f0ff', '#ffe14d', '#a46bff'];
+const cyberTower = (x, w, top) => {
+    const windows = [];
+    const color = NEON[Math.floor(skyRand() * 4)];   // one color of light per tower
+    for (let wy = top + 2; wy < SKY_H - 1; wy += 2) {
+        for (let wx = x + 1; wx < x + w - 1; wx += 2) windows.push([wx, wy, skyRand(), color]);
+    }
+    return { x, w, top, windows };
+};
+const CYBER_BACK = [], CYBER_FRONT = [];
+for (let x = -2; x < SKY_W;) {
+    const w = 4 + Math.floor(skyRand() * 5);
+    const tower = cyberTower(x, w, 5 + Math.floor(skyRand() * 14));
+    if (skyRand() < 0.5) tower.spire = 2 + Math.floor(skyRand() * 4);
+    CYBER_BACK.push(tower);
+    x += w + 1 + Math.floor(skyRand() * 3);
+}
+for (let x = 0; x < SKY_W;) {
+    const w = 5 + Math.floor(skyRand() * 5);
+    const tower = cyberTower(x, w, 14 + Math.floor(skyRand() * 14));
+    const r = skyRand();
+    if (r < 0.45) {   // a vertical sign down one side, its letters lit with gaps
+        tower.sign = { kind: 'tall', x: skyRand() < 0.5 ? x : x + w - 2, y: tower.top + 2,
+            length: 3 + Math.floor(skyRand() * 3), color: NEON[Math.floor(skyRand() * 4)] };
+    } else if (r < 0.8) {   // a billboard on the roof
+        tower.sign = { kind: 'board', x: x + 1, y: tower.top - 3, w: w - 2, color: NEON[Math.floor(skyRand() * 4)] };
+    }
+    tower.flicker = skyRand();
+    CYBER_FRONT.push(tower);
+    x += w + (skyRand() < 0.3 ? 1 : 0);
+}
+// Flying cars in lanes, some each way; speed in pixels a second
+const CYBER_CARS = [
+    { y: 9, speed: 6, offset: 0 }, { y: 9, speed: 6, offset: 40 },
+    { y: 14, speed: -9, offset: 12 },
+    { y: 18, speed: 4, offset: 30 }, { y: 18, speed: 4, offset: 64 },
+    { y: 22, speed: -5, offset: 50 }
+];
+const cyberSky = () => document.documentElement.dataset.palette === 'cyber';
+// The city's own light: a magenta glow along the horizon after dark, which
+// the towers stand out against
+const CYBER_GLOW = '#6a1f78';
+function drawCyberCity(now, building, haze, night) {
+    const t = now.getTime() / 1000;
+    building = mix(building, '#1a0f2e', night * 0.5);
+    const glow = 0.55 + night * 0.45;   // neon shows by day too, brighter by night
+    const blink = Math.floor(t * 2) % 2;
+    // The back row, hazy, with blinking red lights on the spires
+    for (const b of CYBER_BACK) {
+        skyCtx.fillStyle = mix(building, haze, 0.35);
+        skyCtx.fillRect(b.x, b.top, b.w, SKY_H - b.top);
+        if (b.spire) {
+            skyCtx.fillRect(b.x + (b.w >> 1), b.top - b.spire, 1, b.spire);
+            if (blink) {
+                skyCtx.fillStyle = '#ff3b3b';
+                skyCtx.fillRect(b.x + (b.w >> 1), b.top - b.spire, 1, 1);
+            }
+        }
+        for (const [wx, wy, r, c] of b.windows) {
+            if (r < 0.15 + night * 0.35) {
+                skyCtx.fillStyle = mix(mix(building, haze, 0.35), c, 0.45 * glow);
+                skyCtx.fillRect(wx, wy, 1, 1);
+            }
+        }
+    }
+    // Flying cars weave between the two rows: a dark body, a headlight in
+    // front and a red light behind
+    for (const car of CYBER_CARS) {
+        const span = SKY_W + 8;
+        const cx = Math.floor((((t * car.speed + car.offset) % span) + span) % span) - 4;
+        const ahead = car.speed > 0 ? 1 : -1;
+        skyCtx.fillStyle = mix('#1a1530', '#00f0ff', night * 0.8);   // underglow, by night
+        skyCtx.fillRect(cx - 1, car.y + 1, 3, 1);
+        skyCtx.fillStyle = mix('#1a1530', '#5a4a8a', night);
+        skyCtx.fillRect(cx - 1, car.y, 3, 1);
+        skyCtx.fillRect(cx, car.y - 1, 1, 1);
+        skyCtx.fillStyle = '#e8fbff';
+        skyCtx.fillRect(cx + 2 * ahead, car.y, 1, 1);
+        skyCtx.fillStyle = '#ff2b6a';
+        skyCtx.fillRect(cx - 2 * ahead, car.y, 1, 1);
+    }
+    // The front row, with neon windows and signs, now and then flickering
+    for (const b of CYBER_FRONT) {
+        skyCtx.fillStyle = building;
+        skyCtx.fillRect(b.x, b.top, b.w, SKY_H - b.top);
+        for (const [wx, wy, r, c] of b.windows) {
+            if (r < 0.1 + night * 0.5) {
+                skyCtx.fillStyle = mix(building, c, 0.7 * glow);
+                skyCtx.fillRect(wx, wy, 1, 1);
+            }
+        }
+        const s = b.sign;
+        if (!s || (b.flicker < 0.3 && Math.random() < 0.12)) continue;
+        skyCtx.fillStyle = mix(building, s.color, glow);
+        if (s.kind === 'tall') {   // two pixels wide, a dark gap between letters
+            skyCtx.fillRect(s.x, s.y, 2, s.length * 3);
+            skyCtx.fillStyle = building;
+            for (let k = 2; k < s.length * 3; k += 3) skyCtx.fillRect(s.x, s.y + k, 2, 1);
+        } else {
+            skyCtx.fillRect(s.x, s.y, s.w, 1);
+            skyCtx.fillRect(s.x, s.y + 2, s.w, 1);
+            skyCtx.fillRect(s.x, s.y, 1, 3);
+            skyCtx.fillRect(s.x + s.w - 1, s.y, 1, 3);
+            skyCtx.fillStyle = building;   // the legs it stands on
+            skyCtx.fillRect(s.x + 1, s.y + 3, 1, 1);
+            skyCtx.fillRect(s.x + s.w - 2, s.y + 3, 1, 1);
+        }
+    }
+}
 const CLOUDS = [
     { y: 5, speed: 0.15, offset: 0, shape: ['..###....', '.#####.#.', '#########'] },
     { y: 12, speed: 0.1, offset: 30, shape: ['.##..', '#####'] },
@@ -135,7 +247,8 @@ function drawMatrix(time) {
 
 function drawSky(now) {
     const { h, p } = sunHeight(now);
-    const [top, bottom, cloud, building] = skyColors(h);
+    let [top, bottom, cloud, building] = skyColors(h);
+    if (cyberSky()) bottom = mix(bottom, CYBER_GLOW, Math.min(Math.max(-h * 4, 0), 1) * 0.7);
     const rowColor = y => mix(top, bottom, Math.min(y / HORIZON, 1));
     for (let y = 0; y < SKY_H; y++) {
         skyCtx.fillStyle = rowColor(y);
@@ -176,6 +289,10 @@ function drawSky(now) {
         }));
     }
     // Skyline, with more windows lit the darker it gets
+    if (cyberSky()) {
+        drawCyberCity(now, building, bottom, night);
+        return blitSky();
+    }
     const lit = night * 0.6;
     for (const b of BUILDINGS) {
         skyCtx.fillStyle = building;
@@ -185,7 +302,7 @@ function drawSky(now) {
     }
     blitSky();
 }
-// The rain needs more frames than the clock's four a second
+// The rain and the flying cars need more frames than the clock's four a second
 setInterval(() => {
-    if (widgets.sky.on && matrixSky() && document.visibilityState === 'visible') drawSky(new Date());
+    if (widgets.sky.on && (matrixSky() || cyberSky()) && document.visibilityState === 'visible') drawSky(new Date());
 }, 80);
