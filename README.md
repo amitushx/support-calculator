@@ -7,7 +7,7 @@
 **מחשבון סאפורט** · courier payments and Delivery Late compensation, one keystroke away
 
 <p>
-<!-- version --><img alt="Version" src="https://img.shields.io/badge/version-1.26.0-009DE0?style=for-the-badge"><!-- /version -->
+<!-- version --><img alt="Version" src="https://img.shields.io/badge/version-1.32.0-009DE0?style=for-the-badge"><!-- /version -->
 <a href="https://github.com/amitushx/support-calculator/actions/workflows/tests.yml"><img alt="Tests" src="https://img.shields.io/github/actions/workflow/status/amitushx/support-calculator/tests.yml?branch=main&label=tests&style=for-the-badge"></a>
 <img alt="Languages" src="https://img.shields.io/badge/languages-5-7C3AED?style=for-the-badge">
 <img alt="No build step" src="https://img.shields.io/badge/build-none-22C55E?style=for-the-badge">
@@ -56,6 +56,7 @@ The customer's maximum compensation for a late order.
 Copy the day's bonus message, paste it with one button and pick a city: the bonus follows the clock by itself and shows until when it holds. Until the day's list is pasted, a line under the city menu says how.
 
 - Reads the list in whatever layout it arrives, Slack emoji codes included
+- Under it, the next window, and when there's no bonus now, a window that ended in the last half hour, for tasks begun during it
 - Kept until the end of the day; the city is remembered for tomorrow
 
 </td>
@@ -90,7 +91,7 @@ A plain calculator for everything else: + − × ÷ and percentages, with up to 
 
 ## Keyboard shortcuts
 
-Shortcuts use the physical key, so they work on a Hebrew keyboard layout too.
+Shortcuts use the physical key, so they work on a Hebrew keyboard layout too. <kbd>?</kbd> (<kbd>Shift</kbd>+<kbd>/</kbd>) lists them in the app, for the tab you're on.
 
 | Key | Distance | Delivery Late | Calculator |
 | :-: | --- | --- | --- |
@@ -107,6 +108,7 @@ Shortcuts use the physical key, so they work on a Hebrew keyboard layout too.
 | <kbd>T</kbd> | | Restaurant or retail | |
 | <kbd>0</kbd>–<kbd>9</kbd> <kbd>.</kbd> <kbd>+</kbd> <kbd>-</kbd> <kbd>*</kbd> <kbd>/</kbd> <kbd>%</kbd> <kbd>=</kbd> | | | The keypad, on the number row or the numpad |
 | <kbd>Backspace</kbd> | | | Delete the last character |
+| <kbd>?</kbd> | This list | This list | This list |
 
 ## Widgets
 
@@ -118,14 +120,14 @@ Small panels, all off by default, turned on from the header: the puzzle button h
 | **Breaks** | Alarms for the long break, short break and end of shift, with a second short break for long shifts. Beep, Chime, Siren, Meow or Woof; rings with the widget closed and notifies in the background; clicking the notification stops it. Stopping the Ending alarm rains confetti, with or without Shift progress |
 | **Shift progress** | A line from the start of the shift to the end, with the breaks as points and the time left. The start is set by itself; when the Ending alarm is stopped, it celebrates along with the confetti |
 | **Shift Leads** | Who is HR, Leader and Field this shift, typed next to each role; hovering a role shows what it handles. The names clear when a new shift starts |
-| **Note** | A sticky note, resizable, kept between visits |
-| **Sky** | A pixel-art skyline under the real sky of the moment, sun and moon included; matrix rain in the Retro terminal theme, and in Cyberpunk a city of neon towers with flying cars |
+| **Note** | A sticky note, resizable, kept between visits. "- " at the start of a line, or the button in its bar, makes a checklist item; click its box or press <kbd>Ctrl</kbd>+<kbd>Enter</kbd> to tick it, and <kbd>Enter</kbd> on an empty item ends the list |
+| **Sky** | A pixel-art view under the real sky of the moment, sun and moon included, different in every theme: a city skyline in Classic, a forest with a smoking log cabin in Wood, the sea with sailboats and a lighthouse in Ocean, snowy hills under northern lights in Aurora, dunes with an oasis and a camel in Sunset, a rainbow, a balloon and a mushroom house in Cute, matrix rain in Retro terminal, and a city of neon towers with flying cars in Cyberpunk |
 | **Cat** | Wanders along the bottom of the screen, grooms, and naps when nobody's around. Click it and it meows |
 | **Puppy** | Lives there too: pants, wags, scratches an ear, runs zoomies and naps. Click it and it barks. Now and then it invites the cat to play: a swat, a chase and a nose boop. When both fall asleep they curl up side by side |
 | **Goldfish** | A bowl in the middle of the floor, with gravel, seaweed and a little castle, and a goldfish that swims about now and then. Click it and bubbles pop out. With the cat out too, the cat often comes over to tap the glass and try to fish it out, to no avail |
 | **Doom** | The shareware episode, downloaded (about 6.5 MB) only when you press play. <kbd>F</kbd> goes full screen |
 
-Every 10 minutes a pixel-art Wolt courier also scoots across the page, on a futuristic motorcycle in the Cyberpunk theme. Click him and he pays out 10₪, with a kaching.
+Every 10 minutes a pixel-art Wolt courier also scoots across the page. His ride follows the theme: a futuristic motorcycle in Cyberpunk, a green bicycle he pedals in Wood, a jet ski on its own strip of sea in Ocean, a pink scooter with cat ears and a trail of hearts in Cute, and a glowing phosphor wireframe in Retro terminal. Click him and he pays out 10₪, with a kaching. The pets notice him: the puppy wags, then chases him to the edge of the screen, and the cat follows him with its eyes.
 
 ## Themes and languages
 
@@ -161,7 +163,7 @@ index.html          markup, icon sprite, pre-paint theme script
 changelog.js        releases, newest first (stays at the root: older copies poll it)
 assets/             the logo, favicons and app icons
 css/                themes · app · widgets · dialogs, loaded in that order
-js/lib/             the rules: fees.js, delay.js, bonus.js
+js/lib/             the rules: fees.js, delay.js, bonus.js, arith.js
 js/                 i18n.js, motion.js, glass.js, dropdown.js, app.js, bonus-list.js, main.js
 js/widgets/         one file per widget; pets.js is shared by the cat, the puppy and the goldfish
 pages/doom.html     the Doom widget's frame
@@ -190,6 +192,34 @@ CI checks that the version was bumped and that this README is up to date. After 
 ## Change log
 
 <!-- changelog -->
+### 1.32.0 · 6 November 2026
+
+- Press ? (Shift and /) to see every keyboard shortcut: first those of the tab you’re on, then the ones that work everywhere.
+
+### 1.31.0 · 6 November 2026
+
+- The pets notice the courier: the puppy wags as he comes, then runs after him to the edge of the screen and sits down panting. The cat sits and follows him with its eyes, its tail flicking. A pet that’s asleep, playing or at the goldfish bowl lets him go by.
+
+### 1.30.0 · 6 November 2026
+
+- The Note can now mix a checklist into its text: "- " at the start of a line, or the new button in its bar, turns the line into an item with a round box. Click the box or press Ctrl+Enter to tick it off, and Enter on an empty item goes back to plain text.
+
+### 1.29.0 · 6 November 2026
+
+- Under the city’s bonus you now see the next window, with its percentage and hours. And when there’s no bonus right now, a window that ended in the last half hour shows too, for tasks that began while it was still on.
+
+### 1.28.0 · 6 November 2026
+
+- The courier who scoots across the screen now rides to match the theme: he pedals a green bicycle in Wood, skims along on a jet ski with spray behind in Ocean, rides a pink scooter with cat ears on his cap and hearts instead of smoke in Cute, and in Retro terminal he’s glowing outlines in the screen’s color.
+
+### 1.27.0 · 6 November 2026
+
+- Every theme now has its own view in the Sky widget: a forest with a log cabin and chimney smoke in Wood, the sea with sailboats and a lighthouse in Ocean, snowy hills and northern lights at night in Aurora, dunes with an oasis and a camel in Sunset, and a rainbow, a hot air balloon and a mushroom house in Cute. The sun and moon still follow the real time.
+
+### 1.26.1 · 6 November 2026 · internal
+
+- README: the Development tree lists `arith.js` under `js/lib/`.
+
 ### 1.26.0 · 6 November 2026
 
 - In the Cyberpunk theme, the Sky widget is now a city of the future: tall skyscrapers with neon windows and flickering signs, and flying cars weaving between them. At night the horizon glows pink.

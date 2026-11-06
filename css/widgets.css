@@ -223,20 +223,56 @@
 #doomPlay:hover { color: #fff; }
 #doomPlay .icon { width: 28px; height: 28px; }
 #noteText {
-    display: block;
     width: 180px;
     height: 110px;
     min-width: 120px;
     min-height: 50px;
     margin-top: 4px;
+    overflow: auto;
     resize: both;
+    color: var(--text);
     font-size: 14px;
     line-height: 1.4;
+    outline: none;
     touch-action: auto;
     user-select: text;
     cursor: text;
 }
-#noteText::placeholder { color: var(--muted); opacity: .6; }
+#noteText.blank::before {   /* the placeholder */
+    content: attr(data-placeholder);
+    position: absolute;
+    color: var(--muted);
+    opacity: .6;
+    pointer-events: none;
+}
+/* Checklist items: a round box at the start of the line, ticked with a
+   check that pops in on the spring */
+#noteText > div { position: relative; min-height: 1.4em; }
+#noteText .item { padding-inline-start: 22px; transition: color .25s; }
+#noteText .item::before, #noteText .item::after {
+    content: '';
+    position: absolute;
+    inset-inline-start: 0;
+    top: .17em;
+    width: 15px;
+    height: 15px;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+#noteText .item::before { border: 1.5px solid var(--muted); border-radius: 5px; }
+#noteText .item::after {
+    background: var(--bg);
+    -webkit-mask: var(--check) center / 11px no-repeat;
+    mask: var(--check) center / 11px no-repeat;
+    opacity: 0;
+    scale: .4;
+    --check: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12l5 5l10 -10'/%3E%3C/svg%3E");
+}
+#noteText .item.done { color: var(--muted); text-decoration: line-through; }
+#noteText .item.done::before { border-color: var(--accent); background: var(--accent); }
+#noteText .item.done::after { opacity: 1; scale: 1; }
+.motion #noteText .item::before { transition: background .25s, border-color .25s; }
+.motion #noteText .item::after { transition: opacity .2s, scale .45s var(--spring); }
 .widget .stop {
     display: none;
     width: 100%;
@@ -318,6 +354,9 @@
     cursor: pointer;
     image-rendering: pixelated;
     transform: translateX(-100%);
+}
+:root[data-palette="retro"] #courier {   /* his phosphor outline glows */
+    filter: drop-shadow(0 0 2px var(--glow)) drop-shadow(0 0 5px var(--glow));
 }
 
 /* The pets: live on the floor, a click makes them meow or bark; the

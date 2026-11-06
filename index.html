@@ -60,6 +60,9 @@
     <symbol id="i-math" viewBox="0 0 24 24"><path d="M3 12h18M12 3v18M16.5 4.5l3 3M19.5 4.5l-3 3M6 4v4M4 6h4M18 16v.01M18 20v.01M4 18h4"/></symbol>
     <symbol id="i-backspace" viewBox="0 0 24 24"><path d="M20 6a1 1 0 0 1 1 1v10a1 1 0 0 1 -1 1h-11l-5 -5a1.5 1.5 0 0 1 0 -2l5 -5z"/><path d="M12 10l4 4m0 -4l-4 4"/></symbol>
     <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M20 11a8.1 8.1 0 0 0 -15.5 -2m-.5 -4v4h4"/><path d="M4 13a8.1 8.1 0 0 0 15.5 2m.5 4v-4h-4"/></symbol>
+    <symbol id="i-keyboard" viewBox="0 0 24 24"><path d="M2 8a2 2 0 0 1 2 -2h16a2 2 0 0 1 2 2v8a2 2 0 0 1 -2 2h-16a2 2 0 0 1 -2 -2z"/><path d="M6 10v.01M10 10v.01M14 10v.01M18 10v.01M6 14v.01M18 14v.01M10 14h4"/></symbol>
+    <symbol id="i-checkbox" viewBox="0 0 24 24"><path d="M9 11l3 3l8 -8"/><path d="M20 12v6a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h9"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 18 0a9 9 0 1 0 -18 0"/><path d="M12 7v5l3 3"/></symbol>
     <symbol id="i-history" viewBox="0 0 24 24"><path d="M12 8v4l2 2"/><path d="M3.05 11a9 9 0 1 1 .5 4m-.5 5v-5h5"/></symbol>
     <symbol id="i-player-play" viewBox="0 0 24 24"><path d="M7 4v16l13 -8z"/></symbol>
     <symbol id="i-maximize" viewBox="0 0 24 24"><path d="M4 8v-2a2 2 0 0 1 2 -2h2"/><path d="M4 16v2a2 2 0 0 0 2 2h2"/><path d="M16 4h2a2 2 0 0 1 2 2v2"/><path d="M16 20h2a2 2 0 0 0 2 -2v-2"/></symbol>
@@ -139,6 +142,7 @@
             <button id="bonusPasteBtn" type="button"><svg class="icon"><use href="#i-clipboard"/></svg></button>
         </div>
         <div id="bonusInfo" aria-live="polite"></div>
+        <div id="bonusMore"></div>
     </div>
 
     <div id="delayCalc" hidden>
@@ -231,7 +235,7 @@
                 <li>הקלידו את המרחק במטרים, והתשלום יופיע למטה, מעוגל כלפי מעלה לשקל שלם.</li>
                 <li>הוסיפו אחוז בונוס אם יש, והפעילו <b>ווקר</b> לשליחים רגליים.</li>
                 <li>לחיצה על הסכום או <kbd>Enter</kbd> מעתיקים אותו, ו־<kbd>Esc</kbd> מנקה.</li>
-                <li>קיצורים: <kbd>D</kbd> מרחק, <kbd>B</kbd> בונוס, <kbd>W</kbd> ווקר.</li>
+                <li>קיצורים: <kbd>D</kbd> מרחק, <kbd>B</kbd> בונוס, <kbd>W</kbd> ווקר. <kbd>?</kbd> מציג את כל הקיצורים.</li>
             </ul>
             <h3><svg class="icon"><use href="#i-clock-late"/></svg>דליברי לייט</h3>
             <ul>
@@ -254,13 +258,14 @@
             <h3><svg class="icon"><use href="#i-clipboard"/></svg>רשימת הבונוסים</h3>
             <ul>
                 <li>העתיקו את הודעת הבונוסים של היום, ולחצו על <svg class="icon"><use href="#i-clipboard"/></svg> כדי להדביק אותה.</li>
-                <li>בחרו את העיר שלכם, והבונוס יתעדכן לבד לפי השעה, עם עד מתי הוא בתוקף.</li>
+                <li>בחרו את העיר שלכם, והבונוס יתעדכן לבד לפי השעה, עם עד מתי הוא בתוקף. מתחתיו מופיע החלון הבא, ואם אין עכשיו בונוס, גם חלון שהסתיים בחצי השעה האחרונה, בשביל משימות שהתחילו בזמנו.</li>
                 <li>הרשימה נשמרת עד סוף היום, והעיר נשמרת גם למחר. הקלדת בונוס או בחירה ב״בונוס ידני״ מחזירות לבונוס הידני.</li>
             </ul>
             <h3><svg class="icon"><use href="#i-puzzle"/></svg>ווידג׳טים</h3>
             <ul>
                 <li>מהכפתור <svg class="icon"><use href="#i-puzzle"/></svg> מפעילים את כלי המשמרת: שעון, הפסקות, התקדמות משמרת, שיפט לידים ופתק, ומהכפתור <svg class="icon"><use href="#i-gamepad"/></svg> את האקסטרות: שמיים, חתול, כלבלב, דג זהב ודום. גררו אותם לאן שנוח, והם יישארו שם.</li>
                 <li>בהפסקות קובעים שעה להפסקה ארוכה, להפסקה קצרה ולירידה, ובוחרים צליל. במשמרת ארוכה, <svg class="icon"><use href="#i-plus"/></svg> מוסיף הפסקה קצרה שנייה. הן מצלצלות גם כשהווידג׳ט סגור, ולחיצה, <kbd>Esc</kbd> או לחיצה על ההתראה של המערכת עוצרים את הצלצול.</li>
+                <li>בפתק, "- " בתחילת שורה או <svg class="icon"><use href="#i-checkbox"/></svg> יוצרים פריט ברשימה. לחיצה על העיגול או <kbd>Ctrl</kbd>+<kbd>Enter</kbd> מסמנים אותו, <kbd>Enter</kbd> בפריט ריק מסיים את הרשימה.</li>
                 <li>בהתקדמות משמרת, שעת העלייה נקבעת לבד, לפי הפעם הראשונה שפותחים את המחשבון במשמרת. לחיצה עליה מתקנת אותה.</li>
                 <li>בדום, <svg class="icon"><use href="#i-player-play"/></svg> מוריד את המשחק (בערך 6.5MB) רק כשלוחצים עליו. החיצים זזים, <kbd>Ctrl</kbd> יורה, <kbd>רווח</kbd> פותח דלתות, ו־<kbd>F</kbd> או <svg class="icon"><use href="#i-maximize"/></svg> למסך מלא.</li>
             </ul>
@@ -275,7 +280,7 @@
                 <li>Type the distance in meters and the payment shows below, rounded up to a whole shekel.</li>
                 <li>Add a bonus percentage if there is one, and turn on <b>Walker</b> for couriers on foot.</li>
                 <li>Click the amount or press <kbd>Enter</kbd> to copy it; <kbd>Esc</kbd> clears.</li>
-                <li>Shortcuts: <kbd>D</kbd> distance, <kbd>B</kbd> bonus, <kbd>W</kbd> walker.</li>
+                <li>Shortcuts: <kbd>D</kbd> distance, <kbd>B</kbd> bonus, <kbd>W</kbd> walker. <kbd>?</kbd> shows them all.</li>
             </ul>
             <h3><svg class="icon"><use href="#i-clock-late"/></svg>Delivery Late</h3>
             <ul>
@@ -298,13 +303,14 @@
             <h3><svg class="icon"><use href="#i-clipboard"/></svg>The bonus list</h3>
             <ul>
                 <li>Copy the day's bonus message, then press <svg class="icon"><use href="#i-clipboard"/></svg> to paste it.</li>
-                <li>Pick your city and the bonus follows the clock by itself, showing until when it holds.</li>
+                <li>Pick your city and the bonus follows the clock by itself, showing until when it holds. Under it is the next window, and when there’s no bonus now, also a window that ended in the last half hour, for tasks that began during it.</li>
                 <li>The list is kept until the end of the day, and your city is remembered for tomorrow. Typing a bonus or picking “Manual bonus” switches back to your own bonus.</li>
             </ul>
             <h3><svg class="icon"><use href="#i-puzzle"/></svg>Widgets</h3>
             <ul>
                 <li>The <svg class="icon"><use href="#i-puzzle"/></svg> button turns on the shift tools: Clock, Breaks, Shift progress, Shift Leads and Note. The <svg class="icon"><use href="#i-gamepad"/></svg> button has the extras: Sky, Cat, Puppy, Goldfish and Doom. Drag them anywhere and they stay put.</li>
                 <li>In Breaks, set the long break, the short break and the end of the shift, and pick a sound. For a long shift, <svg class="icon"><use href="#i-plus"/></svg> adds a second short break. They ring even with the widget closed; click, press <kbd>Esc</kbd> or click the system notification to stop the ringing.</li>
+                <li>In the Note, "- " at the start of a line or <svg class="icon"><use href="#i-checkbox"/></svg> makes a checklist item. A click on its box or <kbd>Ctrl</kbd>+<kbd>Enter</kbd> ticks it, and <kbd>Enter</kbd> on an empty item ends the list.</li>
                 <li>In Shift progress, the start is set by itself, from the first time you open the calculator in the shift; click it to correct it.</li>
                 <li>Doom downloads the game (about 6.5 MB) only when you press <svg class="icon"><use href="#i-player-play"/></svg>. Arrows move, <kbd>Ctrl</kbd> fires, <kbd>Space</kbd> opens doors, and <kbd>F</kbd> or <svg class="icon"><use href="#i-maximize"/></svg> goes full screen.</li>
             </ul>
@@ -319,7 +325,7 @@
                 <li>اكتبوا المسافة بالمتر، والدفعة بتطلع تحت، مدوّرة لفوق لأقرب شيكل.</li>
                 <li>زيدوا نسبة البونص إذا في، وشغّلوا <b>ووكر</b> للمراسلين اللي ماشيين على رجليهم.</li>
                 <li>كبسة على المبلغ أو <kbd>Enter</kbd> بتنسخه، و<kbd>Esc</kbd> بيمسح.</li>
-                <li>اختصارات: <kbd>D</kbd> مسافة، <kbd>B</kbd> بونص، <kbd>W</kbd> ووكر.</li>
+                <li>اختصارات: <kbd>D</kbd> مسافة، <kbd>B</kbd> بونص، <kbd>W</kbd> ووكر. <kbd>?</kbd> بيبيّن كل الاختصارات.</li>
             </ul>
             <h3><svg class="icon"><use href="#i-clock-late"/></svg>ديليفري ليت</h3>
             <ul>
@@ -342,13 +348,14 @@
             <h3><svg class="icon"><use href="#i-clipboard"/></svg>قائمة البونصات</h3>
             <ul>
                 <li>انسخوا رسالة بونصات اليوم، وبعدين اكبسوا على <svg class="icon"><use href="#i-clipboard"/></svg> عشان تلزقوها.</li>
-                <li>اختاروا مدينتكم، والبونص بيتحدّث لحاله حسب الساعة، ومعه لحد إيمتى صالح.</li>
+                <li>اختاروا مدينتكم، والبونص بيتحدّث لحاله حسب الساعة، ومعه لحد إيمتى صالح. تحته بيبيّن الوقت الجاي، وإذا ما في بونص هلأ، كمان وقت خلص بآخر نص ساعة، للمهمات اللي بلشت فيه.</li>
                 <li>القائمة بتضل محفوظة لآخر اليوم، والمدينة بتنحفظ لبكرا كمان. إذا كتبتوا بونص أو اخترتوا «بونص يدوي» بترجعوا للبونص اليدوي.</li>
             </ul>
             <h3><svg class="icon"><use href="#i-puzzle"/></svg>ويدجتات</h3>
             <ul>
                 <li>من الزر <svg class="icon"><use href="#i-puzzle"/></svg> بتشغّلوا أدوات الشفت: ساعة، بريكات، تقدّم الشفت، شفت ليدز وملاحظة. والزر <svg class="icon"><use href="#i-gamepad"/></svg> فيه الإضافات: السما، بسّة، جرو، سمكة ذهبية ودوم. اسحبوهم وين ما بدكم، وبضلّوا هناك.</li>
                 <li>بالبريكات بتحددوا ساعة للبريك الطويل، للبريك القصير ولنهاية الشفت، وبتختاروا صوت. بالشفت الطويل، <svg class="icon"><use href="#i-plus"/></svg> بيزيد بريك قصير تاني. بيرنّوا حتى لو الويدجت مسكّر، وكبسة، <kbd>Esc</kbd> أو كبسة على إشعار النظام بتوقف الرنّة.</li>
+                <li>بالملاحظة، "- " بأول السطر أو <svg class="icon"><use href="#i-checkbox"/></svg> بيعملوا بند بالقائمة. كبسة على الدائرة أو <kbd>Ctrl</kbd>+<kbd>Enter</kbd> بتعلّم عليه، و<kbd>Enter</kbd> على بند فاضي بيسكّر القائمة.</li>
                 <li>بتقدّم الشفت، بداية الشفت بتنحط لحالها، من أول مرة بتفتحوا فيها الحاسبة بالشفت، وكبسة عليها بتصلّحها.</li>
                 <li>بدوم، <svg class="icon"><use href="#i-player-play"/></svg> بينزّل اللعبة (حوالي 6.5MB) بس لما تكبسوا عليه. الأسهم للحركة، <kbd>Ctrl</kbd> بيطخّ، <kbd>Space</kbd> بيفتح البواب، و<kbd>F</kbd> أو <svg class="icon"><use href="#i-maximize"/></svg> لملء الشاشة.</li>
             </ul>
@@ -363,7 +370,7 @@
                 <li>შეიყვანეთ მანძილი მეტრებში და გადასახადი ქვემოთ გამოჩნდება, მთელ შეკელამდე ზემოთ დამრგვალებული.</li>
                 <li>დაამატეთ ბონუსის პროცენტი, თუ არის, და ფეხით მოსიარულე კურიერებისთვის ჩართეთ <b>ფეხით</b>.</li>
                 <li>თანხაზე დაწკაპება ან <kbd>Enter</kbd> მას აკოპირებს, <kbd>Esc</kbd> კი ასუფთავებს.</li>
-                <li>მალსახმობები: <kbd>D</kbd> მანძილი, <kbd>B</kbd> ბონუსი, <kbd>W</kbd> ფეხით.</li>
+                <li>მალსახმობები: <kbd>D</kbd> მანძილი, <kbd>B</kbd> ბონუსი, <kbd>W</kbd> ფეხით. <kbd>?</kbd> აჩვენებს ყველა მალსახმობს.</li>
             </ul>
             <h3><svg class="icon"><use href="#i-clock-late"/></svg>დაგვიანება</h3>
             <ul>
@@ -386,13 +393,14 @@
             <h3><svg class="icon"><use href="#i-clipboard"/></svg>ბონუსების სია</h3>
             <ul>
                 <li>დააკოპირეთ დღის ბონუსების შეტყობინება და ჩასასმელად დააჭირეთ <svg class="icon"><use href="#i-clipboard"/></svg>-ს.</li>
-                <li>აირჩიეთ თქვენი ქალაქი და ბონუსი თავისით განახლდება საათის მიხედვით, იმის ჩვენებით, თუ როდემდე მოქმედებს.</li>
+                <li>აირჩიეთ თქვენი ქალაქი და ბონუსი თავისით განახლდება საათის მიხედვით, იმის ჩვენებით, თუ როდემდე მოქმედებს. მის ქვემოთ ჩანს შემდეგი ფანჯარა, ხოლო როცა ახლა ბონუსი არ არის, ბოლო ნახევარ საათში დასრულებული ფანჯარაც, იმ დავალებებისთვის, რომლებიც მის დროს დაიწყო.</li>
                 <li>სია ინახება დღის ბოლომდე, ქალაქი კი ხვალისთვისაც დამახსოვრდება. ბონუსის აკრეფა ან „ხელით მითითებული ბონუსის“ არჩევა თქვენს ბონუსს დააბრუნებს.</li>
             </ul>
             <h3><svg class="icon"><use href="#i-puzzle"/></svg>ვიჯეტები</h3>
             <ul>
                 <li>ღილაკი <svg class="icon"><use href="#i-puzzle"/></svg> რთავს ცვლის ხელსაწყოებს: საათს, შესვენებებს, ცვლის პროგრესს, ცვლის ლიდებს და ჩანაწერს. ღილაკში <svg class="icon"><use href="#i-gamepad"/></svg> ექსტრებია: ცა, კატა, ლეკვი, ოქროს თევზი და დუმი. გადაათრიეთ ისინი სადაც გინდათ და იქ დარჩებიან.</li>
                 <li>შესვენებებში დააყენეთ გრძელი შესვენება, მოკლე შესვენება და ცვლის დასრულება, და აირჩიეთ ხმა. გრძელ ცვლაზე <svg class="icon"><use href="#i-plus"/></svg> ამატებს მეორე მოკლე შესვენებას. ისინი რეკავენ მაშინაც, როცა ვიჯეტი დახურულია; დაწკაპება, <kbd>Esc</kbd> ან სისტემის შეტყობინებაზე დაწკაპება აჩერებს რეკვას.</li>
+                <li>ჩანაწერში "- " სტრიქონის დასაწყისში ან <svg class="icon"><use href="#i-checkbox"/></svg> ქმნის სიის პუნქტს. მის წრეზე დაწკაპება ან <kbd>Ctrl</kbd>+<kbd>Enter</kbd> მონიშნავს მას, ხოლო <kbd>Enter</kbd> ცარიელ პუნქტზე ასრულებს სიას.</li>
                 <li>ცვლის პროგრესში დაწყება თავისით დგინდება, ცვლაში კალკულატორის პირველად გახსნიდან; დააწკაპეთ მის გასასწორებლად.</li>
                 <li>დუმი თამაშს (დაახლოებით 6.5 MB) მხოლოდ <svg class="icon"><use href="#i-player-play"/></svg>-ზე დაჭერისას ჩამოტვირთავს. ისრები გადაადგილებისთვისაა, <kbd>Ctrl</kbd> ისვრის, <kbd>Space</kbd> კარებს აღებს, ხოლო <kbd>F</kbd> ან <svg class="icon"><use href="#i-maximize"/></svg> სრულ ეკრანზე გადადის.</li>
             </ul>
@@ -407,7 +415,7 @@
                 <li>दूरी मीटर में डालें, भुगतान नीचे दिखेगा, ऊपर की ओर पूरे शेकेल तक पूर्णांकित।</li>
                 <li>अगर बोनस हो तो उसका प्रतिशत डालें, और पैदल कूरियर के लिए <b>पैदल</b> चालू करें।</li>
                 <li>राशि पर क्लिक करें या <kbd>Enter</kbd> दबाएँ तो वह कॉपी हो जाती है; <kbd>Esc</kbd> साफ़ करता है।</li>
-                <li>शॉर्टकट: <kbd>D</kbd> दूरी, <kbd>B</kbd> बोनस, <kbd>W</kbd> पैदल।</li>
+                <li>शॉर्टकट: <kbd>D</kbd> दूरी, <kbd>B</kbd> बोनस, <kbd>W</kbd> पैदल। <kbd>?</kbd> सारे शॉर्टकट दिखाता है।</li>
             </ul>
             <h3><svg class="icon"><use href="#i-clock-late"/></svg>देर से डिलीवरी</h3>
             <ul>
@@ -430,13 +438,14 @@
             <h3><svg class="icon"><use href="#i-clipboard"/></svg>बोनस सूची</h3>
             <ul>
                 <li>आज का बोनस संदेश कॉपी करें, फिर उसे पेस्ट करने के लिए <svg class="icon"><use href="#i-clipboard"/></svg> दबाएँ।</li>
-                <li>अपना शहर चुनें, बोनस घड़ी के साथ अपने आप बदलता है और दिखाता है कि वह कब तक मान्य है।</li>
+                <li>अपना शहर चुनें, बोनस घड़ी के साथ अपने आप बदलता है और दिखाता है कि वह कब तक मान्य है। उसके नीचे अगली अवधि दिखती है, और जब अभी कोई बोनस न हो, तो पिछले आधे घंटे में ख़त्म हुई अवधि भी, उन कामों के लिए जो उसके दौरान शुरू हुए।</li>
                 <li>सूची दिन के अंत तक रहती है, और आपका शहर कल के लिए भी याद रहता है। बोनस टाइप करने या “मैनुअल बोनस” चुनने से आपका अपना बोनस वापस आ जाता है।</li>
             </ul>
             <h3><svg class="icon"><use href="#i-puzzle"/></svg>विजेट</h3>
             <ul>
                 <li><svg class="icon"><use href="#i-puzzle"/></svg> बटन से शिफ़्ट के टूल चालू होते हैं: घड़ी, ब्रेक, शिफ़्ट की प्रगति, शिफ़्ट लीड और नोट। <svg class="icon"><use href="#i-gamepad"/></svg> बटन में एक्स्ट्रा हैं: आसमान, बिल्ली, पिल्ला, सुनहरी मछली और डूम। उन्हें कहीं भी खींचें, वे वहीं रहेंगे।</li>
                 <li>ब्रेक में लंबे ब्रेक, छोटे ब्रेक और शिफ़्ट के अंत का समय लगाएँ, और आवाज़ चुनें। लंबी शिफ़्ट में <svg class="icon"><use href="#i-plus"/></svg> दूसरा छोटा ब्रेक जोड़ता है। विजेट बंद होने पर भी अलार्म बजते हैं; रोकने के लिए क्लिक करें, <kbd>Esc</kbd> दबाएँ या सिस्टम नोटिफ़िकेशन पर क्लिक करें।</li>
+                <li>नोट में, पंक्ति की शुरुआत में "- " या <svg class="icon"><use href="#i-checkbox"/></svg> सूची का आइटम बनाता है। उसके घेरे पर क्लिक या <kbd>Ctrl</kbd>+<kbd>Enter</kbd> उस पर निशान लगाता है, और खाली आइटम पर <kbd>Enter</kbd> सूची ख़त्म करता है।</li>
                 <li>शिफ़्ट की प्रगति में शुरुआत अपने आप तय होती है, शिफ़्ट में कैलकुलेटर पहली बार खोलने से; ठीक करने के लिए उस पर क्लिक करें।</li>
                 <li>डूम गेम (लगभग 6.5 MB) तभी डाउनलोड करता है जब आप <svg class="icon"><use href="#i-player-play"/></svg> दबाते हैं। तीर चलाते हैं, <kbd>Ctrl</kbd> फ़ायर करता है, <kbd>Space</kbd> दरवाज़े खोलता है, और <kbd>F</kbd> या <svg class="icon"><use href="#i-maximize"/></svg> पूर्ण स्क्रीन करता है।</li>
             </ul>
@@ -455,6 +464,19 @@
             </div>
             <p id="backupMsg" role="status"></p>
         </section>
+    </div>
+</dialog>
+<dialog id="keys" aria-labelledby="keysTitle">
+    <div class="help-inner">
+        <div class="help-head">
+            <h2 id="keysTitle"></h2>
+            <button id="keysClose" type="button">×</button>
+        </div>
+        <h3 id="keysTab"></h3>
+        <div class="keys-rows" id="keysTabRows"></div>
+        <h3 id="keysEverywhere"></h3>
+        <div class="keys-rows" id="keysAllRows"></div>
+        <p id="keysFoot"></p>
     </div>
 </dialog>
 <dialog id="news" aria-labelledby="newsTitle">
@@ -545,8 +567,8 @@
 </div>
 <div id="leadTip" role="tooltip" hidden></div>
 <div class="widget" id="w-note" hidden>
-    <div class="widget-bar"><span data-t="note"></span><button class="close" type="button">×</button></div>
-    <textarea id="noteText" dir="auto"></textarea>
+    <div class="widget-bar"><span data-t="note"></span><span class="tools"><button id="noteAddBtn" type="button"><svg class="icon"><use href="#i-checkbox"/></svg></button><button class="close" type="button">×</button></span></div>
+    <div id="noteText" contenteditable="true" spellcheck="false" role="textbox" aria-multiline="true"></div>
 </div>
 
 <!-- Classic scripts sharing one global scope, in dependency order -->
@@ -561,6 +583,7 @@
 <script src="js/dropdown.js"></script>
 <script src="js/app.js"></script>
 <script src="js/widgets/widgets.js"></script>
+<script src="js/widgets/note.js"></script>
 <script src="js/widgets/doom.js"></script>
 <script src="js/widgets/alarm.js"></script>
 <script src="js/widgets/shift.js"></script>

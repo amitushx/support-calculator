@@ -531,6 +531,32 @@ $('helpClose').addEventListener('click', () => closeDialog($('help')));
 $('help').addEventListener('click', e => { if (e.target === $('help')) closeDialog($('help')); });
 $('help').addEventListener('close', () => firstField().focus());
 
+// Shortcuts sheet: ? (Shift and the / key) lists the current tab's keys,
+// then those that work everywhere; closes like the help
+const SHEET = {
+    distance: [['D', 'kDistance'], ['B', 'kBonus'], ['W', 'kWalker'], ['Enter', 'kCopy'], ['Esc', 'clearAll']],
+    delay: [['M', 'kMinutes'], ['P', 'kPrice'], ['T', 'kType'], ['W', 'kWoltPlus'], ['Enter', 'kCopy'], ['Esc', 'clearAll']],
+    basic: [['0–9 . + − × ÷ %', 'kPad'], ['Backspace', 'kBack'], ['Enter', 'kCopyResult'], ['Esc C', 'clearAll']]
+};
+function openKeys() {
+    const t = translations[lang];
+    const rows = list => list.map(([keys, what]) =>
+        `<span>${keys.split(' ').map(k => `<kbd>${k}</kbd>`).join('')}</span><span>${t[what]}</span>`).join('');
+    $('keysTitle').innerHTML = icon('keyboard') + t.kTitle;
+    $('keysTab').textContent = t[{ distance: 'tabDistance', delay: 'tabDelay', basic: 'tabBasic' }[calc]];
+    $('keysTabRows').innerHTML = rows(SHEET[calc]);
+    $('keysEverywhere').textContent = t.kEverywhere;
+    $('keysAllRows').innerHTML = rows([['L', calc === 'delay' ? 'kToDistance' : 'kToDelay'],
+        ['C', calc === 'basic' ? 'clearAll' : 'kToBasic'], ['H', 'kHistory'], ['Esc', 'kEsc'], ['?', 'kSheet']]);
+    $('keysFoot').textContent = t.kFoot;
+    $('keysClose').title = t.close;
+    closeMenus();
+    $('keys').showModal();
+}
+$('keysClose').addEventListener('click', () => closeDialog($('keys')));
+$('keys').addEventListener('click', e => { if (e.target === $('keys')) closeDialog($('keys')); });
+$('keys').addEventListener('close', () => firstField().focus());
+
 // What's new: after an update, the latest release; the change log button
 // (or the version in the footer) shows all of them
 const isNewer = (a, b) => {
@@ -635,7 +661,10 @@ document.addEventListener('keydown', e => {
     // Let widgets (e.g. the note) take typing without triggering shortcuts
     if (e.target.closest('.widget, .menu, #alarmOverlay, .dd')) return;
     if (e.ctrlKey || e.metaKey || e.altKey) return;
-    if (calc === 'basic' && BASIC_KEYS[e.key]) {
+    if ((e.code === 'Slash' && e.shiftKey) || e.key === '?') {   // ?, by its key on any layout
+        e.preventDefault();
+        openKeys();
+    } else if (calc === 'basic' && BASIC_KEYS[e.key]) {
         e.preventDefault();
         lightKey(BASIC_KEYS[e.key]);
         basicKey(BASIC_KEYS[e.key]);

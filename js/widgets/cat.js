@@ -46,6 +46,7 @@ const REACH = [
 const CAT_SPRITES = {
     sit: SIT,
     blink: withRows(SIT, { 4: '.OoOOOoO......' }),
+    watch: withRows(SIT, { 4: '.OOEOOOE......' }),   // looking to one side
     flick: withRows(SIT, {   // the tail swishes down
         9: '.OOWWWOOOO....', 10: '.OOWWWOOOO....', 11: '.OOWWWOOOOO...',
         12: '.OoWWWoOOOOOOO', 13: '.WW...WWOOOO.O'

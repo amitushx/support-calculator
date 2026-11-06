@@ -55,7 +55,7 @@
 }
 #updateBtn:focus-visible { outline: 2px solid var(--text); outline-offset: 2px; }
 @media (max-width: 480px) { body { padding-top: 52px; } }
-#help, #news {
+#help, #news, #keys {
     width: min(440px, calc(100vw - 32px));
     max-height: calc(100vh - 32px);
     margin: auto;   /* the * reset in app.css removes the dialog's centering */
@@ -67,10 +67,10 @@
     color: var(--text);
     box-shadow: var(--shadow);
 }
-#help::backdrop, #news::backdrop { background: rgba(0, 0, 0, .35); }
+#help::backdrop, #news::backdrop, #keys::backdrop { background: rgba(0, 0, 0, .35); }
 /* Dialogs rise in on the spring over a fading backdrop */
-.motion :is(#help, #news)[open] { animation: dialog-in var(--dur) var(--spring); }
-.motion :is(#help, #news)[open]::backdrop { animation: backdrop-in .3s ease-out; }
+.motion :is(#help, #news, #keys)[open] { animation: dialog-in var(--dur) var(--spring); }
+.motion :is(#help, #news, #keys)[open]::backdrop { animation: backdrop-in .3s ease-out; }
 @keyframes dialog-in { from { opacity: 0; scale: .92 .88; translate: 0 16px; } }
 @keyframes backdrop-in { from { opacity: 0; } }
 .help-inner { padding: 22px 24px 24px; }
@@ -80,8 +80,8 @@
     align-items: center;
     margin-bottom: 4px;
 }
-#helpTitle, #newsTitle { font-size: 18px; font-weight: 700; }
-#helpClose, #newsClose {
+#helpTitle, #newsTitle, #keysTitle { font-size: 18px; font-weight: 700; }
+#helpClose, #newsClose, #keysClose {
     padding: 0;
     border: none;
     background: none;
@@ -91,7 +91,7 @@
     line-height: 1;
     cursor: pointer;
 }
-#helpClose:hover, #newsClose:hover { color: var(--text); }
+#helpClose:hover, #newsClose:hover, #keysClose:hover { color: var(--text); }
 .help-body h3 {
     display: flex;
     align-items: center;
@@ -186,3 +186,20 @@ kbd {
     font-size: 11px;
     opacity: .7;
 }
+
+/* Shortcuts sheet (?): the current tab's keys, then those that work
+   everywhere, each key beside what it does */
+#keys { width: min(400px, calc(100vw - 32px)); }
+#keysTitle { display: flex; align-items: center; gap: 8px; }
+#keysTitle .icon { width: 22px; height: 22px; color: var(--accent); }
+#keys h3 { margin-top: 16px; color: var(--accent); font-size: 13px; font-weight: 600; }
+.keys-rows {
+    display: grid;
+    grid-template-columns: minmax(64px, auto) 1fr;   /* both lists' texts line up */
+    align-items: center;
+    gap: 6px 14px;
+    margin-top: 8px;
+    font-size: 14px;
+}
+.keys-rows > span:nth-child(odd) { display: flex; gap: 3px; }
+#keysFoot { margin-top: 16px; color: var(--muted); font-size: 12px; }

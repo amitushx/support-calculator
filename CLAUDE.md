@@ -107,6 +107,13 @@ Don't suggest these again:
   elsewhere.
 - A full-day bonus timeline for the chosen city.
 - PWA, offline or installable app: PC users only.
+- A snooze for Breaks alarms. Never suggest it again.
+- Pasting the Shift Leads from Slack. The user is against it. They hope
+  to get a Slack token one day and fill them in automatically.
+- More themes such as Bauhaus or High contrast.
+- A hold timer widget, a plant that grows over the shift, and seasonal
+  decorations (Hanukkah candles, snow).
+- Keys that jump straight to each tab (Alt+1–3).
 
 # Tests
 
@@ -129,7 +136,7 @@ A static site for GitHub Pages, no build step.
   (the glass layers and lens edges), `dropdown.js`
   (styled dropdowns over hidden selects), `app.js` (calculators and page), `bonus-list.js`,
   `main.js` (clock tick, startup, wake lock, update check); `js/widgets/`
-  has one file per widget, plus `pets.js`, shared by the cat and the puppy.
+  has one file per widget, plus `pets.js`, shared by the cat, the puppy and the goldfish.
 - Scripts are classic, not modules, sharing one global scope; `index.html`
   loads them in dependency order. Top-level code may only call what earlier
   files define.
