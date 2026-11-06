@@ -13,6 +13,7 @@
     --card: #ffffff;
     --panel: color-mix(in srgb, var(--card) 14%, transparent);
     --glass-rim: .7;       /* the light on the rim, at its brightest */
+    --glass-saturate: 1.8; /* how much the glass livens the colors under it */
     /* Glass controls inside: tabs, dropdowns, switches. In light mode a
        faint shade of the text, since white on a white page doesn't show */
     --glass-chip: color-mix(in srgb, var(--text) 7%, transparent);
@@ -143,18 +144,18 @@
     --shadow: none;
 }
 
-/* Wood, after gruvbox: mellow cream by day, rich walnut chevron parquet
-   by night */
+/* Wood: pale birch chevron parquet in light mode, rich walnut in dark */
 :root[data-palette="wood"] {
-    --backdrop: linear-gradient(160deg, #f2e5bc, #e5d2a6);
-    --bg: #f2e5bc;
-    --card: #fbf1c7;
-    --text: #3c3836;
-    --muted: #7c6f64;
-    --line: #e0cda0;
-    --accent: #af3a03;
-    --accent-soft: #f0d9ae;
-    --shadow: 0 14px 40px rgba(102, 70, 38, .14);
+    --backdrop: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='150'%3E%3CclipPath id='l'%3E%3Crect width='120' height='150'/%3E%3C/clipPath%3E%3CclipPath id='r'%3E%3Crect x='120' width='120' height='150'/%3E%3C/clipPath%3E%3Cg clip-path='url(%23l)' stroke='%23d9c6a3' stroke-width='1'%3E%3Cpath fill='%23ede1c8' d='M-80 0 L-40 0 L40 150 L0 150 Z'/%3E%3Cpath stroke='%23b49770' stroke-opacity='0.22' stroke-width='.8' d='M-66.0 0 L14.0 150'/%3E%3Cpath stroke='%23b49770' stroke-opacity='0.14' stroke-width='.8' d='M-52.0 0 L28.0 150'/%3E%3Cpath fill='%23f2e9d5' d='M-40 0 L0 0 L80 150 L40 150 Z'/%3E%3Cpath stroke='%23b49770' stroke-opacity='0.22' stroke-width='.8' d='M-26.0 0 L54.0 150'/%3E%3Cpath stroke='%23b49770' stroke-opacity='0.14' stroke-width='.8' d='M-12.0 0 L68.0 150'/%3E%3Cpath fill='%23e7d8bb' d='M0 0 L40 0 L120 150 L80 150 Z'/%3E%3Cpath stroke='%23b49770' stroke-opacity='0.22' stroke-width='.8' d='M14.0 0 L94.0 150'/%3E%3Cpath stroke='%23b49770' stroke-opacity='0.14' stroke-width='.8' d='M28.0 0 L108.0 150'/%3E%3Cpath fill='%23ebdec3' d='M40 0 L80 0 L160 150 L120 150 Z'/%3E%3Cpath stroke='%23b49770' stroke-opacity='0.22' stroke-width='.8' d='M54.0 0 L134.0 150'/%3E%3Cpath stroke='%23b49770' stroke-opacity='0.14' stroke-width='.8' d='M68.0 0 L148.0 150'/%3E%3Cpath fill='%23f5eddb' d='M80 0 L120 0 L200 150 L160 150 Z'/%3E%3Cpath stroke='%23b49770' stroke-opacity='0.22' stroke-width='.8' d='M94.0 0 L174.0 150'/%3E%3Cpath stroke='%23b49770' stroke-opacity='0.14' stroke-width='.8' d='M108.0 0 L188.0 150'/%3E%3Cpath fill='%23f2e9d5' d='M120 0 L160 0 L240 150 L200 150 Z'/%3E%3Cpath stroke='%23b49770' stroke-opacity='0.22' stroke-width='.8' d='M134.0 0 L214.0 150'/%3E%3Cpath stroke='%23b49770' stroke-opacity='0.14' stroke-width='.8' d='M148.0 0 L228.0 150'/%3E%3C/g%3E%3Cg clip-path='url(%23r)' stroke='%23d9c6a3' stroke-width='1'%3E%3Cpath fill='%23ebdec3' d='M120 0 L160 0 L80 150 L40 150 Z'/%3E%3Cpath stroke='%23b49770' stroke-opacity='0.22' stroke-width='.8' d='M134.0 0 L54.0 150'/%3E%3Cpath stroke='%23b49770' stroke-opacity='0.14' stroke-width='.8' d='M148.0 0 L68.0 150'/%3E%3Cpath fill='%23e7d8bb' d='M160 0 L200 0 L120 150 L80 150 Z'/%3E%3Cpath stroke='%23b49770' stroke-opacity='0.22' stroke-width='.8' d='M174.0 0 L94.0 150'/%3E%3Cpath stroke='%23b49770' stroke-opacity='0.14' stroke-width='.8' d='M188.0 0 L108.0 150'/%3E%3Cpath fill='%23f5eddb' d='M200 0 L240 0 L160 150 L120 150 Z'/%3E%3Cpath stroke='%23b49770' stroke-opacity='0.22' stroke-width='.8' d='M214.0 0 L134.0 150'/%3E%3Cpath stroke='%23b49770' stroke-opacity='0.14' stroke-width='.8' d='M228.0 0 L148.0 150'/%3E%3Cpath fill='%23ede1c8' d='M240 0 L280 0 L200 150 L160 150 Z'/%3E%3Cpath stroke='%23b49770' stroke-opacity='0.22' stroke-width='.8' d='M254.0 0 L174.0 150'/%3E%3Cpath stroke='%23b49770' stroke-opacity='0.14' stroke-width='.8' d='M268.0 0 L188.0 150'/%3E%3Cpath fill='%23f2e9d5' d='M280 0 L320 0 L240 150 L200 150 Z'/%3E%3Cpath stroke='%23b49770' stroke-opacity='0.22' stroke-width='.8' d='M294.0 0 L214.0 150'/%3E%3Cpath stroke='%23b49770' stroke-opacity='0.14' stroke-width='.8' d='M308.0 0 L228.0 150'/%3E%3Cpath fill='%23e7d8bb' d='M320 0 L360 0 L280 150 L240 150 Z'/%3E%3Cpath stroke='%23b49770' stroke-opacity='0.22' stroke-width='.8' d='M334.0 0 L254.0 150'/%3E%3Cpath stroke='%23b49770' stroke-opacity='0.14' stroke-width='.8' d='M348.0 0 L268.0 150'/%3E%3C/g%3E%3Cpath stroke='%23d9c6a3' stroke-width='2' d='M0 1 H240 M120 0 V150 M.5 0 V150'/%3E%3C/svg%3E") 0 0 / 240px 150px, #ede1c8;
+    --bg: #f3ead8;
+    --card: #fcf8ef;
+    --text: #3b3024;
+    --muted: #7d6d58;
+    --line: #e3d5bb;
+    --accent: #9c5a1c;
+    --accent-soft: #f1e2c6;
+    --shadow: 0 14px 40px rgba(120, 90, 50, .14);
+    --glass-saturate: 1.1;   /* more turns pale birch yellow */
     --radius: 20px;
 }
 :root[data-palette="wood"][data-mode="dark"] {
@@ -167,6 +168,7 @@
     --accent: #d79921;
     --accent-soft: rgba(215, 153, 33, .14);
     --shadow: 0 14px 40px rgba(0, 0, 0, .3);
+    --glass-saturate: 1.8;
 }
 
 /* Cyberpunk: a neon city in magenta, purple and cyan, by day and by night */
@@ -217,22 +219,27 @@
     background: repeating-linear-gradient(rgba(0, 0, 0, .18) 0 1px, transparent 1px 3px);
 }
 
-/* Retro terminal: green-bar printer paper by day, a green phosphor
-   screen by night, in a pixel font for digits and Latin letters
-   (Hebrew and the other scripts keep Rubik, which reads better than
-   a system monospace) */
+/* Retro terminal: two old monitors rather than a light and a dark
+   version, amber phosphor in light mode and green phosphor in dark
+   mode, in a pixel font for digits and Latin letters (Hebrew and the
+   other scripts keep Rubik, which reads better than a system monospace) */
 :root[data-palette="retro"] {
-    --backdrop: repeating-linear-gradient(#f6f8ee 0 48px, #e3efd9 48px 96px);
-    --bg: #edf3e4;
-    --card: #fbfcf6;
-    --text: #183c22;
-    --muted: #5b7a62;
-    --line: #b9cfb5;
-    --accent: #1d7a3a;
-    --accent-soft: #dcebd6;
-    --shadow: 0 0 0 1px #9cbf9f, 4px 4px 0 #b9cfb5;
+    --backdrop: radial-gradient(ellipse at center, #2b1a04, #0c0701 75%);
+    --bg: #120b02;
+    --card: #170e03;
+    --glass-rim: .4;   /* the screen is dark in both modes, so is the glass */
+    --glass-chip: rgb(255 255 255 / .06);
+    --glass-chip-edge: rgb(255 255 255 / .16);
+    --text: #ffb000;
+    --muted: #b07a10;
+    --line: rgba(255, 176, 0, .28);
+    --accent: #ffd27a;
+    --accent-soft: rgba(255, 176, 0, .1);
+    --shadow: 0 0 0 1px rgba(255, 176, 0, .45), 0 0 24px rgba(255, 176, 0, .12);
     --glass-shadow: var(--shadow);   /* the glass keeps the theme's own edge */
     --radius: 0;
+    --scheme: dark;
+    --glow: rgba(255, 176, 0, .45);
 }
 :root[data-palette="retro"][data-mode="dark"] {
     --backdrop: radial-gradient(ellipse at center, #062b10, #010802 75%);
@@ -244,6 +251,7 @@
     --accent: #7dff9c;
     --accent-soft: rgba(57, 255, 106, .1);
     --shadow: 0 0 0 1px rgba(57, 255, 106, .45), 0 0 24px rgba(57, 255, 106, .12);
+    --glow: rgba(57, 255, 106, .45);
 }
 :root[data-palette="retro"] body {
     font-family: VT323, Rubik, ui-monospace, monospace;
@@ -268,10 +276,10 @@
 @media (prefers-reduced-motion: reduce) {
     :root[data-palette="retro"] #amount::after { animation: none; }
 }
-:root[data-palette="retro"][data-mode="dark"] body { text-shadow: 0 0 6px rgba(57, 255, 106, .45); }
-:root[data-palette="retro"][data-mode="dark"] .track::after { background: var(--text); }
+:root[data-palette="retro"] body { text-shadow: 0 0 6px var(--glow); }
+:root[data-palette="retro"] .track::after { background: var(--text); }
 /* Scanlines and a dark edge, like an old monitor */
-:root[data-palette="retro"][data-mode="dark"] body::after {
+:root[data-palette="retro"] body::after {
     content: '';
     position: fixed;
     inset: 0;

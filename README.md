@@ -7,7 +7,7 @@
 **מחשבון סאפורט** · courier payments and Delivery Late compensation, one keystroke away
 
 <p>
-<!-- version --><img alt="Version" src="https://img.shields.io/badge/version-1.24.0-009DE0?style=for-the-badge"><!-- /version -->
+<!-- version --><img alt="Version" src="https://img.shields.io/badge/version-1.25.1-009DE0?style=for-the-badge"><!-- /version -->
 <a href="https://github.com/amitushx/support-calculator/actions/workflows/tests.yml"><img alt="Tests" src="https://img.shields.io/github/actions/workflow/status/amitushx/support-calculator/tests.yml?branch=main&label=tests&style=for-the-badge"></a>
 <img alt="Languages" src="https://img.shields.io/badge/languages-5-7C3AED?style=for-the-badge">
 <img alt="No build step" src="https://img.shields.io/badge/build-none-22C55E?style=for-the-badge">
@@ -125,7 +125,7 @@ Small panels, all off by default, turned on from the header: the puzzle button h
 | **Goldfish** | A bowl in the middle of the floor, with gravel, seaweed and a little castle, and a goldfish that swims about now and then. Click it and bubbles pop out. With the cat out too, the cat often comes over to tap the glass and try to fish it out, to no avail |
 | **Doom** | The shareware episode, downloaded (about 6.5 MB) only when you press play. <kbd>F</kbd> goes full screen |
 
-Every 10 minutes a pixel-art Wolt courier also scoots across the page. Click him and he pays out 10₪, with a kaching.
+Every 10 minutes a pixel-art Wolt courier also scoots across the page, on a futuristic motorcycle in the Cyberpunk theme. Click him and he pays out 10₪, with a kaching.
 
 ## Themes and languages
 
@@ -136,9 +136,9 @@ Eight color themes, each with a light and a dark version. The mode follows the s
 - **Sunset**
 - **Ocean**
 - **Aurora**
-- **Wood**: after gruvbox, mellow cream in light mode, rich walnut chevron parquet in dark mode
+- **Wood**: pale birch chevron parquet in light mode, rich walnut in dark mode
 - **Cyberpunk**: a neon city in magenta, purple and cyan, with CRT scanlines in dark mode
-- **Retro terminal**: green-bar printer paper in light mode, a glowing green screen in dark mode
+- **Retro terminal**: two old monitors, glowing amber in light mode and glowing green in dark mode
 
 The calculator and the widgets are liquid glass in every theme: nearly clear, with a soft blur, light caught on the rim from the top left, and, in Chrome and Edge, edges that bend the page behind them like thick glass. Where panels overlap, the top one shows the one beneath through its glass. With the system set to reduce transparency they turn solid.
 
@@ -190,6 +190,26 @@ CI checks that the version was bumped and that this README is up to date. After 
 ## Change log
 
 <!-- changelog -->
+### 1.25.1 · 6 November 2026
+
+- The guide is up to date: the widgets go by their current names, the goldfish included, and only what isn’t obvious is explained.
+
+### 1.25.0 · 6 November 2026
+
+- In the Cyberpunk theme the courier now rides a futuristic motorcycle: a low body with a neon stripe, glowing wheels and a visored helmet, trailing neon light instead of smoke.
+
+### 1.24.3 · 6 November 2026
+
+- The courier who scoots across the screen now carries a plain bag, without the W.
+
+### 1.24.2 · 6 November 2026
+
+- The Retro terminal theme is now two old monitors: a glowing amber phosphor screen in light mode, and the familiar green in dark mode. The matrix rain in the sky turns amber too.
+
+### 1.24.1 · 6 November 2026
+
+- The Wood theme in light mode now looks like birch: pale chevron parquet to match the walnut of dark mode, and the glass no longer tints it yellow.
+
 ### 1.24.0 · 4 November 2026
 
 - A third tab: a plain calculator, to add, subtract, multiply, divide and take percentages, with up to 3 digits after the point. Type on the keyboard or click the keys, and C switches to it. Percentages work like on a phone: 200 + 10% is 220. Results go into the history.
