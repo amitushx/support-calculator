@@ -319,6 +319,9 @@
     image-rendering: pixelated;
     transform: translateX(-100%);
 }
+:root[data-palette="retro"] #courier {   /* his phosphor outline glows */
+    filter: drop-shadow(0 0 2px var(--glow)) drop-shadow(0 0 5px var(--glow));
+}
 
 /* The pets: live on the floor, a click makes them meow or bark; the
    goldfish bowl sits among them, behind them */

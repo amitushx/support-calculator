@@ -7,7 +7,7 @@
 **מחשבון סאפורט** · courier payments and Delivery Late compensation, one keystroke away
 
 <p>
-<!-- version --><img alt="Version" src="https://img.shields.io/badge/version-1.27.0-009DE0?style=for-the-badge"><!-- /version -->
+<!-- version --><img alt="Version" src="https://img.shields.io/badge/version-1.28.0-009DE0?style=for-the-badge"><!-- /version -->
 <a href="https://github.com/amitushx/support-calculator/actions/workflows/tests.yml"><img alt="Tests" src="https://img.shields.io/github/actions/workflow/status/amitushx/support-calculator/tests.yml?branch=main&label=tests&style=for-the-badge"></a>
 <img alt="Languages" src="https://img.shields.io/badge/languages-5-7C3AED?style=for-the-badge">
 <img alt="No build step" src="https://img.shields.io/badge/build-none-22C55E?style=for-the-badge">
@@ -125,7 +125,7 @@ Small panels, all off by default, turned on from the header: the puzzle button h
 | **Goldfish** | A bowl in the middle of the floor, with gravel, seaweed and a little castle, and a goldfish that swims about now and then. Click it and bubbles pop out. With the cat out too, the cat often comes over to tap the glass and try to fish it out, to no avail |
 | **Doom** | The shareware episode, downloaded (about 6.5 MB) only when you press play. <kbd>F</kbd> goes full screen |
 
-Every 10 minutes a pixel-art Wolt courier also scoots across the page, on a futuristic motorcycle in the Cyberpunk theme. Click him and he pays out 10₪, with a kaching.
+Every 10 minutes a pixel-art Wolt courier also scoots across the page. His ride follows the theme: a futuristic motorcycle in Cyberpunk, a green bicycle he pedals in Wood, a jet ski on its own strip of sea in Ocean, a pink scooter with cat ears and a trail of hearts in Cute, and a glowing phosphor wireframe in Retro terminal. Click him and he pays out 10₪, with a kaching.
 
 ## Themes and languages
 
@@ -190,6 +190,10 @@ CI checks that the version was bumped and that this README is up to date. After 
 ## Change log
 
 <!-- changelog -->
+### 1.28.0 · 6 November 2026
+
+- The courier who scoots across the screen now rides to match the theme: he pedals a green bicycle in Wood, skims along on a jet ski with spray behind in Ocean, rides a pink scooter with cat ears on his cap and hearts instead of smoke in Cute, and in Retro terminal he’s glowing outlines in the screen’s color.
+
 ### 1.27.0 · 6 November 2026
 
 - Every theme now has its own view in the Sky widget: a forest with a log cabin and chimney smoke in Wood, the sea with sailboats and a lighthouse in Ocean, snowy hills and northern lights at night in Aurora, dunes with an oasis and a camel in Sunset, and a rainbow, a hot air balloon and a mushroom house in Cute. The sun and moon still follow the real time.
