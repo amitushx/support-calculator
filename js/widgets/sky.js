@@ -245,15 +245,236 @@ function drawMatrix(time) {
     });
 }
 
+// A landscape for each of the other themes, drawn over the same sky. Each
+// scene gets `d`: the time in seconds, the sun's height `h`, how dark (`night`)
+// and how light (`day`) it is, the sky's colors, where the sun or moon is,
+// and pixel helpers. `behind` draws between the stars and the sun, `draw`
+// the land in front.
+const clamp01 = v => Math.min(Math.max(v, 0), 1);
+const wrap = (v, span) => ((v % span) + span) % span;
+const skyRect = (x, y, w, h, c) => { skyCtx.fillStyle = c; skyCtx.fillRect(x, y, w, h); };
+const skyPx = (x, y, c) => skyRect(x, y, 1, 1, c);
+const hillY = (x, y0, a, f, ph) => Math.round(y0 + a * Math.sin(x / f + ph));
+function pine(x, base, height, c) {   // a layered pixel pine, its trunk at base
+    skyPx(x, base - 1, mix(c, '#000000', 0.3));
+    for (let i = 0; i < height - 1; i++) {
+        const half = Math.floor((i % 4) * 0.6 + i / 4);
+        skyRect(x - half, base - height + i, half * 2 + 1, 1, c);
+    }
+}
+const spriteAt = (rows, x, y, color) => rows.forEach((row, dy) => [...row].forEach((ch, dx) => {
+    if (ch === '#') skyPx(x + dx, y + dy, typeof color === 'function' ? color(dx) : color);
+}));
+
+// Wood: a pine forest with a log cabin, smoke from the chimney and, after
+// dark, a lit window and fireflies
+const WOOD_PINES = Array.from({ length: 12 }, (_, i) => [i * 5 + Math.floor(skyRand() * 4), 5 + Math.floor(skyRand() * 4)]);
+const FIREFLIES = Array.from({ length: 6 }, () => [skyRand() * SKY_W, 30 + skyRand() * 7, skyRand() * 6]);
+const woodScene = { draw(d) {
+    const { t, day, night } = d;
+    const far = mix(mix('#0c1512', '#4d7a48', day), d.bottom, 0.4);
+    for (let x = 0; x < SKY_W; x++) skyRect(x, hillY(x, 30, 2, 7, 0), 1, SKY_H, far);
+    for (const [x, height] of WOOD_PINES) pine(x, hillY(x, 30, 2, 7, 0) + 1, height, far);
+    // Smoke rises from the chimney, drifting away as it fades
+    for (let k = 0; k < 5; k++) {
+        const age = wrap(t * 1.2 + k * 3, 15);
+        const y = 26 - Math.round(age);
+        if (y >= 0) d.blend(45 + Math.round(age * 0.35 + Math.sin(age / 2)), y, mix('#cfcfcf', '#5a5f70', night), 0.7 * (1 - age / 15));
+    }
+    const logs = mix('#1a100a', '#7a4a2a', day);
+    skyRect(44, 26, 2, 4, mix('#16100c', '#6a4a3a', day));   // chimney
+    for (let i = 0; i < 5; i++) skyRect(36 - i, 27 + i, 12 + i * 2 - 1, 1, mix('#120a08', '#5a2a1c', day));   // roof
+    skyRect(33, 32, 15, 7, logs);
+    for (let y = 33; y < 39; y += 2) skyRect(33, y, 15, 1, mix(logs, '#000000', 0.25));
+    skyRect(37, 34, 3, 5, mix(logs, '#000000', 0.45));   // door
+    skyRect(42, 34, 3, 2, mix(mix(logs, '#000000', 0.5), '#ffcf6b', clamp01(night * 1.2 + 0.1)));   // window
+    skyRect(0, 38, SKY_W, 2, mix('#0a0f0b', '#3b4a2a', day));
+    const near = mix('#08100d', '#2f5530', day);
+    for (const [x, height] of [[3, 15], [10, 12], [18, 9], [53, 13], [60, 16]]) pine(x, 39, height, near);
+    for (const [x, y, phase] of night ? FIREFLIES : []) {
+        if (Math.sin(t * 2 + phase * 3) < 0.2) continue;
+        skyPx(Math.round(wrap(x + Math.sin(t / 3 + phase) * 4, SKY_W)), Math.round(y + Math.sin(t / 2 + phase) * 2), mix('#9a9a40', '#e8ff7a', night));
+    }
+} };
+
+// Ocean: the sea up to a lower horizon, sailboats, the sun or moon's light
+// on the water, gulls by day and a lighthouse whose beam sweeps after dark
+const SEA = 27;
+const SHIMMER = Array.from({ length: 14 }, () => [skyRand() * SKY_W, SEA + 1 + Math.floor(skyRand() * 12), 2 + Math.floor(skyRand() * 3), skyRand()]);
+const BOATS = [{ y: 31, speed: 0.35, offset: 4 }, { y: 35, speed: -0.25, offset: 30 }];
+const oceanScene = { horizon: SEA, draw(d) {
+    const { t, h, day, night, sun } = d;
+    const water = mix(d.bottom, '#2a6aa0', 0.45);
+    for (let y = SEA; y < SKY_H; y++) skyRect(0, y, SKY_W, 1, mix(water, mix(d.top, '#0a2440', 0.6), (y - SEA) / (SKY_H - SEA)));
+    // A broken path of light under the sun or moon, widening toward us
+    const light = mix(d.rowColor(30), h >= 0 ? mix('#ff9a4a', '#fff2b0', clamp01(h * 3)) : '#e8e4c0', h >= 0 ? 0.6 : 0.42);
+    for (let y = SEA; y < SKY_H; y++) {
+        const spread = 1 + Math.floor((y - SEA) / 4);
+        for (let dx = -spread; dx <= spread; dx++) if (Math.sin(y * 3.1 + dx * 1.7 + t * 2) > 0.1) skyPx(sun[0] + dx, y, light);
+    }
+    for (const [x, y, w, phase] of SHIMMER) {
+        skyRect(Math.round(wrap(x + t * 0.3, SKY_W + 4)) - 2, y, w, 1, mix(mix(d.bottom, '#2a6aa0', 0.3), '#ffffff', 0.25 + 0.15 * Math.sin(t + phase * 6)));
+    }
+    const hull = mix('#120a08', '#6a3a24', day), sail = mix('#3a4058', '#fbf8f0', day);
+    for (const b of BOATS) {
+        const x = Math.floor(wrap(t * b.speed + b.offset, SKY_W + 10)) - 5;
+        skyRect(x, b.y, 6, 1, hull);
+        skyRect(x + 1, b.y + 1, 4, 1, hull);
+        skyRect(x + 3, b.y - 6, 1, 6, hull);   // mast
+        for (let i = 0; i < 5; i++) skyRect(x + (b.speed > 0 ? 0 : 3), b.y - 5 + i, Math.min(i + 1, 3), 1, sail);
+    }
+    if (day > 0.6) for (const [x0, y, speed] of [[10, 14, 1.2], [18, 17, 1]]) {
+        const x = Math.floor(wrap(t * speed + x0, SKY_W + 4)) - 2, flap = Math.floor(t * 3 + x0) % 2;
+        skyPx(x - 1, y - flap, '#3a4258');
+        skyPx(x, y, '#3a4258');
+        skyPx(x + 1, y - flap, '#3a4258');
+    }
+    const rock = mix('#0a0d14', '#4a4a50', day);
+    for (let x = 48; x < SKY_W; x++) skyRect(x, 34 - Math.round(2 * Math.sin((x - 48) / 5)), 1, SKY_H, rock);
+    const white = mix('#3a4058', '#f4f0e6', day), red = mix('#2a1018', '#c43a3a', day);
+    for (let y = 16; y < 33; y++) skyRect(55, y, 4, 1, Math.floor((y - 16) / 4) % 2 ? red : white);
+    skyRect(54, 15, 6, 1, mix('#0a0d14', '#2a2a30', day));
+    skyRect(55, 12, 4, 3, mix('#2a2a30', '#fff3b0', clamp01(night + 0.2)));   // the lamp
+    skyRect(56, 11, 2, 1, red);
+    if (!night) return;
+    // The beam turns round: long when it points across the view, short as
+    // it swings toward or away from us
+    const a = t * 1.2, length = 26 * Math.abs(Math.cos(a)), dir = Math.sin(a) > 0 ? -1 : 1;
+    for (let k = 1; k < length; k++) {
+        const spread = Math.floor(k * 0.12), x = (dir < 0 ? 55 : 58) + dir * k;
+        if (x < 0 || x >= SKY_W) break;
+        for (let s = -spread; s <= spread; s++) d.blend(x, 13 + s, '#fff3b0', 0.55 * night * (1 - k / length));
+    }
+} };
+
+// Aurora: snowy hills and pines in falling snow, and at night green and
+// purple northern lights rippling across the sky
+const FLAKES = Array.from({ length: 14 }, () => [skyRand() * SKY_W, skyRand() * SKY_H, 0.6 + skyRand() * 0.8]);
+const AURORA_STREAKS = Array.from({ length: SKY_W }, () => 0.6 + skyRand() * 0.4);
+const auroraScene = {
+    behind(d) {
+        const { t, night } = d;
+        if (!night) return;
+        for (let x = 0; x < SKY_W; x++) {
+            const base = 14 + 4 * Math.sin(x / 9 + t * 0.25) + 2 * Math.sin(x / 4 - t * 0.4);
+            const strength = night * AURORA_STREAKS[x] * (0.55 + 0.45 * Math.sin(x / 6 + t * 0.7));
+            for (let k = 0; k < 12; k++) {
+                const y = Math.round(base - k);
+                if (y < 0) break;
+                d.blend(x, y, mix('#39ff9c', '#b06bff', k / 11), strength * (k < 2 ? 0.85 : 0.75 * (1 - k / 12)));
+            }
+        }
+    },
+    draw(d) {
+        const { t, day } = d;
+        const snow = mix('#2a3352', '#f2f7ff', day);
+        const far = mix(snow, mix(d.bottom, '#8fa4d8', 0.5), 0.45);
+        for (let x = 0; x < SKY_W; x++) skyRect(x, hillY(x, 27, 3, 11, 1), 1, SKY_H, far);
+        for (const x of [5, 11, 41, 49]) pine(x, hillY(x, 27, 3, 11, 1) + 2, 8, mix(far, '#0a1420', 0.55));
+        for (let x = 0; x < SKY_W; x++) {
+            const y = hillY(x, 32, 2, 8, 0);
+            skyRect(x, y, 1, SKY_H, snow);
+            skyPx(x, y, mix(snow, '#ffffff', 0.5));
+        }
+        for (const x of [14, 19, 56]) pine(x, hillY(x, 32, 2, 8, 0) + 2, x === 19 ? 6 : 9, mix('#08101a', '#1f3d36', day));
+        for (const [x, y0, speed] of FLAKES) {
+            const y = wrap(y0 + t * speed * 2, SKY_H);
+            skyPx(Math.round(wrap(x + Math.sin(t / 2 + y0) * 2, SKY_W)), Math.floor(y), mix(d.rowColor(y), '#ffffff', 0.85));
+        }
+    }
+};
+
+// Sunset: desert dunes under a warmer sky, a camel plodding along the far
+// dune and a palm oasis with a pool that mirrors the sky
+const CAMEL = [
+    ['......##', '.##...##', '#####.#.', '######..', '.#..#.#.', '.#..#.#.'],
+    ['......##', '.##...##', '#####.#.', '######..', '#..#..#.', '#...#..#']
+];
+const PALM_LEAVES = [[-1, 0], [1, 0], [-2, 0], [2, 0], [-3, 1], [3, 1], [-4, 2], [4, 2], [0, -1], [-1, -1], [1, -1], [-2, -2], [2, -2]];
+const duneFar = x => Math.round(28 + 3 * Math.sin(x / 13 + 0.5) + 1.5 * Math.sin(x / 5));
+const duneNear = x => hillY(x, 34, 2, 10, 2);
+const sunsetScene = {
+    tint: (top, bottom, cloud, day) => [mix(top, '#e07a5a', 0.15), mix(bottom, '#ff9a4d', 0.3 * day + 0.1), mix(cloud, '#ffd2a8', 0.3)],
+    draw(d) {
+        const { t, day } = d;
+        const sandFar = mix(mix('#1e1424', '#e2a464', day), d.bottom, 0.3);
+        for (let x = 0; x < SKY_W; x++) skyRect(x, duneFar(x), 1, SKY_H, sandFar);
+        const cx = Math.floor(wrap(t * 0.8, SKY_W + 12)) - 10;
+        spriteAt(CAMEL[Math.floor(t * 2.5) % 2], cx, duneFar(cx + 4) - 5, mix('#0e0a12', '#7a4a2e', day));
+        const sand = mix('#2a1c28', '#f2b86c', day);
+        for (let x = 0; x < SKY_W; x++) {
+            skyRect(x, duneNear(x), 1, SKY_H, sand);
+            skyPx(x, duneNear(x), mix(sand, '#fff0c8', 0.35 * day));   // the crest catches the light
+        }
+        for (let x = 42; x < 56; x++) skyRect(x, 37, 1, x > 44 && x < 53 ? 2 : 1, mix(d.top, '#4ab0c8', 0.35));
+        const trunk = mix('#120a0a', '#7a5434', day), leaf = mix('#0a1210', '#3a7a3a', day);
+        for (const [x0, height, lean] of [[44, 11, -1], [53, 8, 1]]) {
+            for (let i = 0; i < height; i++) skyPx(x0 + Math.round(lean * (i / height) ** 2 * 3), 37 - i, trunk);
+            for (const [dx, dy] of PALM_LEAVES) skyPx(x0 + lean * 3 + dx, 37 - height + dy, leaf);
+        }
+    }
+};
+
+// Cute: a pastel sky, a rainbow by day on the side away from the sun, a
+// striped hot air balloon, hills with flowers, a mushroom house whose
+// window glows at night, and stars that twinkle into sparkles
+const RAINBOW = ['#ff8fb1', '#ffb57a', '#ffe58a', '#9fe6a0', '#8ec5ff', '#c8a2ff'];
+const PETALS = ['#ff8fb1', '#ffe58a', '#ffffff', '#c8a2ff'];
+const cuteScene = {
+    tint: (top, bottom, cloud, day) => [mix(top, '#ff9ccf', 0.12 + 0.12 * day), mix(bottom, '#ffd1ea', 0.35 * day + 0.1), mix(cloud, '#ffe0f0', 0.5)],
+    star(d, x, y) {
+        skyPx(x, y, mix(d.rowColor(y), x % 3 ? '#ffffff' : '#ffc4e6', d.night * 0.9));
+        if (x % 4 || Math.sin(d.t * 2 + x) <= 0.3) return;
+        const c = mix(d.rowColor(y), '#ffd9f0', d.night * 0.5);
+        for (const [dx, dy] of [[-1, 0], [1, 0], [0, -1], [0, 1]]) skyPx(x + dx, y + dy, c);
+    },
+    behind(d) {
+        if (d.day < 0.3) return;
+        const cx = SKY_W - d.sun[0];
+        for (let y = 0; y < SKY_H; y++) for (let x = 0; x < SKY_W; x++) {
+            const band = Math.floor(30 - Math.hypot(x - cx, y - 42));
+            if (band >= 0 && band < RAINBOW.length) d.blend(x, y, RAINBOW[band], 0.4 * (d.day - 0.3) / 0.7);
+        }
+    },
+    draw(d) {
+        const { t, day, night } = d;
+        for (let x = 0; x < SKY_W; x++) skyRect(x, hillY(x, 29, 3, 9, 0), 1, SKY_H, mix('#2a1f45', '#b5ecc4', day));
+        const bx = Math.floor(wrap(t * 0.5 + 20, SKY_W + 10)) - 5, by = 9 + Math.round(Math.sin(t / 2) * 1.5);
+        const stripes = [mix('#5a3a6a', '#ff8fc8', day), mix('#6a6a8a', '#ffffff', day)];
+        spriteAt(['.###.', '#####', '#####', '.###.', '..#..'], bx, by, dx => stripes[dx % 2]);
+        const basket = mix('#3a2a2a', '#a07850', day);
+        skyPx(bx + 1, by + 5, basket);
+        skyPx(bx + 3, by + 5, basket);
+        skyRect(bx + 1, by + 6, 3, 2, basket);
+        const near = mix('#1e1633', '#88dba0', day);
+        for (let x = 0; x < SKY_W; x++) skyRect(x, hillY(x, 33, 2, 7, 1), 1, SKY_H, near);
+        for (let x = 2; x < SKY_W; x += 5) skyPx(x, hillY(x, 33, 2, 7, 1) + 2, mix(near, PETALS[x % 4], 0.85 * day + 0.15));
+        const cap = mix('#4a1830', '#ff5a7a', day), stem = mix('#3a3040', '#fff1dc', day);
+        skyRect(45, 31, 7, 7, stem);
+        spriteAt(['..#######..', '.#########.', '###########', '###########'], 43, 27, cap);
+        for (const [x, y] of [[46, 28], [50, 29], [44, 30], [52, 30]]) skyPx(x, y, mix(cap, '#ffffff', 0.85));
+        skyRect(47, 34, 2, 4, mix(stem, '#8a5a3a', 0.6));   // door
+        const lit = mix(mix(stem, '#5a4a5a', 0.4), '#ffd56b', clamp01(night * 1.2));
+        skyRect(50, 33, 1, 2, lit);
+        skyPx(49, 33, lit);
+    }
+};
+const SKY_SCENES = { wood: woodScene, ocean: oceanScene, aurora: auroraScene, sunset: sunsetScene, cute: cuteScene };
+
 function drawSky(now) {
     const { h, p } = sunHeight(now);
+    const scene = SKY_SCENES[document.documentElement.dataset.palette];
+    const night = Math.min(Math.max(-h * 4, 0), 1), day = clamp01((h + 0.12) * 3);
     let [top, bottom, cloud, building] = skyColors(h);
-    if (cyberSky()) bottom = mix(bottom, CYBER_GLOW, Math.min(Math.max(-h * 4, 0), 1) * 0.7);
+    if (cyberSky()) bottom = mix(bottom, CYBER_GLOW, night * 0.7);
+    if (scene?.tint) [top, bottom, cloud] = scene.tint(top, bottom, cloud, day);
     const rowColor = y => mix(top, bottom, Math.min(y / HORIZON, 1));
     for (let y = 0; y < SKY_H; y++) {
         skyCtx.fillStyle = rowColor(y);
         skyCtx.fillRect(0, y, SKY_W, 1);
     }
+    const d = scene && { t: now.getTime() / 1000, h, night, day, top, bottom, rowColor,
+        blend: (x, y, c, a) => skyPx(x, y, mix(rowColor(y), c, a)) };
     // Retro: the rain instead of stars and clouds, behind the sun or moon
     // and the skyline, which go on top from a cleared pixel layer
     const matrix = matrixSky();
@@ -263,15 +484,20 @@ function drawSky(now) {
         skyCtx.clearRect(0, 0, SKY_W, SKY_H);
     }
     // Stars fade in after dusk and twinkle
-    const night = Math.min(Math.max(-h * 4, 0), 1);
     for (const [x, y] of night && !matrix ? STARS : []) {
         if (Math.random() < 0.08) continue;
-        skyCtx.fillStyle = mix(rowColor(y), '#ffffff', night * 0.9);
-        skyCtx.fillRect(x, y, 1, 1);
+        if (scene?.star) scene.star(d, x, y);
+        else skyPx(x, y, mix(rowColor(y), '#ffffff', night * 0.9));
     }
-    // Sun by day, moon by night, arcing from left to right
+    // Sun by day, moon by night, arcing from left to right and setting
+    // behind the scene's horizon
+    const horizon = scene?.horizon ?? HORIZON;
     const x = Math.round(4 + p * (SKY_W - 8));
-    const y = Math.round(HORIZON - Math.abs(h) * 26);
+    const y = Math.round(horizon - Math.abs(h) * (horizon - 8));
+    if (scene) {
+        d.sun = [x, y];
+        scene.behind?.(d);
+    }
     if (h >= 0) pixelCircle(x, y, 3, mix('#ff8a3c', '#ffe066', Math.min(h * 4, 1)));
     else {
         pixelCircle(x, y, 3, '#f4f1d0');
@@ -293,6 +519,10 @@ function drawSky(now) {
         drawCyberCity(now, building, bottom, night);
         return blitSky();
     }
+    if (scene) {
+        scene.draw(d);
+        return blitSky();
+    }
     const lit = night * 0.6;
     for (const b of BUILDINGS) {
         skyCtx.fillStyle = building;
@@ -302,7 +532,9 @@ function drawSky(now) {
     }
     blitSky();
 }
-// The rain and the flying cars need more frames than the clock's four a second
+// The rain, the flying cars and the scenes' smoke, boats, lights and snow
+// need more frames than the clock's four a second
 setInterval(() => {
-    if (widgets.sky.on && (matrixSky() || cyberSky()) && document.visibilityState === 'visible') drawSky(new Date());
+    if (widgets.sky.on && (matrixSky() || cyberSky() || SKY_SCENES[document.documentElement.dataset.palette])
+        && document.visibilityState === 'visible') drawSky(new Date());
 }, 80);
