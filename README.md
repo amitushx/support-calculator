@@ -7,7 +7,7 @@
 **מחשבון סאפורט** · courier payments and Delivery Late compensation, one keystroke away
 
 <p>
-<!-- version --><img alt="Version" src="https://img.shields.io/badge/version-1.24.0-009DE0?style=for-the-badge"><!-- /version -->
+<!-- version --><img alt="Version" src="https://img.shields.io/badge/version-1.24.1-009DE0?style=for-the-badge"><!-- /version -->
 <a href="https://github.com/amitushx/support-calculator/actions/workflows/tests.yml"><img alt="Tests" src="https://img.shields.io/github/actions/workflow/status/amitushx/support-calculator/tests.yml?branch=main&label=tests&style=for-the-badge"></a>
 <img alt="Languages" src="https://img.shields.io/badge/languages-5-7C3AED?style=for-the-badge">
 <img alt="No build step" src="https://img.shields.io/badge/build-none-22C55E?style=for-the-badge">
@@ -136,7 +136,7 @@ Eight color themes, each with a light and a dark version. The mode follows the s
 - **Sunset**
 - **Ocean**
 - **Aurora**
-- **Wood**: after gruvbox, mellow cream in light mode, rich walnut chevron parquet in dark mode
+- **Wood**: pale birch chevron parquet in light mode, rich walnut in dark mode
 - **Cyberpunk**: a neon city in magenta, purple and cyan, with CRT scanlines in dark mode
 - **Retro terminal**: green-bar printer paper in light mode, a glowing green screen in dark mode
 
@@ -190,6 +190,10 @@ CI checks that the version was bumped and that this README is up to date. After 
 ## Change log
 
 <!-- changelog -->
+### 1.24.1 · 6 November 2026
+
+- The Wood theme in light mode now looks like birch: pale chevron parquet to match the walnut of dark mode, and the glass no longer tints it yellow.
+
 ### 1.24.0 · 4 November 2026
 
 - A third tab: a plain calculator, to add, subtract, multiply, divide and take percentages, with up to 3 digits after the point. Type on the keyboard or click the keys, and C switches to it. Percentages work like on a phone: 200 + 10% is 220. Results go into the history.

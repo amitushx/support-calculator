@@ -62,7 +62,7 @@ main, .widget {
     position: absolute;
     inset: -24px;
     overflow: hidden;
-    filter: blur(6px) saturate(1.8) brightness(1.05);   /* glass.js adds the lens in Chromium */
+    filter: blur(6px) saturate(var(--glass-saturate)) brightness(1.05);   /* glass.js adds the lens in Chromium */
 }
 .glass-page {
     position: absolute;
@@ -79,7 +79,7 @@ main, .widget {
     background: var(--panel);
 }
 main.see-through, .widget.see-through {
-    backdrop-filter: var(--glass-backdrop, blur(6px) saturate(1.8) brightness(1.05));   /* the lens in Chromium */
+    backdrop-filter: var(--glass-backdrop, blur(6px) saturate(var(--glass-saturate)) brightness(1.05));   /* the lens in Chromium */
 }
 .see-through > .glass > .glass-lens { display: none; }
 main::after, .widget::after {

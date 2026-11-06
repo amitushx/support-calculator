@@ -145,8 +145,7 @@ function lensFilter(id, at, width, height, map, w, h, big) {
         <feFlood flood-color="rgb(128, 128, 128)" result="still"/>
         <feImage href="${map}" x="${at}" y="${at}" width="${w}" height="${h}" preserveAspectRatio="none" result="lens"/>
         <feComposite in="lens" in2="still" operator="over" result="map"/>
-        <feDisplacementMap in="blur" in2="map" scale="${lensScale(big)}" xChannelSelector="R" yChannelSelector="G" result="bent"/>
-        <feColorMatrix in="bent" type="saturate" values="1.8"/>`;
+        <feDisplacementMap in="blur" in2="map" scale="${lensScale(big)}" xChannelSelector="R" yChannelSelector="G"/>`;
     lensDefs.append(filter);
 }
 // Each panel gets two: one on its .glass-lens, which is the panel plus
@@ -161,8 +160,8 @@ function buildLens(panel, n) {
     const big = panel.matches('main'), map = lensMap(w, h, r, lensBezel(big));
     lensFilter(`lens${n}`, GLASS_REACH, w + 2 * GLASS_REACH, h + 2 * GLASS_REACH, map, w, h, big);
     lensFilter(`lens${n}b`, 0, w, h, map, w, h, big);
-    glassPage.get(panel).parentElement.style.filter = `url(#lens${n}) brightness(1.05)`;
-    const backdrop = `url("#lens${n}b") brightness(1.05)`;
+    glassPage.get(panel).parentElement.style.filter = `url(#lens${n}) saturate(var(--glass-saturate)) brightness(1.05)`;
+    const backdrop = `url("#lens${n}b") saturate(var(--glass-saturate)) brightness(1.05)`;
     if (panel.style.getPropertyValue('--glass-backdrop') !== backdrop) panel.style.setProperty('--glass-backdrop', backdrop);
 }
 
