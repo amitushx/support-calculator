@@ -7,7 +7,7 @@
 **מחשבון סאפורט** · courier payments and Delivery Late compensation, one keystroke away
 
 <p>
-<!-- version --><img alt="Version" src="https://img.shields.io/badge/version-1.25.1-009DE0?style=for-the-badge"><!-- /version -->
+<!-- version --><img alt="Version" src="https://img.shields.io/badge/version-1.26.0-009DE0?style=for-the-badge"><!-- /version -->
 <a href="https://github.com/amitushx/support-calculator/actions/workflows/tests.yml"><img alt="Tests" src="https://img.shields.io/github/actions/workflow/status/amitushx/support-calculator/tests.yml?branch=main&label=tests&style=for-the-badge"></a>
 <img alt="Languages" src="https://img.shields.io/badge/languages-5-7C3AED?style=for-the-badge">
 <img alt="No build step" src="https://img.shields.io/badge/build-none-22C55E?style=for-the-badge">
@@ -119,7 +119,7 @@ Small panels, all off by default, turned on from the header: the puzzle button h
 | **Shift progress** | A line from the start of the shift to the end, with the breaks as points and the time left. The start is set by itself; when the Ending alarm is stopped, it celebrates along with the confetti |
 | **Shift Leads** | Who is HR, Leader and Field this shift, typed next to each role; hovering a role shows what it handles. The names clear when a new shift starts |
 | **Note** | A sticky note, resizable, kept between visits |
-| **Sky** | A pixel-art skyline under the real sky of the moment, sun and moon included; matrix rain in the Retro terminal theme |
+| **Sky** | A pixel-art skyline under the real sky of the moment, sun and moon included; matrix rain in the Retro terminal theme, and in Cyberpunk a city of neon towers with flying cars |
 | **Cat** | Wanders along the bottom of the screen, grooms, and naps when nobody's around. Click it and it meows |
 | **Puppy** | Lives there too: pants, wags, scratches an ear, runs zoomies and naps. Click it and it barks. Now and then it invites the cat to play: a swat, a chase and a nose boop. When both fall asleep they curl up side by side |
 | **Goldfish** | A bowl in the middle of the floor, with gravel, seaweed and a little castle, and a goldfish that swims about now and then. Click it and bubbles pop out. With the cat out too, the cat often comes over to tap the glass and try to fish it out, to no avail |
@@ -190,6 +190,10 @@ CI checks that the version was bumped and that this README is up to date. After 
 ## Change log
 
 <!-- changelog -->
+### 1.26.0 · 6 November 2026
+
+- In the Cyberpunk theme, the Sky widget is now a city of the future: tall skyscrapers with neon windows and flickering signs, and flying cars weaving between them. At night the horizon glows pink.
+
 ### 1.25.1 · 6 November 2026
 
 - The guide is up to date: the widgets go by their current names, the goldfish included, and only what isn’t obvious is explained.
