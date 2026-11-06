@@ -60,6 +60,7 @@
     <symbol id="i-math" viewBox="0 0 24 24"><path d="M3 12h18M12 3v18M16.5 4.5l3 3M19.5 4.5l-3 3M6 4v4M4 6h4M18 16v.01M18 20v.01M4 18h4"/></symbol>
     <symbol id="i-backspace" viewBox="0 0 24 24"><path d="M20 6a1 1 0 0 1 1 1v10a1 1 0 0 1 -1 1h-11l-5 -5a1.5 1.5 0 0 1 0 -2l5 -5z"/><path d="M12 10l4 4m0 -4l-4 4"/></symbol>
     <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M20 11a8.1 8.1 0 0 0 -15.5 -2m-.5 -4v4h4"/><path d="M4 13a8.1 8.1 0 0 0 15.5 2m.5 4v-4h-4"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 18 0a9 9 0 1 0 -18 0"/><path d="M12 7v5l3 3"/></symbol>
     <symbol id="i-history" viewBox="0 0 24 24"><path d="M12 8v4l2 2"/><path d="M3.05 11a9 9 0 1 1 .5 4m-.5 5v-5h5"/></symbol>
     <symbol id="i-player-play" viewBox="0 0 24 24"><path d="M7 4v16l13 -8z"/></symbol>
     <symbol id="i-maximize" viewBox="0 0 24 24"><path d="M4 8v-2a2 2 0 0 1 2 -2h2"/><path d="M4 16v2a2 2 0 0 0 2 2h2"/><path d="M16 4h2a2 2 0 0 1 2 2v2"/><path d="M16 20h2a2 2 0 0 0 2 -2v-2"/></symbol>
@@ -139,6 +140,7 @@
             <button id="bonusPasteBtn" type="button"><svg class="icon"><use href="#i-clipboard"/></svg></button>
         </div>
         <div id="bonusInfo" aria-live="polite"></div>
+        <div id="bonusMore"></div>
     </div>
 
     <div id="delayCalc" hidden>
@@ -254,7 +256,7 @@
             <h3><svg class="icon"><use href="#i-clipboard"/></svg>רשימת הבונוסים</h3>
             <ul>
                 <li>העתיקו את הודעת הבונוסים של היום, ולחצו על <svg class="icon"><use href="#i-clipboard"/></svg> כדי להדביק אותה.</li>
-                <li>בחרו את העיר שלכם, והבונוס יתעדכן לבד לפי השעה, עם עד מתי הוא בתוקף.</li>
+                <li>בחרו את העיר שלכם, והבונוס יתעדכן לבד לפי השעה, עם עד מתי הוא בתוקף. מתחתיו מופיע החלון הבא, ואם אין עכשיו בונוס, גם חלון שהסתיים בחצי השעה האחרונה, בשביל משימות שהתחילו בזמנו.</li>
                 <li>הרשימה נשמרת עד סוף היום, והעיר נשמרת גם למחר. הקלדת בונוס או בחירה ב״בונוס ידני״ מחזירות לבונוס הידני.</li>
             </ul>
             <h3><svg class="icon"><use href="#i-puzzle"/></svg>ווידג׳טים</h3>
@@ -298,7 +300,7 @@
             <h3><svg class="icon"><use href="#i-clipboard"/></svg>The bonus list</h3>
             <ul>
                 <li>Copy the day's bonus message, then press <svg class="icon"><use href="#i-clipboard"/></svg> to paste it.</li>
-                <li>Pick your city and the bonus follows the clock by itself, showing until when it holds.</li>
+                <li>Pick your city and the bonus follows the clock by itself, showing until when it holds. Under it is the next window, and when there’s no bonus now, also a window that ended in the last half hour, for tasks that began during it.</li>
                 <li>The list is kept until the end of the day, and your city is remembered for tomorrow. Typing a bonus or picking “Manual bonus” switches back to your own bonus.</li>
             </ul>
             <h3><svg class="icon"><use href="#i-puzzle"/></svg>Widgets</h3>
@@ -342,7 +344,7 @@
             <h3><svg class="icon"><use href="#i-clipboard"/></svg>قائمة البونصات</h3>
             <ul>
                 <li>انسخوا رسالة بونصات اليوم، وبعدين اكبسوا على <svg class="icon"><use href="#i-clipboard"/></svg> عشان تلزقوها.</li>
-                <li>اختاروا مدينتكم، والبونص بيتحدّث لحاله حسب الساعة، ومعه لحد إيمتى صالح.</li>
+                <li>اختاروا مدينتكم، والبونص بيتحدّث لحاله حسب الساعة، ومعه لحد إيمتى صالح. تحته بيبيّن الوقت الجاي، وإذا ما في بونص هلأ، كمان وقت خلص بآخر نص ساعة، للمهمات اللي بلشت فيه.</li>
                 <li>القائمة بتضل محفوظة لآخر اليوم، والمدينة بتنحفظ لبكرا كمان. إذا كتبتوا بونص أو اخترتوا «بونص يدوي» بترجعوا للبونص اليدوي.</li>
             </ul>
             <h3><svg class="icon"><use href="#i-puzzle"/></svg>ويدجتات</h3>
@@ -386,7 +388,7 @@
             <h3><svg class="icon"><use href="#i-clipboard"/></svg>ბონუსების სია</h3>
             <ul>
                 <li>დააკოპირეთ დღის ბონუსების შეტყობინება და ჩასასმელად დააჭირეთ <svg class="icon"><use href="#i-clipboard"/></svg>-ს.</li>
-                <li>აირჩიეთ თქვენი ქალაქი და ბონუსი თავისით განახლდება საათის მიხედვით, იმის ჩვენებით, თუ როდემდე მოქმედებს.</li>
+                <li>აირჩიეთ თქვენი ქალაქი და ბონუსი თავისით განახლდება საათის მიხედვით, იმის ჩვენებით, თუ როდემდე მოქმედებს. მის ქვემოთ ჩანს შემდეგი ფანჯარა, ხოლო როცა ახლა ბონუსი არ არის, ბოლო ნახევარ საათში დასრულებული ფანჯარაც, იმ დავალებებისთვის, რომლებიც მის დროს დაიწყო.</li>
                 <li>სია ინახება დღის ბოლომდე, ქალაქი კი ხვალისთვისაც დამახსოვრდება. ბონუსის აკრეფა ან „ხელით მითითებული ბონუსის“ არჩევა თქვენს ბონუსს დააბრუნებს.</li>
             </ul>
             <h3><svg class="icon"><use href="#i-puzzle"/></svg>ვიჯეტები</h3>
@@ -430,7 +432,7 @@
             <h3><svg class="icon"><use href="#i-clipboard"/></svg>बोनस सूची</h3>
             <ul>
                 <li>आज का बोनस संदेश कॉपी करें, फिर उसे पेस्ट करने के लिए <svg class="icon"><use href="#i-clipboard"/></svg> दबाएँ।</li>
-                <li>अपना शहर चुनें, बोनस घड़ी के साथ अपने आप बदलता है और दिखाता है कि वह कब तक मान्य है।</li>
+                <li>अपना शहर चुनें, बोनस घड़ी के साथ अपने आप बदलता है और दिखाता है कि वह कब तक मान्य है। उसके नीचे अगली अवधि दिखती है, और जब अभी कोई बोनस न हो, तो पिछले आधे घंटे में ख़त्म हुई अवधि भी, उन कामों के लिए जो उसके दौरान शुरू हुए।</li>
                 <li>सूची दिन के अंत तक रहती है, और आपका शहर कल के लिए भी याद रहता है। बोनस टाइप करने या “मैनुअल बोनस” चुनने से आपका अपना बोनस वापस आ जाता है।</li>
             </ul>
             <h3><svg class="icon"><use href="#i-puzzle"/></svg>विजेट</h3>

@@ -6,6 +6,9 @@
 let bonusList = null;                       // { date, text, cities } or null
 let bonusCity = store.get('bonusCity');     // chosen city name, or null
 let bonusNoteTimer = null;                  // a short message is showing
+let bonusMore = null;                       // the ended and next lines shown
+// How long a window that just ended stays in view, for tasks begun in it
+const ENDED_SHOWN = 30;
 const todayKey = () => new Date().toLocaleDateString('en-CA');
 const nowMinute = () => { const d = new Date(); return d.getHours() * 60 + d.getMinutes(); };
 const listCity = () => bonusList && bonusCity &&
@@ -80,7 +83,7 @@ function updateBonus() {
     }
     const city = listCity();
     const minute = nowMinute();
-    let info = '';
+    let info = '', more = '';
     if (city) {
         const percent = bonusAt(city.slots, minute);
         const value = percent ? String(percent) : '';
@@ -88,6 +91,14 @@ function updateBonus() {
         // When the bonus next changes
         const next = city.slots.flatMap(s => [s.from, s.to]).filter(m => m > minute && m < 24 * 60).sort((a, b) => a - b)[0];
         info = `${percent}%` + (next ? ` ${t.until.replace('{time}', formatTime(next))}` : '');
+        // Under it, a window that ended in the last half hour while there's
+        // no bonus now, and the next window today
+        const ended = !percent && city.slots.filter(s => s.to <= minute && minute - s.to <= ENDED_SHOWN)
+            .sort((a, b) => a.to - b.to).at(-1);
+        const coming = city.slots.find(s => s.from > minute);
+        more = [[ended, 'history', t.bonusEnded], [coming, 'clock', t.bonusNext]].filter(([slot]) => slot)
+            .map(([slot, name, label]) => `<div>${icon(name)}${label} <b>${slot.percent}%</b> `
+                + `<span class="range">${formatTime(slot.from)}–${formatTime(slot.to)}</span></div>`).join('');
     } else if ($('bonus').value !== (store.get('bonus') || '') && document.activeElement !== $('bonus')) {
         $('bonus').value = store.get('bonus') || '';
         render();
@@ -96,6 +107,11 @@ function updateBonus() {
     if (!bonusList) info = t.bonusHint;
     $('bonusInfo').classList.toggle('hint', !bonusList);
     if (!bonusNoteTimer) $('bonusInfo').textContent = info;
+    if (more !== bonusMore) {   // the card glides to fit, except on startup
+        const show = () => { $('bonusMore').innerHTML = more; };
+        if (bonusMore === null) show(); else morph(show);
+        bonusMore = more;
+    }
     $('bonusPasteBtn').classList.toggle('active', !!bonusList);
 
     // Each city's current bonus in the menu

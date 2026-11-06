@@ -7,7 +7,7 @@
 **מחשבון סאפורט** · courier payments and Delivery Late compensation, one keystroke away
 
 <p>
-<!-- version --><img alt="Version" src="https://img.shields.io/badge/version-1.28.0-009DE0?style=for-the-badge"><!-- /version -->
+<!-- version --><img alt="Version" src="https://img.shields.io/badge/version-1.29.0-009DE0?style=for-the-badge"><!-- /version -->
 <a href="https://github.com/amitushx/support-calculator/actions/workflows/tests.yml"><img alt="Tests" src="https://img.shields.io/github/actions/workflow/status/amitushx/support-calculator/tests.yml?branch=main&label=tests&style=for-the-badge"></a>
 <img alt="Languages" src="https://img.shields.io/badge/languages-5-7C3AED?style=for-the-badge">
 <img alt="No build step" src="https://img.shields.io/badge/build-none-22C55E?style=for-the-badge">
@@ -56,6 +56,7 @@ The customer's maximum compensation for a late order.
 Copy the day's bonus message, paste it with one button and pick a city: the bonus follows the clock by itself and shows until when it holds. Until the day's list is pasted, a line under the city menu says how.
 
 - Reads the list in whatever layout it arrives, Slack emoji codes included
+- Under it, the next window, and when there's no bonus now, a window that ended in the last half hour, for tasks begun during it
 - Kept until the end of the day; the city is remembered for tomorrow
 
 </td>
@@ -190,6 +191,10 @@ CI checks that the version was bumped and that this README is up to date. After 
 ## Change log
 
 <!-- changelog -->
+### 1.29.0 · 6 November 2026
+
+- Under the city’s bonus you now see the next window, with its percentage and hours. And when there’s no bonus right now, a window that ended in the last half hour shows too, for tasks that began while it was still on.
+
 ### 1.28.0 · 6 November 2026
 
 - The courier who scoots across the screen now rides to match the theme: he pedals a green bicycle in Wood, skims along on a jet ski with spray behind in Ocean, rides a pink scooter with cat ears on his cap and hearts instead of smoke in Cute, and in Retro terminal he’s glowing outlines in the screen’s color.
