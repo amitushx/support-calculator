@@ -28,7 +28,8 @@ function translateWidgets() {
     document.querySelectorAll('.widget .close').forEach(el => { el.title = t.close; });
     $('widgetsBtn').title = t.widgets;
     $('extrasBtn').title = t.extras;
-    $('noteText').placeholder = t.notePlaceholder;
+    $('noteText').dataset.placeholder = t.notePlaceholder;
+    $('noteAddBtn').title = t.noteAdd;
     document.querySelectorAll('.lead-row input').forEach(el => {
         el.placeholder = t.leadName;
         el.setAttribute('aria-label', el.previousElementSibling.textContent);
@@ -70,7 +71,7 @@ for (const name of WIDGETS) {
     const el = widgetEl(name);
     el.addEventListener('pointerdown', e => {
         raise(el);
-        if (e.button !== 0 || e.target.closest('input, textarea, select, button, label, .dd') || el.classList.contains('big')) return;
+        if (e.button !== 0 || e.target.closest('input, textarea, select, button, label, .dd, [contenteditable]') || el.classList.contains('big')) return;
         const dx = e.clientX - el.offsetLeft;
         const dy = e.clientY - el.offsetTop;
         const wobble = el.jelly ??= jelly(el);
@@ -115,21 +116,3 @@ for (const menu of ['widgetMenu', 'extrasMenu']) {
         else setWidget(e.target.dataset.widget, e.target.checked);
     });
 }
-
-// Sticky note
-const note = $('noteText');
-note.value = widgets.note.text || '';
-if (widgets.note.w) {
-    note.style.width = widgets.note.w + 'px';
-    note.style.height = widgets.note.h + 'px';
-}
-note.addEventListener('input', () => {
-    widgets.note.text = note.value;
-    saveWidgets();
-});
-new ResizeObserver(() => {
-    if (!note.offsetWidth) return;   // hidden
-    widgets.note.w = note.offsetWidth;
-    widgets.note.h = note.offsetHeight;
-    saveWidgets();
-}).observe(note);

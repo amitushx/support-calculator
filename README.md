@@ -7,7 +7,7 @@
 **מחשבון סאפורט** · courier payments and Delivery Late compensation, one keystroke away
 
 <p>
-<!-- version --><img alt="Version" src="https://img.shields.io/badge/version-1.29.0-009DE0?style=for-the-badge"><!-- /version -->
+<!-- version --><img alt="Version" src="https://img.shields.io/badge/version-1.30.0-009DE0?style=for-the-badge"><!-- /version -->
 <a href="https://github.com/amitushx/support-calculator/actions/workflows/tests.yml"><img alt="Tests" src="https://img.shields.io/github/actions/workflow/status/amitushx/support-calculator/tests.yml?branch=main&label=tests&style=for-the-badge"></a>
 <img alt="Languages" src="https://img.shields.io/badge/languages-5-7C3AED?style=for-the-badge">
 <img alt="No build step" src="https://img.shields.io/badge/build-none-22C55E?style=for-the-badge">
@@ -119,7 +119,7 @@ Small panels, all off by default, turned on from the header: the puzzle button h
 | **Breaks** | Alarms for the long break, short break and end of shift, with a second short break for long shifts. Beep, Chime, Siren, Meow or Woof; rings with the widget closed and notifies in the background; clicking the notification stops it. Stopping the Ending alarm rains confetti, with or without Shift progress |
 | **Shift progress** | A line from the start of the shift to the end, with the breaks as points and the time left. The start is set by itself; when the Ending alarm is stopped, it celebrates along with the confetti |
 | **Shift Leads** | Who is HR, Leader and Field this shift, typed next to each role; hovering a role shows what it handles. The names clear when a new shift starts |
-| **Note** | A sticky note, resizable, kept between visits |
+| **Note** | A sticky note, resizable, kept between visits. "- " at the start of a line, or the button in its bar, makes a checklist item; click its box or press <kbd>Ctrl</kbd>+<kbd>Enter</kbd> to tick it, and <kbd>Enter</kbd> on an empty item ends the list |
 | **Sky** | A pixel-art view under the real sky of the moment, sun and moon included, different in every theme: a city skyline in Classic, a forest with a smoking log cabin in Wood, the sea with sailboats and a lighthouse in Ocean, snowy hills under northern lights in Aurora, dunes with an oasis and a camel in Sunset, a rainbow, a balloon and a mushroom house in Cute, matrix rain in Retro terminal, and a city of neon towers with flying cars in Cyberpunk |
 | **Cat** | Wanders along the bottom of the screen, grooms, and naps when nobody's around. Click it and it meows |
 | **Puppy** | Lives there too: pants, wags, scratches an ear, runs zoomies and naps. Click it and it barks. Now and then it invites the cat to play: a swat, a chase and a nose boop. When both fall asleep they curl up side by side |
@@ -191,6 +191,10 @@ CI checks that the version was bumped and that this README is up to date. After 
 ## Change log
 
 <!-- changelog -->
+### 1.30.0 · 6 November 2026
+
+- The Note can now mix a checklist into its text: "- " at the start of a line, or the new button in its bar, turns the line into an item with a round box. Click the box or press Ctrl+Enter to tick it off, and Enter on an empty item goes back to plain text.
+
 ### 1.29.0 · 6 November 2026
 
 - Under the city’s bonus you now see the next window, with its percentage and hours. And when there’s no bonus right now, a window that ended in the last half hour shows too, for tasks that began while it was still on.
