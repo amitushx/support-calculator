@@ -7,7 +7,7 @@
 **מחשבון סאפורט** · courier payments and Delivery Late compensation, one keystroke away
 
 <p>
-<!-- version --><img alt="Version" src="https://img.shields.io/badge/version-1.24.1-009DE0?style=for-the-badge"><!-- /version -->
+<!-- version --><img alt="Version" src="https://img.shields.io/badge/version-1.24.2-009DE0?style=for-the-badge"><!-- /version -->
 <a href="https://github.com/amitushx/support-calculator/actions/workflows/tests.yml"><img alt="Tests" src="https://img.shields.io/github/actions/workflow/status/amitushx/support-calculator/tests.yml?branch=main&label=tests&style=for-the-badge"></a>
 <img alt="Languages" src="https://img.shields.io/badge/languages-5-7C3AED?style=for-the-badge">
 <img alt="No build step" src="https://img.shields.io/badge/build-none-22C55E?style=for-the-badge">
@@ -138,7 +138,7 @@ Eight color themes, each with a light and a dark version. The mode follows the s
 - **Aurora**
 - **Wood**: pale birch chevron parquet in light mode, rich walnut in dark mode
 - **Cyberpunk**: a neon city in magenta, purple and cyan, with CRT scanlines in dark mode
-- **Retro terminal**: green-bar printer paper in light mode, a glowing green screen in dark mode
+- **Retro terminal**: two old monitors, glowing amber in light mode and glowing green in dark mode
 
 The calculator and the widgets are liquid glass in every theme: nearly clear, with a soft blur, light caught on the rim from the top left, and, in Chrome and Edge, edges that bend the page behind them like thick glass. Where panels overlap, the top one shows the one beneath through its glass. With the system set to reduce transparency they turn solid.
 
@@ -190,6 +190,10 @@ CI checks that the version was bumped and that this README is up to date. After 
 ## Change log
 
 <!-- changelog -->
+### 1.24.2 · 6 November 2026
+
+- The Retro terminal theme is now two old monitors: a glowing amber phosphor screen in light mode, and the familiar green in dark mode. The matrix rain in the sky turns amber too.
+
 ### 1.24.1 · 6 November 2026
 
 - The Wood theme in light mode now looks like birch: pale chevron parquet to match the walnut of dark mode, and the glass no longer tints it yellow.

@@ -92,7 +92,7 @@ function pixelCircle(cx, cy, r, color) {
     }
 }
 
-// Matrix rain for the Retro theme, like unimatrix: faint green half-width
+// Matrix rain for the Retro theme, like unimatrix: faint green (amber in light mode) half-width
 // katakana falling in columns, a bright head and a fading trail. Positions
 // follow the clock, so it falls at the same speed however often it's drawn.
 const MATRIX_GLYPHS = [...'ｦｧｨｩｪｫｬｭｮｯｰｱｲｳｴｵｶｷｸｹｺｻｼｽｾｿﾀﾁﾂﾃﾄﾅﾆﾇﾈﾉﾊﾋﾌﾍﾎﾏﾐﾑﾒﾓﾔﾕﾖﾗﾘﾙﾚﾛﾜﾝ0123456789'];
@@ -115,6 +115,8 @@ function drawMatrix(time) {
     matrixFont ??= document.fonts.load(`${MATRIX_FONT}px "Noto Sans JP"`, MATRIX_GLYPHS.join('')).catch(() => {});
     skyOut.font = `${MATRIX_FONT}px "Noto Sans JP", monospace`;
     skyOut.textBaseline = 'top';
+    // Amber phosphor in light mode, green in dark
+    const [lead, trail] = isDark() ? ['200, 255, 215', '57, 255, 106'] : ['255, 236, 190', '255, 176, 0'];
     matrixCells.forEach((column, i) => {
         let drop = matrixDrops[i] ??= newDrop(time - Math.random() * 6000);
         let head = (time - drop.start) / 1000 * drop.speed;
@@ -124,8 +126,8 @@ function drawMatrix(time) {
         for (let k = 0; k <= drop.length; k++) {
             const row = head - k;
             if (row < 0 || row >= matrixRows) continue;
-            skyOut.fillStyle = k === 0 ? 'rgba(200, 255, 215, .75)'
-                : `rgba(57, 255, 106, ${(.5 * (1 - k / drop.length)).toFixed(2)})`;
+            skyOut.fillStyle = k === 0 ? `rgba(${lead}, .75)`
+                : `rgba(${trail}, ${(.5 * (1 - k / drop.length)).toFixed(2)})`;
             skyOut.fillText(column[row], i * MATRIX_COL + 1, row * MATRIX_FONT);
         }
     });

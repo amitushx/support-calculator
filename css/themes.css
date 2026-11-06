@@ -219,22 +219,27 @@
     background: repeating-linear-gradient(rgba(0, 0, 0, .18) 0 1px, transparent 1px 3px);
 }
 
-/* Retro terminal: green-bar printer paper by day, a green phosphor
-   screen by night, in a pixel font for digits and Latin letters
-   (Hebrew and the other scripts keep Rubik, which reads better than
-   a system monospace) */
+/* Retro terminal: two old monitors rather than a light and a dark
+   version, amber phosphor in light mode and green phosphor in dark
+   mode, in a pixel font for digits and Latin letters (Hebrew and the
+   other scripts keep Rubik, which reads better than a system monospace) */
 :root[data-palette="retro"] {
-    --backdrop: repeating-linear-gradient(#f6f8ee 0 48px, #e3efd9 48px 96px);
-    --bg: #edf3e4;
-    --card: #fbfcf6;
-    --text: #183c22;
-    --muted: #5b7a62;
-    --line: #b9cfb5;
-    --accent: #1d7a3a;
-    --accent-soft: #dcebd6;
-    --shadow: 0 0 0 1px #9cbf9f, 4px 4px 0 #b9cfb5;
+    --backdrop: radial-gradient(ellipse at center, #2b1a04, #0c0701 75%);
+    --bg: #120b02;
+    --card: #170e03;
+    --glass-rim: .4;   /* the screen is dark in both modes, so is the glass */
+    --glass-chip: rgb(255 255 255 / .06);
+    --glass-chip-edge: rgb(255 255 255 / .16);
+    --text: #ffb000;
+    --muted: #b07a10;
+    --line: rgba(255, 176, 0, .28);
+    --accent: #ffd27a;
+    --accent-soft: rgba(255, 176, 0, .1);
+    --shadow: 0 0 0 1px rgba(255, 176, 0, .45), 0 0 24px rgba(255, 176, 0, .12);
     --glass-shadow: var(--shadow);   /* the glass keeps the theme's own edge */
     --radius: 0;
+    --scheme: dark;
+    --glow: rgba(255, 176, 0, .45);
 }
 :root[data-palette="retro"][data-mode="dark"] {
     --backdrop: radial-gradient(ellipse at center, #062b10, #010802 75%);
@@ -246,6 +251,7 @@
     --accent: #7dff9c;
     --accent-soft: rgba(57, 255, 106, .1);
     --shadow: 0 0 0 1px rgba(57, 255, 106, .45), 0 0 24px rgba(57, 255, 106, .12);
+    --glow: rgba(57, 255, 106, .45);
 }
 :root[data-palette="retro"] body {
     font-family: VT323, Rubik, ui-monospace, monospace;
@@ -270,10 +276,10 @@
 @media (prefers-reduced-motion: reduce) {
     :root[data-palette="retro"] #amount::after { animation: none; }
 }
-:root[data-palette="retro"][data-mode="dark"] body { text-shadow: 0 0 6px rgba(57, 255, 106, .45); }
-:root[data-palette="retro"][data-mode="dark"] .track::after { background: var(--text); }
+:root[data-palette="retro"] body { text-shadow: 0 0 6px var(--glow); }
+:root[data-palette="retro"] .track::after { background: var(--text); }
 /* Scanlines and a dark edge, like an old monitor */
-:root[data-palette="retro"][data-mode="dark"] body::after {
+:root[data-palette="retro"] body::after {
     content: '';
     position: fixed;
     inset: 0;
