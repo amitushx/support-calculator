@@ -7,7 +7,7 @@
 **מחשבון סאפורט** · courier payments and Delivery Late compensation, one keystroke away
 
 <p>
-<!-- version --><img alt="Version" src="https://img.shields.io/badge/version-1.26.0-009DE0?style=for-the-badge"><!-- /version -->
+<!-- version --><img alt="Version" src="https://img.shields.io/badge/version-1.26.1-009DE0?style=for-the-badge"><!-- /version -->
 <a href="https://github.com/amitushx/support-calculator/actions/workflows/tests.yml"><img alt="Tests" src="https://img.shields.io/github/actions/workflow/status/amitushx/support-calculator/tests.yml?branch=main&label=tests&style=for-the-badge"></a>
 <img alt="Languages" src="https://img.shields.io/badge/languages-5-7C3AED?style=for-the-badge">
 <img alt="No build step" src="https://img.shields.io/badge/build-none-22C55E?style=for-the-badge">
@@ -161,7 +161,7 @@ index.html          markup, icon sprite, pre-paint theme script
 changelog.js        releases, newest first (stays at the root: older copies poll it)
 assets/             the logo, favicons and app icons
 css/                themes · app · widgets · dialogs, loaded in that order
-js/lib/             the rules: fees.js, delay.js, bonus.js
+js/lib/             the rules: fees.js, delay.js, bonus.js, arith.js
 js/                 i18n.js, motion.js, glass.js, dropdown.js, app.js, bonus-list.js, main.js
 js/widgets/         one file per widget; pets.js is shared by the cat, the puppy and the goldfish
 pages/doom.html     the Doom widget's frame
@@ -190,6 +190,10 @@ CI checks that the version was bumped and that this README is up to date. After 
 ## Change log
 
 <!-- changelog -->
+### 1.26.1 · 6 November 2026 · internal
+
+- README: the Development tree lists `arith.js` under `js/lib/`.
+
 ### 1.26.0 · 6 November 2026
 
 - In the Cyberpunk theme, the Sky widget is now a city of the future: tall skyscrapers with neon windows and flickering signs, and flying cars weaving between them. At night the horizon glows pink.

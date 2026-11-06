@@ -7,6 +7,13 @@
 // change log skip it; only the README lists it, for developers.
 const CHANGELOG = [
     {
+        version: '1.26.1',
+        date: '2026-11-06',
+        dev: [
+            'README: the Development tree lists `arith.js` under `js/lib/`.'
+        ]
+    },
+    {
         version: '1.26.0',
         date: '2026-11-06',
         notes: {
