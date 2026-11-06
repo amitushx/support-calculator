@@ -7,7 +7,7 @@
 **מחשבון סאפורט** · courier payments and Delivery Late compensation, one keystroke away
 
 <p>
-<!-- version --><img alt="Version" src="https://img.shields.io/badge/version-1.30.0-009DE0?style=for-the-badge"><!-- /version -->
+<!-- version --><img alt="Version" src="https://img.shields.io/badge/version-1.31.0-009DE0?style=for-the-badge"><!-- /version -->
 <a href="https://github.com/amitushx/support-calculator/actions/workflows/tests.yml"><img alt="Tests" src="https://img.shields.io/github/actions/workflow/status/amitushx/support-calculator/tests.yml?branch=main&label=tests&style=for-the-badge"></a>
 <img alt="Languages" src="https://img.shields.io/badge/languages-5-7C3AED?style=for-the-badge">
 <img alt="No build step" src="https://img.shields.io/badge/build-none-22C55E?style=for-the-badge">
@@ -126,7 +126,7 @@ Small panels, all off by default, turned on from the header: the puzzle button h
 | **Goldfish** | A bowl in the middle of the floor, with gravel, seaweed and a little castle, and a goldfish that swims about now and then. Click it and bubbles pop out. With the cat out too, the cat often comes over to tap the glass and try to fish it out, to no avail |
 | **Doom** | The shareware episode, downloaded (about 6.5 MB) only when you press play. <kbd>F</kbd> goes full screen |
 
-Every 10 minutes a pixel-art Wolt courier also scoots across the page. His ride follows the theme: a futuristic motorcycle in Cyberpunk, a green bicycle he pedals in Wood, a jet ski on its own strip of sea in Ocean, a pink scooter with cat ears and a trail of hearts in Cute, and a glowing phosphor wireframe in Retro terminal. Click him and he pays out 10₪, with a kaching.
+Every 10 minutes a pixel-art Wolt courier also scoots across the page. His ride follows the theme: a futuristic motorcycle in Cyberpunk, a green bicycle he pedals in Wood, a jet ski on its own strip of sea in Ocean, a pink scooter with cat ears and a trail of hearts in Cute, and a glowing phosphor wireframe in Retro terminal. Click him and he pays out 10₪, with a kaching. The pets notice him: the puppy wags, then chases him to the edge of the screen, and the cat follows him with its eyes.
 
 ## Themes and languages
 
@@ -191,6 +191,10 @@ CI checks that the version was bumped and that this README is up to date. After 
 ## Change log
 
 <!-- changelog -->
+### 1.31.0 · 6 November 2026
+
+- The pets notice the courier: the puppy wags as he comes, then runs after him to the edge of the screen and sits down panting. The cat sits and follows him with its eyes, its tail flicking. A pet that’s asleep, playing or at the goldfish bowl lets him go by.
+
 ### 1.30.0 · 6 November 2026
 
 - The Note can now mix a checklist into its text: "- " at the start of a line, or the new button in its bar, turns the line into an item with a round box. Click the box or press Ctrl+Enter to tick it off, and Enter on an empty item goes back to plain text.

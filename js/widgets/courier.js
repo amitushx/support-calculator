@@ -332,6 +332,7 @@ function driveCourier() {
     pickCourier();
     drawCourier();
     road.hidden = false;
+    petsSeeCourier();
     const distance = road.clientWidth + courier.offsetWidth;
     const wheels = setInterval(() => { courierStep++; drawCourier(); }, 60);
     courier.animate([

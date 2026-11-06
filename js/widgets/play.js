@@ -1,5 +1,5 @@
 // The cat and the puppy playing together, now and then, while both are out
-// and awake: the puppy trots over and play-bows, the cat swats at it, then
+// and awake, and watching the courier go by. Playing: the puppy trots over and play-bows, the cat swats at it, then
 // they chase each other along the floor, swap, and end nose to nose with a
 // heart. Sometimes the cat isn't in the mood and walks off. A click on
 // either pet, or turning one off, ends the game.
@@ -113,3 +113,49 @@ function playStop(except) {
 cat.el.addEventListener('click', () => playStop(cat));
 dog.el.addEventListener('click', () => playStop(dog));
 $('extrasMenu').addEventListener('change', e => { if (e.target.dataset.pet) playStop(); });
+
+// The courier going by: the cat sits and follows him with its eyes, its
+// tail flicking; the puppy wags as he comes, then runs after him once he's
+// passed, falling slowly behind, and sits down panting at the edge of the
+// window. Asleep, playing or at the goldfish bowl, they let him go.
+const courierBox = () => road.hidden ? null : courier.getBoundingClientRect();
+const facing = (pet, box) => pet.el.classList.toggle('left', box.left + box.width / 2 < pet.x + pet.width / 2);
+function petsSeeCourier() {
+    if (play.on || fishGame.on) return;
+    if (!cat.el.hidden && !cat.sleeping) catWatch();
+    if (!dog.el.hidden && !dog.sleeping) dogChase();
+}
+function catWatch() {
+    cat.resting = true;
+    cat.run(60000, () => {
+        const box = courierBox();
+        if (!box) return false;
+        facing(cat, box);
+        cat.draw(Math.random() < .3 ? 'flick' : 'watch');
+        return 180;
+    }, () => catSit(4000));
+}
+function dogChase() {
+    let chasing = false, wag = false, step = 0;
+    dog.resting = false;
+    dog.run(60000, () => {
+        const box = courierBox();
+        if (!box) return false;
+        if (!chasing) {
+            facing(dog, box);
+            wag = !wag;
+            dog.draw(wag ? 'wag1' : 'wag2');
+            chasing = box.left > dog.x + dog.width / 3;   // he's gone by: after him
+            if (chasing) dog.fx('!');
+            return 120;
+        }
+        dog.el.classList.remove('left');
+        const behind = Math.min(box.left - dog.width - 6, dog.maxX());
+        if (behind > dog.x) {
+            dog.x += Math.min(6, behind - dog.x);   // 150px a second, a little slower than him
+            dog.place();
+        }
+        dog.draw('walk' + Math.floor(step++ / 2) % PET_STRIDE);
+        return dog.x >= dog.maxX() ? false : 40;
+    }, () => dogSit(5000));
+}
